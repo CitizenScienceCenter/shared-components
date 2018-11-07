@@ -110,12 +110,13 @@ export default {
     padding-bottom: $spacing-4;
     margin-bottom: $spacing-4;
     position: relative;
+    background: red;
 
     &:after {
       content: '';
       width: 24px;
       height: 4px;
-      background: url('../assets/title-separator.svg');
+      background: url('../../assets/title-separator.svg');
       position: absolute;
       bottom: 0;
       left: 0;
