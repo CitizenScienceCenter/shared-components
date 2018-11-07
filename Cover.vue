@@ -1,5 +1,5 @@
 <template>
-  <section class="cover" :class="styleClass" :style="{ 'background-image': 'url(' + bgImageUrl + ')' }">
+  <section class="cover" :style="{ 'background-image': 'url(' + imageUrl + ')' }">
     <div class="content-wrapper">
       <div class="row">
         <div class="col">
@@ -24,27 +24,7 @@
 export default {
   name: 'Cover',
   props: {
-    'subpage': String
-  },
-  computed: {
-    styleClass: function() {
-      switch( this.subpage ) {
-        case 'about':
-          return 'subpage';
-          break;
-        default:
-          return '';
-      }
-    },
-    bgImageUrl: function() {
-      switch( this.subpage ) {
-        case 'about':
-          return 'img/covers/carrots.jpg';
-          break;
-        default:
-          return 'img/covers/ocean.jpg';
-      }
-    }
+    'imageUrl': String
   },
   mounted: function() {
     var matches = this.$el.querySelectorAll(".scroll-effect");
@@ -59,6 +39,7 @@ export default {
 
 <style lang="scss">
 
+@import '@/styles/theme.scss';
 @import '@/styles/shared/variables.scss';
 
 .cover {

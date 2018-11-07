@@ -78,6 +78,7 @@ export default {
 
 <style lang="scss">
 
+@import '@/styles/theme.scss';
 @import '@/styles/shared/variables.scss';
 
 .footer {
