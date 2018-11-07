@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss">
 
-@import '@/variables.scss';
+@import '@/styles/shared/variables.scss';
 
 .footer {
   background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );

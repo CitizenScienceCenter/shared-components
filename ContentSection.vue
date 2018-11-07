@@ -55,7 +55,7 @@ export default {
 
 <style lang="scss">
 
-@import '@/variables.scss';
+@import '@/styles/shared/variables.scss';
 
 .content-section {
   position: relative;
@@ -110,7 +110,6 @@ export default {
     padding-bottom: $spacing-4;
     margin-bottom: $spacing-4;
     position: relative;
-    background: red;
 
     &:after {
       content: '';

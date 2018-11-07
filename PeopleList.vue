@@ -183,7 +183,7 @@ export default {
 
 <style lang="scss">
 
-@import '@/variables.scss';
+@import '@/styles/shared/variables.scss';
 
 
 .people-list {
