@@ -62,13 +62,17 @@ export default {
   computed: {
     language: {
       get() {
-        return this.$store.state.language;
+        return this.$store.state.settings.language;
       },
       set(language) {
-        var vm = this.$root;
-        this.$store.dispatch('setLanguage', {vm, language} );
+        this.$store.dispatch('settings/setLanguage', language );
         this.hideMenu();
       }
+    }
+  },
+  watch: {
+    "language"(to, from) {
+      this.$i18n.locale = to;
     }
   },
   methods: {
