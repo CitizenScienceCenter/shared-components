@@ -253,7 +253,6 @@ header {
 
       height: 100%;
       background: $color-primary;
-      //background: linear-gradient(to bottom right, $color-secondary, $color-primary-shade-20 );
       transition: width $transition-duration-long $transition-timing-function;
       backface-visibility: hidden;
 

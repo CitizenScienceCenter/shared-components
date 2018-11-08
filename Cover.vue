@@ -138,8 +138,8 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    //background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
-    background: linear-gradient(to bottom right, $color-secondary, $color-primary );
+    background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
+    //background: linear-gradient(to bottom right, $color-secondary, $color-primary );
     opacity: 0.8;
   }
 
