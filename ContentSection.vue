@@ -116,7 +116,8 @@ export default {
       content: '';
       width: 24px;
       height: 4px;
-      background: url('../../assets/title-separator.svg');
+      background-color: $color-primary;
+      border-radius: 2px;
       position: absolute;
       bottom: 0;
       left: 0;

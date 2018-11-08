@@ -11,11 +11,11 @@
     <div class="uzh-eth">
       <span v-if="this.$i18n.locale === 'en'">A joint initiative by</span>
       <span v-else>Ein gemeinsamer Effort von</span>
-      <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/uzh_eth_logo_e_neg.svg"/>
-      <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/uzh_eth_logo_d_neg.svg"/>
+      <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/shared/uzh_eth_logo_e_neg.svg"/>
+      <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg"/>
     </div>
 
-    <img class="sdg-logo" src="@/assets/sdg-logo-white.svg"/>
+    <img class="sdg-logo" src="@/assets/shared/sdg-logo-white.svg"/>
     <div class="cover-overlay"></div>
   </section>
 </template>
@@ -138,8 +138,9 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
-    opacity: 0.9;
+    //background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
+    background: linear-gradient(to bottom right, $color-secondary, $color-primary );
+    opacity: 0.8;
   }
 
 

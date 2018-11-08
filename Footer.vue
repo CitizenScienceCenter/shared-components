@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="logo-wrapper">
-      <img src="@/assets/logo-white.svg">
+      <img src="@/assets/shared/logo-white.svg">
     </div>
     <div class="contact centered">
       <div class="buttons centered">
@@ -82,7 +82,7 @@ export default {
 @import '@/styles/shared/variables.scss';
 
 .footer {
-  background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
+  background: linear-gradient(to bottom right, $color-secondary, $color-primary );
   position: relative;
 
   .logo-wrapper {

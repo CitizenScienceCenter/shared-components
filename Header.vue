@@ -1,19 +1,3 @@
-<i18n>
-{
-  "en": {
-    "nav-activities": "What we do",
-    "nav-offer": "What we offer",
-    "nav-about": "About us"
-  },
-  "de": {
-    "nav-activities": "Aktivitäten",
-    "nav-offer": "Angebot",
-    "nav-about": "Über uns"
-  }
-}
-</i18n>
-
-
 <template>
   <header :class="{ 'fixed': fixed,'animated': animated, 'pulled': pulled }">
 
@@ -22,7 +6,7 @@
     </button>
 
     <router-link to="/" class="home-link" active-class="active" exact>
-      <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/logo.svg"/></h1>
+      <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/></h1>
     </router-link>
 
     <div class="navigation-wrapper" :class="{ 'active': menuOn }">
@@ -33,13 +17,11 @@
               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
             </button>
             <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
-              <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/logo-white.svg"/>
+              <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
             </router-link>
           </div>
           <ul class="navigation">
-            <li><router-link to="/activities" active-class="active" @click.native="hideMenu"><span>{{ $t('nav-activities') }}</span></router-link></li>
-            <li><router-link to="/offer" active-class="active" @click.native="hideMenu"><span>{{ $t('nav-offer') }}</span></router-link></li>
-            <li><router-link to="/about" active-class="active" @click.native="hideMenu"><span>{{ $t('nav-about') }}</span></router-link></li>
+            <li v-for="route in routes" v-if="route.path !== '/'"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
           </ul>
           <div class="custom-select language-select">
             <select v-model="language">
@@ -61,11 +43,14 @@
 
 <script>
 
+import { i18n } from '../../i18n.js';
+import { store } from '../../store/store.js';
 
 export default {
   name: 'Header',
   data: function() {
     return {
+      routes: this.$router.options.routes,
       menuOn: false,
       scrollY: 0,
       scrollYpreviously: 0,
