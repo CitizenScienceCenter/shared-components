@@ -44,8 +44,8 @@ export default {
 
 .cover {
   height: 400px;
-  background-size: cover;
   background-position: 50% 50%;
+  background-size: 200%;
   position: relative;
   display: flex;
   align-items: center;
@@ -138,8 +138,8 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
-    //background: linear-gradient(to bottom right, $color-secondary, $color-primary );
+    //background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
+    background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
     opacity: 0.8;
   }
 
@@ -180,6 +180,7 @@ export default {
 @media only screen and (min-width: $viewport-tablet-portrait) {
   .cover {
     height: 560px;
+    background-size: 150%;
 
     .uzh-eth {
       bottom: $spacing-3;
@@ -211,6 +212,7 @@ export default {
 
 @media only screen and (min-width: $viewport-large) {
   .cover {
+    background-size: cover;
 
     .content-wrapper {
       .cover-heading {

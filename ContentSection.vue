@@ -92,11 +92,11 @@ export default {
   // Section Style
 
   &.light-greyish {
-    background: linear-gradient(to bottom right, $color-secondary-tint-95, $color-primary-secondary-mix-tint-95 );
+    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.05) );
   }
 
   &.greyish {
-    background: linear-gradient(to bottom right, $color-secondary-tint-80, $color-primary-secondary-mix-tint-80 );
+    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
   }
 
   .content-wrapper {

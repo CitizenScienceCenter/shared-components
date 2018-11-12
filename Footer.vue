@@ -82,7 +82,7 @@ export default {
 @import '@/styles/shared/variables.scss';
 
 .footer {
-  background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
+  background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
   position: relative;
 
   .logo-wrapper {

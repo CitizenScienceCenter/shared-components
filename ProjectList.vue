@@ -84,7 +84,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom right, $color-secondary 50%, $color-primary-secondary-mix );
+        background: linear-gradient(to bottom right, $color-gradient-start 50%, $color-gradient-end );
         mask-image: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
         // ms edge fallback
         @supports (-ms-ime-align:auto) {
@@ -165,7 +165,7 @@ export default {
         padding-right: 50%;
 
         &:after {
-          background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix 75% );
+          background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end 75% );
           mask-image: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0));
         }
       }
