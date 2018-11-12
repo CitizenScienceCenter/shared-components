@@ -24,6 +24,9 @@ export default {
         case 'light-greyish':
           return 'light-greyish';
           break;
+        case 'dark':
+          return 'dark';
+          break;
         default:
           return 'white';
       }
@@ -67,11 +70,8 @@ export default {
 
   .content-subsection {
     position: relative;
-    padding: $spacing-4 0;
+    padding-bottom: $spacing-4;
 
-    &:first-of-type {
-      padding-top: 0;
-    }
     &:last-of-type {
       padding-bottom: 0;
     }
@@ -97,6 +97,18 @@ export default {
 
   &.greyish {
     background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
+  }
+
+  &.dark {
+    background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
+
+    * {
+      color: white;
+    }
+    .heading {
+      color: white;
+
+    }
   }
 
   .content-wrapper {
@@ -150,6 +162,42 @@ export default {
     &:last-child {
       margin-bottom: 0;
     }
+
+
+    &.lead {
+      font-size: $font-size-medium;
+    }
+    &.small {
+      font-size: $font-size-small;
+    }
+  }
+
+  ul {
+    margin-bottom: $spacing-4;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    li {
+      margin-bottom: $spacing-2;
+      position: relative;
+      padding-left: $spacing-3;
+
+      &:before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background-color: $color-secondary;
+        border-radius: 3px;
+        position: absolute;
+        top: calc(0.5rem + 1px);
+        left: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .button {
@@ -173,7 +221,7 @@ export default {
   .content-section {
 
     .content-subsection {
-      padding: $spacing-5 0;
+      padding-bottom: $spacing-5;
     }
 
     .heading {
@@ -187,6 +235,10 @@ export default {
     }
 
     p {
+      margin-bottom: $spacing-5;
+    }
+
+    ul {
       margin-bottom: $spacing-5;
     }
 

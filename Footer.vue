@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="sharing centered">
-      <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+      <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('https://twitter.com/CitSciZurich')">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
         <path d="M459.4,151.7c0.3,4.5,0.3,9.1,0.3,13.6c0,138.7-105.6,298.6-298.6,298.6c-59.5,0-114.7-17.2-161.1-47.1
@@ -48,7 +48,7 @@
         </svg>
         Follow us on Twitter
       </button>
-      <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+      <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('https://www.facebook.com/CitSciZurich/')">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
         <path d="M200.7,512V283H124v-91h76.7v-71.7C200.7,42.4,248.3,0,317.8,0c33.3,0,61.9,2.5,70.2,3.6V85h-48.2
@@ -56,7 +56,8 @@
         </svg>
         Visit us on Facebook
       </button>
-      <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+
+      <!-- <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
         <path d="M502.3,190.8c3.9-3.1,9.7-0.2,9.7,4.7V400c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V195.6c0-5,5.7-7.8,9.7-4.7
@@ -65,14 +66,20 @@
           C21.5,64,0,85.5,0,112v19c0,7.4,3.4,14.3,9.2,18.9c30.6,23.9,40.7,32.4,173.4,128.7C199.4,290.8,232.8,320.4,256,320L256,320z"/>
         </svg>
         Tell a Friend
-      </button>
+      </button> -->
     </div>
   </footer>
 </template>
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  methods: {
+    openInNewTab: function(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
+  }
 }
 </script>
 
