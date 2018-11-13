@@ -34,6 +34,7 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
+            <router-link v-if="login" tag="button" to="/login" class="button button-secondary">Login</router-link>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
@@ -42,12 +43,14 @@
 </template>
 
 <script>
-
-import { i18n } from '../../i18n.js';
-import { store } from '../../store/store.js';
+import { i18n } from "../../i18n.js";
+import { store } from "../../store/store.js";
 
 export default {
-  name: 'Header',
+  name: "Header",
+    props: {
+      login: false
+    },
   data: function() {
     return {
       routes: this.$router.options.routes,
@@ -56,8 +59,8 @@ export default {
       scrollYpreviously: 0,
       fixed: false,
       animated: false,
-      pulled: false,
-    }
+      pulled: false
+    };
   },
   computed: {
     language: {
@@ -65,13 +68,13 @@ export default {
         return this.$store.state.settings.language;
       },
       set(language) {
-        this.$store.dispatch('settings/setLanguage', language );
+        this.$store.dispatch("settings/setLanguage", language);
         this.hideMenu();
       }
     }
   },
   watch: {
-    "language"(to, from) {
+    language(to, from) {
       this.$i18n.locale = to;
     }
   },
@@ -85,57 +88,51 @@ export default {
       this.pulled = false;
     },
     scroll() {
-      if( window.scrollY === 0 ) {
+      if (window.scrollY === 0) {
         this.reset();
       }
 
-      if( window.scrollY <= this.scrollY ) {
+      if (window.scrollY <= this.scrollY) {
         // scroll up
 
-        if( this.scrollYpreviously <= this.scrollY ) {
+        if (this.scrollYpreviously <= this.scrollY) {
           // first time
-          if( window.scrollY > 80 ) {
+          if (window.scrollY > 80) {
             this.pulled = false;
             this.fixed = true;
           }
-        }
-        else {
+        } else {
           // second time
-          if( window.scrollY > 80 ) {
+          if (window.scrollY > 80) {
             this.pulled = true;
             this.animated = true;
-          }
-          else {
-            if( window.scrollY === 0 ) {
+          } else {
+            if (window.scrollY === 0) {
               this.animated = false;
               this.pulled = false;
               this.fixed = false;
             }
           }
         }
-      }
-      else {
+      } else {
         // scroll down
 
-        if( this.scrollYpreviously >= this.scrollY ) {
+        if (this.scrollYpreviously >= this.scrollY) {
           // first time
-        }
-        else {
+        } else {
           // second time
-          if( window.scrollY > 80 ) {
+          if (window.scrollY > 80) {
             this.fixed = true;
             this.pulled = false;
-          }
-          else {
+          } else {
             this.fixed = false;
             this.animated = false;
           }
         }
       }
 
-      this.scrollYpreviously = this.scrollY
+      this.scrollYpreviously = this.scrollY;
       this.scrollY = window.scrollY;
-
     },
     showMenu() {
       this.menuOn = true;
@@ -145,15 +142,14 @@ export default {
     }
   },
   created() {
-    window.addEventListener('scroll', this.scroll);
+    window.addEventListener("scroll", this.scroll);
   }
-}
+};
 </script>
 
 <style lang="scss">
-
-@import '@/styles/theme.scss';
-@import '@/styles/shared/variables.scss';
+@import "@/styles/theme.scss";
+@import "@/styles/shared/variables.scss";
 
 header {
   height: 48px;
@@ -166,7 +162,7 @@ header {
   backface-visibility: hidden;
 
   margin-top: 0px;
-  box-shadow: 0px 4px 8px -4px rgba($color-black,0.2);
+  box-shadow: 0px 4px 8px -4px rgba($color-black, 0.2);
 
   &.fixed {
     position: fixed;
@@ -178,7 +174,7 @@ header {
   }
   &.pulled {
     margin-top: 0px;
-    box-shadow: 0px 4px 8px -4px rgba($color-black,0.2);
+    box-shadow: 0px 4px 8px -4px rgba($color-black, 0.2);
   }
 
   .menu-button {
@@ -226,9 +222,7 @@ header {
     }
   }
 
-
   .navigation-wrapper {
-
     position: fixed;
     left: 0;
     top: 0;
@@ -241,12 +235,12 @@ header {
       width: 100%;
       .drawer {
         width: 240px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+          0 6px 6px rgba(0, 0, 0, 0.23);
       }
     }
 
     .drawer {
-
       width: 0;
       overflow: hidden;
 
@@ -279,11 +273,11 @@ header {
         }
 
         .navigation {
-          border-top: 1px solid rgba(255,255,255,0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
 
           li {
             display: block;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
             a {
               display: block;
@@ -325,7 +319,7 @@ header {
             text-transform: uppercase;
             padding-left: 12px;
             color: white;
-            border: 1px solid rgba( $color-black-tint-90, 0.25 );
+            border: 1px solid rgba($color-black-tint-90, 0.25);
             border-radius: $border-radius;
           }
           svg {
@@ -346,11 +340,8 @@ header {
   }
 }
 
-
 @media only screen and (min-width: $viewport-mobile-large) {
-
   header {
-
     height: 64px;
 
     &.fixed {
@@ -406,15 +397,11 @@ header {
         }
       }
     }
-
   }
-
 }
 
 @media only screen and (min-width: $viewport-tablet-portrait) {
-
   header {
-
     height: 64px;
 
     &.fixed {
@@ -440,18 +427,11 @@ header {
         height: 36px;
       }
     }
-
-
-
   }
-
 }
 
-
 @media only screen and (min-width: $viewport-large) {
-
   header {
-
     height: 80px;
 
     &.fixed {
@@ -474,7 +454,6 @@ header {
     }
 
     .navigation-wrapper {
-
       &.active {
         width: auto;
         .drawer {
@@ -546,12 +525,10 @@ header {
                   border-color: $color-black-tint-90;
                 }
               }
-
             }
             svg {
               fill: $color-black;
             }
-
           }
         }
       }
@@ -559,14 +536,7 @@ header {
       .overlay {
         display: none;
       }
-
     }
-
   }
-
 }
-
-
-
-
 </style>
