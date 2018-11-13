@@ -69,7 +69,6 @@ export default {
 
 
   .content-subsection {
-    position: relative;
     padding-bottom: $spacing-4;
 
     &:last-of-type {
@@ -171,10 +170,12 @@ export default {
       font-size: $font-size-small;
     }
     &.quote {
-      color: $color-secondary;
       font-size: $font-size-medium;
       font-style: italic;
       margin-bottom: $spacing-2;
+    }
+    &.list-intro {
+      margin-bottom: $spacing-3;
     }
   }
 
