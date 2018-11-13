@@ -170,6 +170,12 @@ export default {
     &.small {
       font-size: $font-size-small;
     }
+    &.quote {
+      color: $color-secondary;
+      font-size: $font-size-medium;
+      font-style: italic;
+      margin-bottom: $spacing-2;
+    }
   }
 
   ul {
@@ -236,6 +242,10 @@ export default {
 
     p {
       margin-bottom: $spacing-5;
+
+      &.quote {
+        font-size: $font-size-large;
+      }
     }
 
     ul {
