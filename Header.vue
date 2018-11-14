@@ -1,3 +1,11 @@
+<i18n>
+{
+  "de": {
+    "login": "Anmelden"
+  }
+}
+</i18n>
+
 <template>
   <header :class="{ 'fixed': fixed,'animated': animated, 'pulled': pulled }">
 
@@ -5,7 +13,7 @@
       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>Artboard 1</title><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
     </button>
 
-    <template v-if="!project">
+    <template v-if="!projectName">
       <router-link to="/" class="home-link" active-class="active" exact>
         <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/></h1>
       </router-link>
@@ -15,7 +23,7 @@
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
       <router-link to="/" class="home-link home-link-project" active-class="active" exact>
-        <h1>Projekt Wenker</h1>
+        <h1 v-html="projectName"></h1>
       </router-link>
     </template>
 
@@ -26,14 +34,14 @@
             <button class="menu-button" @click="hideMenu">
               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
             </button>
-            <template v-if="!project">
+            <template v-if="!projectName">
               <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
                 <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
               </router-link>
             </template>
             <template v-else>
               <router-link to="/" class="home-link home-link-project" active-class="active" exact>
-                <h1>Projekt Wenker</h1>
+                <h1 v-html="projectName"></h1>
               </router-link>
             </template>
           </div>
@@ -50,10 +58,17 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
-          <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary">Login</router-link>
+          <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary login-button">{{ $t('login') }}</router-link>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
+    </div>
+
+    <div class="mobile-top-right">
+      <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary login-button">{{ $t('login') }}</router-link>
+      <a href="https://citizenscience.ch" class="home-link home-link-platform">
+        <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
+      </a>
     </div>
   </header>
 </template>
@@ -65,7 +80,7 @@ import { store } from "../../store/store.js";
 export default {
   name: "Header",
     props: {
-      project: undefined,
+      projectName: undefined,
       hideLanguage: Boolean,
       hideLogin: Boolean,
         languages: {
@@ -233,7 +248,7 @@ header {
   }
 
   .home-link {
-    display: block;
+    display: none;
     float: left;
     height: 48px;
     padding: $spacing-1 0;
@@ -245,25 +260,6 @@ header {
 
     h1 {
       display: block;
-      line-height: 32px;
-      font-size: $font-size-normal;
-      font-weight: 700;
-      color: $color-primary;
-      text-transform: uppercase;
-      transform: translateY(1px);
-    }
-
-    &:active {
-      h1 {
-        color: $color-primary-shade-20;
-      }
-    }
-    @media (hover: hover) {
-      &:hover {
-        h1 {
-          color: $color-primary-shade-20;
-        }
-      }
     }
 
     &.home-link-platform {
@@ -272,6 +268,34 @@ header {
       right: 0;
       padding-right: $spacing-1;
       padding-left: $spacing-1;
+    }
+
+    &.home-link-project {
+      display: flex;
+      align-items: center;
+
+      h1 {
+        white-space: pre-wrap;
+        line-height: 16px;
+        font-size: $font-size-normal;
+        font-weight: 700;
+        color: $color-primary;
+        text-transform: uppercase;
+        transform: translateY(1px);
+      }
+
+      &:active {
+        h1 {
+          color: $color-primary-shade-20;
+        }
+      }
+      @media (hover: hover) {
+        &:hover {
+          h1 {
+            color: $color-primary-shade-20;
+          }
+        }
+      }
     }
   }
 
@@ -384,6 +408,10 @@ header {
             fill: white;
           }
         }
+
+        .login-button {
+          display: none;
+        }
       }
     }
 
@@ -394,6 +422,28 @@ header {
       top: 0;
       left: 0;
       background-color: transparent;
+    }
+  }
+
+  .mobile-top-right {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .home-link {
+      display: block;
+      position: relative;
+      padding: 12px 0;
+      img {
+        height: 24px;
+      }
+    }
+    .login-button {
+      padding: 0 $spacing-1;
+      height: 32px;
+      margin: $spacing-1;
+      font-size: 13px;
     }
   }
 }
@@ -425,9 +475,10 @@ header {
       .logo {
         height: 36px;
       }
-      h1 {
-        line-height: 36px;
-        font-size: $font-size-medium;
+      &.home-link-project {
+        h1 {
+          line-height: 18px;
+        }
       }
     }
 
@@ -459,6 +510,21 @@ header {
         }
       }
     }
+
+    .mobile-top-right {
+      .home-link {
+        padding: 18px 0;
+        img {
+          height: 28px;
+        }
+      }
+      .login-button {
+        padding: 0 $spacing-1;
+        height: 36px;
+        margin: 14px;
+        margin-right: $spacing-2;
+      }
+    }
   }
 }
 
@@ -482,17 +548,6 @@ header {
       }
     }
 
-    .home-link {
-      height: 64px;
-      padding: 14px 0;
-      .logo {
-        height: 36px;
-      }
-      h1 {
-        line-height: 36px;
-        font-size: $font-size-medium;
-      }
-    }
   }
 }
 
@@ -514,17 +569,19 @@ header {
     .home-link {
       padding: $spacing-2;
       height: 80px;
+      display: block;
 
       .logo {
         height: 48px;
       }
-      h1 {
-        line-height: 48px;
-        font-size: $font-size-medium;
-      }
 
       &.home-link-project {
         border-left: 1px solid $color-black-tint-90;
+
+        h1 {
+          line-height: 24px;
+          font-size: $font-size-medium;
+        }
       }
 
       &.home-link-platform {
@@ -543,12 +600,8 @@ header {
         }
       }
 
-      /*
-      position: relative;
-      float: right;
-      height: auto;
-      */
       position: absolute;
+      height: 100%;
       top: 0;
       left: auto;
       right: 0;
@@ -617,6 +670,12 @@ header {
               fill: $color-black;
             }
           }
+
+          .login-button {
+            display: inline-block;
+            margin-left: $spacing-1;
+            padding: 0 $spacing-2;
+          }
         }
       }
 
@@ -625,9 +684,8 @@ header {
       }
     }
 
-    .button {
-      margin-left: $spacing-1;
-      padding: 0 $spacing-2;
+    .mobile-top-right {
+      display: none;
     }
   }
 }
@@ -663,10 +721,6 @@ header {
 
     }
 
-    .button {
-      margin-left: $spacing-2;
-      padding: 0 $spacing-3;
-    }
   }
 }
 </style>
