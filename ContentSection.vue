@@ -69,7 +69,7 @@ export default {
 
 
   .content-subsection {
-    padding-bottom: $spacing-4;
+    padding-bottom: $spacing-5;
 
     &:last-of-type {
       padding-bottom: 0;
@@ -236,7 +236,7 @@ export default {
   .content-section {
 
     .content-subsection {
-      padding-bottom: $spacing-5;
+      padding-bottom: $spacing-6;
     }
 
     .heading {
