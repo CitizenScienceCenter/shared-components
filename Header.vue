@@ -472,6 +472,7 @@ header {
     .home-link {
       height: 64px;
       padding: 14px 0;
+
       .logo {
         height: 36px;
       }
@@ -585,6 +586,7 @@ header {
       }
 
       &.home-link-platform {
+        display: inline-block;
         position: relative;
         padding-left: $spacing-2;
         padding-right: $spacing-2;
