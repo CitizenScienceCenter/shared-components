@@ -5,9 +5,19 @@
       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>Artboard 1</title><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
     </button>
 
-    <router-link to="/" class="home-link" active-class="active" exact>
-      <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/></h1>
-    </router-link>
+    <template v-if="!project">
+      <router-link to="/" class="home-link" active-class="active" exact>
+        <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/></h1>
+      </router-link>
+    </template>
+    <template v-else>
+      <a href="https://citizenscience.ch" class="home-link home-link-platform">
+        <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
+      </a>
+      <router-link to="/" class="home-link home-link-project" active-class="active" exact>
+        <h1>Projekt Wenker</h1>
+      </router-link>
+    </template>
 
     <div class="navigation-wrapper" :class="{ 'active': menuOn }">
       <div class="drawer">
@@ -16,9 +26,16 @@
             <button class="menu-button" @click="hideMenu">
               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
             </button>
-            <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
-              <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
-            </router-link>
+            <template v-if="!project">
+              <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
+                <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
+              </router-link>
+            </template>
+            <template v-else>
+              <router-link to="/" class="home-link home-link-project" active-class="active" exact>
+                <h1>Projekt Wenker</h1>
+              </router-link>
+            </template>
           </div>
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
@@ -49,6 +66,7 @@ import { store } from "../../store/store.js";
 export default {
   name: "Header",
     props: {
+      project: undefined,
       hideLanguage: Boolean,
       hideLogin: Boolean
     },
@@ -215,11 +233,42 @@ header {
     display: block;
     float: left;
     height: 48px;
-    padding: 8px 0;
+    padding: $spacing-1 0;
 
     .logo {
       display: block;
       height: 32px;
+    }
+
+    h1 {
+      display: block;
+      line-height: 32px;
+      font-size: $font-size-normal;
+      font-weight: 700;
+      color: $color-primary;
+      text-transform: uppercase;
+      transform: translateY(1px);
+    }
+
+    &:active {
+      h1 {
+        color: $color-primary-shade-20;
+      }
+    }
+    @media (hover: hover) {
+      &:hover {
+        h1 {
+          color: $color-primary-shade-20;
+        }
+      }
+    }
+
+    &.home-link-platform {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-right: $spacing-1;
+      padding-left: $spacing-1;
     }
   }
 
@@ -271,6 +320,11 @@ header {
               fill: white;
             }
           }
+          .home-link {
+            h1 {
+              color: white;
+            }
+          }
         }
 
         .navigation {
@@ -292,7 +346,7 @@ header {
                 display: block;
                 font-size: $font-size-small;
                 line-height: 24px;
-                transform: translateY(-1px);
+                transform: translateY(0px);
               }
 
               &.active {
@@ -368,6 +422,10 @@ header {
       .logo {
         height: 36px;
       }
+      h1 {
+        line-height: 36px;
+        font-size: $font-size-medium;
+      }
     }
 
     .navigation-wrapper {
@@ -427,6 +485,10 @@ header {
       .logo {
         height: 36px;
       }
+      h1 {
+        line-height: 36px;
+        font-size: $font-size-medium;
+      }
     }
   }
 }
@@ -447,10 +509,25 @@ header {
     }
 
     .home-link {
-      padding: 16px;
+      padding: $spacing-2;
       height: 80px;
+
       .logo {
         height: 48px;
+      }
+      h1 {
+        line-height: 48px;
+        font-size: $font-size-medium;
+      }
+
+      &.home-link-project {
+        border-left: 1px solid $color-black-tint-90;
+      }
+
+      &.home-link-platform {
+        position: relative;
+        padding-left: $spacing-2;
+        padding-right: $spacing-2;
       }
     }
 
@@ -463,9 +540,15 @@ header {
         }
       }
 
+      /*
       position: relative;
       float: right;
       height: auto;
+      */
+      position: absolute;
+      top: 0;
+      left: auto;
+      right: 0;
 
       .drawer {
         width: auto;
@@ -491,7 +574,7 @@ header {
               a {
                 color: $color-black;
                 height: 80px;
-                padding: 28px 24px;
+                padding: 28px $spacing-1;
                 &:active {
                   color: $color-primary;
                 }
@@ -536,6 +619,49 @@ header {
       .overlay {
         display: none;
       }
+    }
+
+    .button {
+      margin-left: $spacing-1;
+      padding: 0 $spacing-2;
+    }
+  }
+}
+
+@media only screen and (min-width: $viewport-xlarge) {
+  header {
+
+    .home-link {
+      h1 {
+        font-size: $font-size-large;
+      }
+    }
+
+    .navigation-wrapper {
+
+
+      .drawer {
+
+        .drawer-content {
+
+
+          .navigation {
+
+            li {
+              a {
+                padding: 28px $spacing-2;
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+
+    .button {
+      margin-left: $spacing-2;
+      padding: 0 $spacing-3;
     }
   }
 }
