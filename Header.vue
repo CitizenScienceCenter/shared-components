@@ -66,7 +66,7 @@
 
     <div class="mobile-top-right">
       <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary login-button">{{ $t('login') }}</router-link>
-      <a href="https://citizenscience.ch" class="home-link home-link-platform">
+      <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
     </div>
@@ -248,7 +248,6 @@ header {
   }
 
   .home-link {
-    display: none;
     float: left;
     height: 48px;
     padding: $spacing-1 0;
@@ -263,6 +262,7 @@ header {
     }
 
     &.home-link-platform {
+      display: none;
       position: absolute;
       top: 0;
       right: 0;
