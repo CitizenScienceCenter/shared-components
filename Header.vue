@@ -42,8 +42,7 @@
           </ul>
           <div v-if="!hideLanguage" class="custom-select language-select">
             <select v-model="language">
-              <option value="de">De</option>
-              <option value="en">En</option>
+              <option v-for="lang in languages" :value="lang">{{lang}}</option>
             </select>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -68,7 +67,11 @@ export default {
     props: {
       project: undefined,
       hideLanguage: Boolean,
-      hideLogin: Boolean
+      hideLogin: Boolean,
+        languages: {
+          type: Array,
+            default: ['en','de']
+        }
     },
   data: function() {
     return {
@@ -592,7 +595,8 @@ header {
           }
 
           .language-select {
-            margin: 16px 0;
+            margin: $spacing-2 0;
+            margin-left: $spacing-1;
 
             select {
               color: $color-black;
