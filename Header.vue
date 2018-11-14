@@ -484,7 +484,6 @@ header {
           .navigation {
             border-top: 0;
             display: inline-block;
-            padding-right: 12px;
 
             li {
               display: inline-block;
