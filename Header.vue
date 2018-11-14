@@ -632,7 +632,7 @@ header {
               a {
                 color: $color-black;
                 height: 80px;
-                padding: 28px $spacing-1;
+                padding: 28px $spacing-2;
                 &:active {
                   color: $color-primary;
                 }
@@ -675,7 +675,7 @@ header {
 
           .login-button {
             display: inline-block;
-            margin-left: $spacing-1;
+            margin-left: $spacing-2;
             padding: 0 $spacing-2;
           }
         }
