@@ -207,8 +207,16 @@ export default {
     }
   }
 
-  .button {
-    margin: $spacing-1;
+  .button-group {
+    margin: -$spacing-1;
+
+    .button {
+      margin: $spacing-1;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 
 
