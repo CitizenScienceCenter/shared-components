@@ -23,7 +23,7 @@
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
           </ul>
-          <div class="custom-select language-select">
+          <div v-if="!hideLanguage" class="custom-select language-select">
             <select v-model="language">
               <option value="de">De</option>
               <option value="en">En</option>
@@ -34,7 +34,7 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
-            <router-link v-if="login" tag="button" to="/login" class="button button-secondary">Login</router-link>
+            <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary">Login</router-link>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
@@ -49,7 +49,8 @@ import { store } from "../../store/store.js";
 export default {
   name: "Header",
     props: {
-      login: false
+      hideLanguage: Boolean,
+      hideLogin: Boolean
     },
   data: function() {
     return {

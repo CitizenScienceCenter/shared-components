@@ -3,7 +3,7 @@
   "en": {
     "project-wenker-title": "Project Wenker",
     "project-wenker-topic": "Linguistics",
-    "project-wenker-description": "Im Rahmen eines Forschungsprojekts wurden vor rund 100 Jahren 40 hochdeutsche Sätze in die Dialekte der Schweiz übersetzt. Hilf uns, diesen Schatz zu heben.",
+    "project-wenker-description": "Our web platform is under development, and our first Citizen Science Project (now in beta) is in the field of linguistics. By transcribing and translating swiss sentences from the 1930s, you help researchers understand how Swiss German changed during the past 100 years.",
 
     "project-button": "Contribute"
   },
@@ -162,7 +162,7 @@ export default {
     .project {
       .project-info {
         padding: $spacing-3;
-        padding-right: 50%;
+        padding-right: 33.333%;
 
         &:after {
           background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end 75% );
@@ -179,12 +179,12 @@ export default {
   .project-list {
 
     .project {
-      min-height: 320px;
 
       .project-info {
-        position: absolute;
         padding: $spacing-4;
         padding-right: 50%;
+        padding-bottom: calc( #{$spacing-5} + #{$spacing-4} );
+        min-height: 360px;
 
         .buttons {
           position: absolute;
