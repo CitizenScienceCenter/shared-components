@@ -34,7 +34,7 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
-            <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary">Login</router-link>
+          <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary">Login</router-link>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
