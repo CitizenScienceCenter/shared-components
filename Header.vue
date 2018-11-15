@@ -18,6 +18,7 @@
         <h1><img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/></h1>
       </router-link>
     </template>
+
     <template v-else>
       <a href="https://citizenscience.ch" class="home-link home-link-platform">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
@@ -34,16 +35,19 @@
             <button class="menu-button" @click="hideMenu">
               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
             </button>
+
             <template v-if="!projectName">
               <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
                 <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
               </router-link>
             </template>
+
             <template v-else>
               <router-link to="/" class="home-link home-link-project" active-class="active" exact>
                 <h1 v-html="projectName"></h1>
               </router-link>
             </template>
+
           </div>
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
@@ -85,7 +89,7 @@ export default {
       hideLogin: Boolean,
         languages: {
           type: Array,
-            default: ['en','de']
+            default: function () { return ['en','de'] }
         }
     },
   data: function() {
