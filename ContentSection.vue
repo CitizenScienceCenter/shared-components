@@ -147,10 +147,8 @@ export default {
     line-height: 1.5;
     font-weight: 700;
     margin-bottom: $spacing-4;
-    &:first-child {
-      padding-top: 0;
-    }
   }
+
 
   p {
     margin-bottom: $spacing-4;
@@ -179,7 +177,7 @@ export default {
     }
   }
 
-  ul {
+  ul, ol {
     margin-bottom: $spacing-4;
     &:last-child {
       margin-bottom: 0;
@@ -219,8 +217,38 @@ export default {
     }
   }
 
+  .form-field {
+    margin-bottom: $spacing-4;
+  }
 
-  
+  figure {
+    img {
+      display: block;
+    }
+    figcaption {
+      display: block;
+      margin-top: $spacing-1;
+      font-size: $font-size-small;
+    }
+  }
+
+  // for youtube embeds fullwith over column
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
 
 }
 
@@ -251,6 +279,7 @@ export default {
       margin-bottom: $spacing-5;
     }
 
+
     p {
       margin-bottom: $spacing-5;
 
@@ -259,7 +288,11 @@ export default {
       }
     }
 
-    ul {
+    ul, ol {
+      margin-bottom: $spacing-5;
+    }
+
+    .form-field {
       margin-bottom: $spacing-5;
     }
 
