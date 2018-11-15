@@ -1,5 +1,8 @@
 <i18n>
 {
+  "en": {
+    "login": "Login"
+  },
   "de": {
     "login": "Anmelden"
   }
@@ -78,7 +81,8 @@
 </template>
 
 <script>
-import { i18n } from "../../i18n.js";
+
+import { i18n } from "../../i18n.js"
 import { store } from "../../store/store.js";
 
 export default {
@@ -116,7 +120,7 @@ export default {
   },
   watch: {
     language(to, from) {
-      this.$i18n.locale = to;
+      i18n.locale = to;
     }
   },
   methods: {
