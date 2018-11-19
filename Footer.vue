@@ -1,3 +1,16 @@
+<i18n>
+  {
+  "en": {
+    "button-twitter": "Follow us on Twitter",
+    "button-facebook": "Visit us on Facebook"
+  },
+  "de": {
+    "button-twitter": "Folge uns auf Twitter",
+    "button-facebook": "Besuche uns auf Facebook"
+  }
+  }
+</i18n>
+
 <template>
   <footer class="footer">
     <div class="logo-wrapper">
@@ -46,7 +59,7 @@
         	c23.7-4.5,46.5-13.3,66.6-25.3c-7.8,24.4-24.4,44.8-46.1,57.8c21.1-2.3,41.6-8.1,60.4-16.2C497.7,118.3,479.8,136.8,459.4,151.7
         	L459.4,151.7z"/>
         </svg>
-        Follow us on Twitter
+        {{ $t('button-twitter') }}
       </button>
       <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('https://www.facebook.com/CitSciZurich/')">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -54,7 +67,7 @@
         <path d="M200.7,512V283H124v-91h76.7v-71.7C200.7,42.4,248.3,0,317.8,0c33.3,0,61.9,2.5,70.2,3.6V85h-48.2
         	c-37.8,0-45.1,18-45.1,44.3V192H380l-11.7,91h-73.6v229H200.7z"/>
         </svg>
-        Visit us on Facebook
+        {{ $t('button-facebook') }}
       </button>
 
       <!-- <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
