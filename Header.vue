@@ -55,7 +55,7 @@
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
           </ul>
-          <div v-if="!hideLanguage" class="custom-select language-select">
+          <div class="custom-select language-select">
             <select v-model="language">
               <option v-for="lang in languages" :value="lang">{{lang}}</option>
             </select>
@@ -89,7 +89,6 @@ export default {
   name: "Header",
     props: {
       projectName: undefined,
-      hideLanguage: Boolean,
       hideLogin: Boolean,
         languages: {
           type: Array,
