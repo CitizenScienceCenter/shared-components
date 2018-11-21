@@ -68,8 +68,13 @@ export default {
   overflow: hidden;
 
 
+    &.content-section-condensed {
+        padding: $spacing-4 0;
+    }
+
+
   .content-subsection {
-    padding-bottom: $spacing-5;
+    padding-bottom: $spacing-4;
 
     &:last-of-type {
       padding-bottom: 0;
@@ -109,6 +114,7 @@ export default {
 
     }
   }
+
 
   .content-wrapper {
     position: relative;
@@ -265,6 +271,10 @@ export default {
 
   .content-section {
 
+    &.content-section-condensed {
+      padding: $spacing-6 0;
+    }
+
     .content-subsection {
       padding-bottom: $spacing-6;
     }
@@ -368,6 +378,11 @@ export default {
   .content-section {
 
     padding: $spacing-8 0;
+
+
+      &.content-section-condensed {
+          padding: $spacing-6 0;
+      }
 
     &.image {
       min-height: 640px;
