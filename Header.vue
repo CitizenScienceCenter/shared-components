@@ -10,7 +10,7 @@
 </i18n>
 
 <template>
-  <header :class="{ 'fixed': fixed,'animated': animated, 'pulled': pulled }">
+  <header :class="{ 'fixed': fixed,'animated': animated, 'pulled': pulled }" :style="{  }">
 
     <button class="menu-button" @click="showMenu">
       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>Artboard 1</title><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
@@ -65,14 +65,28 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
-          <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary login-button">{{ $t('login') }}</router-link>
+          <template v-if="!currentUser || isAnon">
+            <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+          </template>
+          <template v-else>
+            <router-link tag="button" to="/profile" class="button button-icon button-user">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"/></svg>
+            </router-link>
+          </template>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
     </div>
 
     <div class="mobile-top-right">
-      <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary login-button">{{ $t('login') }}</router-link>
+      <template v-if="!currentUser || isAnon">
+        <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+      </template>
+      <template v-else>
+        <router-link tag="button" to="/profile" class="button button-icon button-user">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"/></svg>
+        </router-link>
+      </template>
       <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
@@ -83,7 +97,6 @@
 <script>
 
 import { i18n } from "../../i18n.js"
-import { store } from "../../store/store.js";
 
 export default {
   name: "Header",
@@ -106,19 +119,35 @@ export default {
       pulled: false
     };
   },
-  computed: {
-    language: {
-      get() {
-        return this.$store.state.settings.language;
+    /*
+    computed: mapState({
+        currentUser: state => state.c3s.user.currentUser,
+        language: state => state.settings.language
+    }),
+    */
+    computed: {
+        currentUser: {
+            get() {
+                return this.$store.state.c3s.user.currentUser;
+            }
+        },
+        isAnon: {
+            get() {
+                return this.$store.state.c3s.user.isAnon;
+            }
+        },
+        language: {
+            get() {
+              return this.$store.state.settings.language;
+            },
+            set(language) {
+              this.$store.dispatch("settings/setLanguage", language);
+              this.hideMenu();
+            }
+        }
       },
-      set(language) {
-        this.$store.dispatch("settings/setLanguage", language);
-        this.hideMenu();
-      }
-    }
-  },
   watch: {
-    language(to, from) {
+      language(to, from) {
       i18n.locale = to;
     }
   },
@@ -416,7 +445,10 @@ header {
           }
         }
 
-        .login-button {
+        .button-login {
+          display: none;
+        }
+        .button-user {
           display: none;
         }
       }
@@ -446,11 +478,21 @@ header {
         height: 24px;
       }
     }
-    .login-button {
+    .button-login {
       padding: 0 $spacing-1;
       height: 32px;
       margin: $spacing-1;
       font-size: 13px;
+    }
+    .button-icon.button-user {
+      height: 36px;
+      width: 36px;
+      svg {
+        top: 9px;
+        left: 10px;
+      }
+      margin: 6px;
+      margin-left: $spacing-1;
     }
   }
 }
@@ -526,11 +568,20 @@ header {
           height: 28px;
         }
       }
-      .login-button {
+      .button-login {
         padding: 0 $spacing-1;
         height: 36px;
         margin: 14px;
         margin-right: $spacing-2;
+      }
+      .button-icon.button-user {
+        height: 40px;
+        width: 40px;
+        svg {
+          top: 11px;
+          left: 12px;
+        }
+        margin: 12px;
       }
     }
   }
@@ -680,10 +731,17 @@ header {
             }
           }
 
-          .login-button {
+          .button-login {
             display: inline-block;
             margin-left: $spacing-2;
             padding: 0 $spacing-2;
+          }
+
+          .button-user {
+            display: block;
+            float: right;
+            margin: $spacing-2 0;
+            margin-left: $spacing-2;
           }
         }
       }
