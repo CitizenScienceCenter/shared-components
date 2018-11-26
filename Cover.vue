@@ -11,8 +11,8 @@
     <div class="uzh-eth">
       <span v-if="this.$i18n.locale === 'en'">A joint initiative by</span>
       <span v-else>Ein gemeinsamer Effort von</span>
-      <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/shared/uzh_eth_logo_e_neg.svg"/>
-      <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg"/>
+      <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/shared/uzh_eth_logo_e_neg.svg" @click="logoClick($event)"/>
+      <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
 
     <img class="sdg-logo" src="@/assets/shared/sdg-logo-white.svg"/>
@@ -25,6 +25,23 @@ export default {
   name: 'Cover',
   props: {
     'imageUrl': String
+  },
+  methods: {
+    openInNewTab: function(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+    },
+    logoClick: function(e) {
+        var rect = e.target.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var width = rect.width;
+        if (x < width / 2) {
+            this.openInNewTab('https://www.uzh.ch');
+        }
+        else {
+            this.openInNewTab('https://www.ethz.ch');
+        }
+    }
   },
   mounted: function() {
     var matches = this.$el.querySelectorAll(".scroll-effect");
@@ -92,6 +109,7 @@ export default {
     img {
       display: block;
       height: 28px;
+      cursor: pointer;
     }
   }
 
@@ -213,6 +231,19 @@ export default {
 @media only screen and (min-width: $viewport-large) {
   .cover {
     background-size: cover;
+
+    .uzh-eth {
+      bottom: $spacing-3;
+      left: $spacing-3;
+      img {
+        height: 48px;
+      }
+    }
+    .sdg-logo {
+      height: 48px;
+      bottom: $spacing-3;
+      right: $spacing-3;
+    }
 
     .content-wrapper {
       .cover-heading {

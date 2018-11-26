@@ -16,9 +16,15 @@
     <div class="logo-wrapper">
       <img src="@/assets/shared/logo-white.svg">
     </div>
+    <div class="uzh-eth">
+      <span v-if="this.$i18n.locale === 'en'">A joint initiative by</span>
+      <span v-else>Ein gemeinsamer Effort von</span>
+      <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/shared/uzh_eth_logo_e_neg.svg" @click="logoClick($event)"/>
+      <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
+    </div>
     <div class="contact centered">
       <div class="buttons centered">
-        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('mailto:info@citizenscience.ch')">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
           <path d="M502.3,190.8c3.9-3.1,9.7-0.2,9.7,4.7V400c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V195.6c0-5,5.7-7.8,9.7-4.7
@@ -28,7 +34,7 @@
           </svg>
           info@citizenscience.ch
         </button>
-        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('tel:+41446342197')">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
           <path d="M493.4,24.6l-104-24c-11.3-2.6-22.9,3.3-27.5,13.9l-48,112c-4.2,9.8-1.4,21.3,6.9,28l60.6,49.6
@@ -37,7 +43,7 @@
           </svg>
           +41 44 634 21 97
         </button>
-        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked">
+        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked" @click="openInNewTab('https://goo.gl/maps/n25pbgTiP6K2')">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
           <path d="M236.3,501.7C91,291,64,269.4,64,192C64,86,150,0,256,0s192,86,192,192c0,77.4-27,99-172.3,309.7
@@ -81,6 +87,15 @@
         Tell a Friend
       </button> -->
     </div>
+
+    <div class="copyright">
+      <p>
+        © Except where otherwise noted, content on this site is licensed under a <a href='#' target='_blank'>Creative Commons License BY-SA 3.0 Unported</a>
+      <p>
+      <p>
+        <router-link to="/privacy">Privacy Policy</router-link> & <router-link to="/terms">Terms of Use</router-link>
+      </p>
+    </div>
   </footer>
 </template>
 
@@ -91,6 +106,17 @@ export default {
     openInNewTab: function(url) {
       var win = window.open(url, '_blank');
       win.focus();
+    },
+    logoClick: function(e) {
+        var rect = e.target.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var width = rect.width;
+        if( x < width/2 ) {
+            this.openInNewTab('https://www.uzh.ch');
+        }
+        else {
+            this.openInNewTab('https://www.ethz.ch');
+        }
     }
   }
 }
@@ -106,18 +132,33 @@ export default {
   position: relative;
 
   .logo-wrapper {
-    height: 160px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-
+    padding-top: $spacing-5;
+    padding-bottom: $spacing-3;
+    text-align: center;
     img {
       height: 48px;
     }
   }
 
-  .contact {
+  .uzh-eth {
+    text-align: center;
     margin-bottom: $spacing-5;
+
+    span {
+      font-size: $font-size-small/1.25;
+      color: white;
+      display: block;
+      margin-bottom: $spacing-1;
+    }
+
+    img {
+      height: 36px;
+      cursor: pointer;
+    }
+  }
+
+  .contact {
+    margin-bottom: $spacing-1;
     .button {
       display: block;
       margin: auto;
@@ -135,29 +176,50 @@ export default {
     }
   }
 
-}
+  .copyright {
+    background-color: rgba( $color-secondary-shade-20, 0.5 );
+    padding: 0 $spacing-3;
+    padding-bottom: $spacing-1;
+    p {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: $font-size-small / 1.25;
+      a {
+        color: rgba(255,255,255,0.5);
+        text-decoration: underline;
 
-@media only screen and (min-width: $viewport-mobile-large) {
-  .footer {
-    .logo-wrapper {
-      height: 160px;
-
-      img {
-        height: 48px;
+        &:active {
+          color: rgba(255,255,255,0.75);
+        }
+        @media (hover: hover) {
+          &:hover {
+            color: rgba(255,255,255,0.75)
+          }
+        }
       }
     }
   }
+
+}
+
+@media only screen and (min-width: $viewport-mobile-large) {
+
 }
 
 @media only screen and (min-width: $viewport-tablet-portrait) {
   .footer {
     .logo-wrapper {
-      height: 160px;
-
+      padding-top: $spacing-6;
       img {
-        height: 56px;
+        height: 64px;
       }
     }
+    .uzh-eth {
+      img {
+        height: 48px;
+      }
+    }
+
     .contact {
       .button {
         display: inline-block;
@@ -173,11 +235,13 @@ export default {
 
 @media only screen and (min-width: $viewport-large) {
   .footer {
-    .logo-wrapper {
-      height: 200px;
-
-      img {
-        height: 72px;
+    .copyright {
+      text-align: center;
+      p {
+        display: inline;
+        &:first-child {
+          margin-right: $spacing-2;
+        }
       }
     }
   }
@@ -185,9 +249,7 @@ export default {
 
 @media only screen and (min-width: $viewport-xlarge) {
   .footer {
-    .logo-wrapper {
-      height: 240px;
-    }
+
   }
 }
 
