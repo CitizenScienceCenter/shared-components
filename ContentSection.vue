@@ -193,6 +193,7 @@ export default {
       margin-bottom: $spacing-2;
       position: relative;
       padding-left: $spacing-3;
+      margin-left: $spacing-1;
 
       &:before {
         content: '';
@@ -331,11 +332,6 @@ export default {
       &.scroll-effect-delayed-4 {
         transition-delay: $transition-delay-3;
       }
-    }
-
-
-    .content-wrapper-large-min-height {
-      min-height: 500px;
     }
 
     .background-wrapper {
