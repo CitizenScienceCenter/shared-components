@@ -3,7 +3,7 @@
   "en": {
     "project-wenker-title": "Project Wenker",
     "project-wenker-topic": "Linguistics",
-    "project-wenker-description": "Our web platform is under development, and our first Citizen Science Project (now in beta) is in the field of linguistics. By transcribing and translating swiss sentences from the 1930s, you help researchers understand how Swiss German changed during the past 100 years.",
+    "project-wenker-description": "Our first Citizen Science Project is in the field of linguistics. By transcribing and translating swiss sentences from the 1930s, you help researchers understand how Swiss German changed during the past 100 years.",
 
     "project-button": "Contribute"
   },
