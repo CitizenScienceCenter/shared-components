@@ -93,7 +93,7 @@
         © Except where otherwise noted, content on this site is licensed under a <a href='#' target='_blank'>Creative Commons License BY-SA 3.0 Unported</a>
       <p>
       <p>
-        <router-link to="/privacy">Privacy Policy</router-link> & <router-link to="/terms">Terms of Use</router-link>
+        <router-link to="/terms">Privacy Policy & Terms of Use</router-link>
       </p>
     </div>
   </footer>
