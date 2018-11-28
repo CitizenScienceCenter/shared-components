@@ -109,6 +109,18 @@ export default {
     * {
       color: white;
     }
+    a {
+      color: rgba(white, 0.75);
+
+      &:active {
+        color: white;
+      }
+      @media (hover: hover) {
+        &:hover {
+          color: white;
+        }
+      }
+    }
     .heading {
       color: white;
 
