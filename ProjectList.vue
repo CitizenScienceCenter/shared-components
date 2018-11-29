@@ -8,18 +8,18 @@
     "project-button": "Contribute"
   },
   "de": {
-    "project-wenker-title": "Project Wenker",
-    "project-wenker-topic": "Linguistics",
+    "project-wenker-title": "Projekt Wenker",
+    "project-wenker-topic": "Sprachwissenschaften",
     "project-wenker-description": "Im Rahmen eines Forschungsprojekts wurden vor rund 100 Jahren 40 hochdeutsche Sätze in die Dialekte der Schweiz übersetzt. Hilf uns, diesen Schatz zu heben.",
 
-    "project-button": "Contribute"
+    "project-button": "Mitmachen"
   }
 }
 </i18n>
 
 <template>
   <div class="project-list">
-    <div class="project">
+    <div class="project" @click="link('http://wenker.citizenscience.ch')">
 
       <div class="project-info">
 
@@ -56,9 +56,35 @@ export default {
 @import '@/styles/theme.scss';
 @import '@/styles/shared/variables.scss';
 
+
+$color-wenker-primary: #896E3E;
+$color-wenker-secondary: #3E6189;
+
+$color-wenker-gradient-start: $color-wenker-secondary;
+$color-wenker-gradient-end: mix( $color-wenker-primary, $color-wenker-secondary, 75%);
+
+$color-wenker-primary-shade-20: shade( $color-wenker-primary, 20% );
+
 .project-list {
 
   margin-bottom: $spacing-4;
+
+
+
+  .button {
+    &.button-primary {
+      background-color: $color-wenker-primary;
+      &:active {
+        background-color: $color-wenker-primary-shade-20;
+      }
+      @media (hover: hover) {
+        &:hover {
+          background-color: $color-wenker-primary-shade-20
+        }
+      }
+    }
+  }
+
 
   .project {
 
@@ -66,6 +92,7 @@ export default {
     border-radius: $border-radius;
     box-shadow: 0px 4px 8px -4px rgba($color-black,0.2);
     overflow: hidden;
+    cursor: pointer;
 
     .project-info {
 
@@ -84,7 +111,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom right, $color-gradient-start 50%, $color-gradient-end );
+        background: linear-gradient(to bottom right, $color-wenker-gradient-start 50%, $color-wenker-gradient-end );
         mask-image: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
         // ms edge fallback
         @supports (-ms-ime-align:auto) {
@@ -132,6 +159,21 @@ export default {
       background-position: 50% 0;
     }
 
+
+
+    &:active {
+      .button-primary {
+        background-color: $color-wenker-primary-shade-20;
+      }
+    }
+    @media (hover: hover) {
+      &:hover {
+        .button-primary {
+          background-color: $color-wenker-primary-shade-20;
+        }
+      }
+    }
+
   }
 
 }
@@ -165,7 +207,7 @@ export default {
         padding-right: 33.333%;
 
         &:after {
-          background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end 75% );
+          background: linear-gradient(to bottom right, $color-wenker-gradient-start, $color-wenker-gradient-end 75% );
           mask-image: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0));
         }
       }

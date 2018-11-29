@@ -74,7 +74,7 @@ export default {
 
 
   .content-subsection {
-    padding-bottom: $spacing-4;
+    padding-bottom: $spacing-5;
 
     &:last-of-type {
       padding-bottom: 0;
