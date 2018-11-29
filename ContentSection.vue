@@ -209,12 +209,12 @@ export default {
 
       &:before {
         content: '';
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         background-color: $color-secondary;
-        border-radius: 3px;
+        border-radius: 4px;
         position: absolute;
-        top: calc(0.5rem + 1px);
+        top: calc(0.5rem);
         left: 0;
       }
 

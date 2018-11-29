@@ -160,14 +160,16 @@ $color-wenker-primary-shade-20: shade( $color-wenker-primary, 20% );
     }
 
 
-
+    transition: all $transition-duration-long*2 $transition-timing-function;
     &:active {
+      transform: translateY(-$spacing-1/2);
       .button-primary {
         background-color: $color-wenker-primary-shade-20;
       }
     }
     @media (hover: hover) {
       &:hover {
+        transform: translateY(-$spacing-1/2);
         .button-primary {
           background-color: $color-wenker-primary-shade-20;
         }
