@@ -373,10 +373,6 @@ export default {
       font-size: $font-size-xlarge;
     }
 
-    .uzh-eth-logo {
-      height: 56px;
-    }
-
   }
 
 }
