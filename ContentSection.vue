@@ -212,7 +212,7 @@ export default {
         width: 8px;
         height: 8px;
         background-color: $color-secondary;
-        border-radius: 4px;
+        border-radius: 50%;
         position: absolute;
         top: calc(0.5rem);
         left: 0;
