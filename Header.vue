@@ -52,9 +52,11 @@
             </template>
 
           </div>
+
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
           </ul>
+
           <div class="custom-select language-select">
             <select v-model="language">
               <option v-for="lang in languages" :value="lang">{{lang}}</option>
@@ -65,6 +67,7 @@
             	C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
+
           <template v-if="!currentUser || isAnon">
             <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
           </template>

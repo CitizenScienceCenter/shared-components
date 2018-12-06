@@ -20,13 +20,10 @@ export default {
       switch( this.color ) {
         case 'greyish':
           return 'greyish';
-          break;
         case 'light-greyish':
           return 'light-greyish';
-          break;
         case 'dark':
           return 'dark';
-          break;
         default:
           return 'white';
       }
