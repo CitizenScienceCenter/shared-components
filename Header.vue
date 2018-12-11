@@ -68,6 +68,7 @@
             </svg>
           </div>
 
+          <span v-if="score">{{score}}</span>
           <template v-if="!currentUser || isAnon">
             <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
           </template>
@@ -82,6 +83,7 @@
     </div>
 
     <div class="mobile-top-right">
+      <span v-if="score">{{score}}</span>
       <template v-if="!currentUser || isAnon">
         <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
       </template>
@@ -109,7 +111,8 @@ export default {
         languages: {
           type: Array,
             default: function () { return ['en','de'] }
-        }
+        },
+        score: undefined
     },
   data: function() {
     return {
