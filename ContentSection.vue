@@ -227,9 +227,12 @@ export default {
     .button {
       margin: $spacing-1;
 
+      /* probably used in citizenscience.ch & wenker
+
       &:last-child {
         margin-right: 0;
       }
+      */
     }
   }
 
