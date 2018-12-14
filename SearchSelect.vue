@@ -2,13 +2,13 @@
     <div class="search-select">
         <input type="text" ref="answer"
                :placeholder="placeholder"
-               v-model="value"
+               v-model="inputValue"
                v-on:keyup="handleInputKeys" />
-        <ul class="results" v-if="filteredSearchResults.length > 0 && !selection">
+        <ul class="results" v-if="filteredSearchResults.length > 0 && inputValue != value">
             <li v-for="(filteredSearchResult, index) in filteredSearchResults"
                 :class="{'focused':index==focusedOptionIndex}"
                 :ref="'option_'+index"
-                @click="focusedOptionIndex = index; selectOptionByHand()">
+                @click="focusedOptionIndex = index; selectOptionByClick()">
                 {{ filteredSearchResult.name }}
             </li>
         </ul>
@@ -21,12 +21,14 @@
         data() {
             return {
                 focusedOptionIndex: undefined,
-                selection: '',
-                info: '',
-                value: ''
+                inputValue: ''
             }
         },
         props: {
+            value: {
+                type: String,
+                default: ''
+            },
             placeholder: {
                 type: String,
                 default: ''
@@ -38,24 +40,23 @@
         },
         watch: {
             value: function() {
-                this.$emit('input', this.value);
-            },
-            selection: function() {
-                this.$emit('responseText', this.selection);
-            },
-            value: function() {
-                if( this.selection ) {
-                    if( this.value != this.selection ) {
-                        this.selection = '';
-                    }
+                console.log( 'ss watch value');
+                this.inputValue = this.value;
+                if( this.inputValue === '' ) {
+                    console.log("ss resetted")
+                    this.$refs.answer.focus();
+                }
+                else {
+                    console.log("ss entered")
+                    this.$emit('entered');
                 }
             }
         },
         computed: {
             filteredSearchResults: function() {
-                if( this.value ) {
+                if( this.inputValue ) {
                     this.focusedOptionIndex = 0;
-                    return this.options.filter(option => option.name.toUpperCase().includes( this.value.toUpperCase() )  );
+                    return this.options.filter(option => option.name.toUpperCase().includes( this.inputValue.toUpperCase() )  );
                 }
                 else {
                     return {};
@@ -63,11 +64,9 @@
             }
         },
         methods: {
-            selectOptionByHand: function() {
+            selectOptionByClick: function() {
                 this.$refs['answer'].focus();
-                this.value = this.filteredSearchResults[this.focusedOptionIndex].name;
-                this.selection = this.value;
-                this.$emit("focusSubmit");
+                this.inputValue = this.filteredSearchResults[this.focusedOptionIndex].name;
             },
             handleInputKeys: function(event) {
                 switch(event.key){
@@ -79,6 +78,7 @@
                         }
                         break;
                     case 'ArrowUp':
+                        this.$refs.answer.setSelectionRange(this.inputValue.length,this.inputValue.length);
                         if( this.focusedOptionIndex > 0 ) {
                             this.focusedOptionIndex--;
                             this.$refs['option_'+this.focusedOptionIndex][0].scrollIntoView({block: "end"});
@@ -86,17 +86,19 @@
                         break;
                     case 'Enter':
                         if( this.filteredSearchResults.length > 0 ) {
-                            this.value = this.filteredSearchResults[this.focusedOptionIndex].name;
-                            this.selection = this.value;
+                            this.inputValue = this.filteredSearchResults[this.focusedOptionIndex].name;
+                            this.$emit('input', this.inputValue);
+                            console.log('ss inputValue emit = ' + this.inputValue);
                         }
                         else {
-                            this.value = '';
-                            this.selection = '';
+                            this.inputValue = '';
                         }
                         break;
                 }
-                this.$refs['answer'].setSelectionRange(this.value.length,this.value.length);
             }
+        },
+        mounted: function() {
+            this.$refs.answer.focus();
         }
     }
 </script>
@@ -107,6 +109,7 @@
         position: relative;
 
         .results {
+            z-index: 1;
             position: absolute;
             width: 100%;
             background: red;
