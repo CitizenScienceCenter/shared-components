@@ -62,11 +62,16 @@ export default {
   position: relative;
   padding: $spacing-6 0;
   background: white;
-  overflow: hidden;
 
 
+    &.overflow-hidden {
+      overflow: hidden;
+    }
     &.content-section-condensed {
         padding: $spacing-4 0;
+    }
+    &.content-section-flat {
+      padding: 0;
     }
 
 
@@ -328,8 +333,6 @@ export default {
   .content-section {
 
     padding: $spacing-7 0;
-    overflow: hidden;
-
 
     .scroll-effect {
       &.scroll-effect-delayed-1 {
