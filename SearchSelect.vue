@@ -174,9 +174,6 @@
                         break;
                 }
             }
-        },
-        mounted: function() {
-            this.$refs.answer.focus();
         }
     }
 </script>
@@ -204,10 +201,10 @@
         .results {
             z-index: 1;
             position: absolute;
-            top: 48px;
+            top: 40px;
             left: 0;
             width: 100%;
-            max-height: calc( 48px * 5 );
+            max-height: calc( 40px * 5 );
             overflow: hidden;
             overflow-y: scroll;
 
@@ -257,6 +254,17 @@
             .custom-input {
                 svg {
                     top: 17px;
+                }
+            }
+
+            .results {
+                top: 48px;
+                max-height: calc( 48px * 5 );
+
+                ul {
+                    li {
+                        line-height: 48px;
+                    }
                 }
             }
 
