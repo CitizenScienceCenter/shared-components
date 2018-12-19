@@ -12,21 +12,23 @@
                 <path d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1 C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
         </div>
-        <ul class="results" v-if="showResults" @click="clickOnResults">
-            <template v-for="filteredOptionContainer in filteredOptionContainers">
-                <li class="label" v-if="filteredOptionContainer.options.length > 0 && filteredOptionContainer.showLabel">
-                    <b>{{filteredOptionContainer.label}}</b>
-                </li>
-                <li v-for="option in filteredOptionContainer.options"
-                    :ref="'option_'+option.id"
-                    @click="focusedOptionIndex = option.id; selectOptionByClick()"
-                    :class="{ 'focused' : focusedOptionIndex === option.id }"
-                    :value="option.value"
-                    :info="option.info">
-                    {{ option.value }}
-                </li>
-            </template>
-        </ul>
+        <div ref="results" class="results">
+            <ul v-if="showResults" @click="clickOnResults">
+                <template v-for="filteredOptionContainer in filteredOptionContainers">
+                    <li class="label" v-if="filteredOptionContainer.options.length > 0 && filteredOptionContainer.showLabel">
+                        {{filteredOptionContainer.label}}
+                    </li>
+                    <li v-for="option in filteredOptionContainer.options"
+                        :ref="'option_'+option.id"
+                        @click="focusedOptionIndex = option.id; selectOptionByClick()"
+                        :class="{ 'focused' : focusedOptionIndex === option.id }"
+                        :value="option.value"
+                        :info="option.info">
+                        {{ option.value }}
+                    </li>
+                </template>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -56,6 +58,22 @@
             }
         },
         watch: {
+            showResults: function(to, from) {
+                if( to ) {
+                    let maxHeight = parseInt( window.getComputedStyle( this.$refs.results ,null).getPropertyValue("max-height") );
+                    console.log( "max-height: "+maxHeight );
+                    let elRect = this.$refs.results.getBoundingClientRect();
+                    console.log( "input position: "+elRect.y );
+                    console.log( "window height: "+window.innerHeight);
+
+                    if( elRect.y + maxHeight > window.innerHeight ) {
+                        this.$refs.results.classList.add('upwards');
+                    }
+                    else {
+                        this.$refs.results.classList.remove('upwards');
+                    }
+                }
+            },
             value: function() {
                 if( this.value ) {
                     this.showResults = false;
@@ -195,24 +213,43 @@
             top: 48px;
             left: 0;
             width: 100%;
-            background: red;
-            max-height: calc( 40px*6 );
+            max-height: calc( 48px * 5 );
             overflow: hidden;
             overflow-y: scroll;
 
-            li {
-                margin: 0;
-                padding: 0;
-                line-height: 40px;
-                &:before {
-                    display: none;
-                }
+            background: white;
+            box-shadow: 0px 0px 12px -4px rgba($color-black, 0.4);
 
-                &.focused {
-                    background: blue;
-                }
+            &.upwards {
+                top: auto;
+                bottom: 48px;
+            }
 
-                cursor: pointer;
+            ul {
+
+                li {
+                    margin: 0;
+                    padding: 0 $spacing-2;
+                    line-height: 40px;
+                    color: $color-black-tint-50;
+
+                    &.label {
+                        font-size: $font-size-small;
+                        font-weight: 700;
+                        color: $color-black;
+                    }
+
+                    &:before {
+                        display: none;
+                    }
+
+                    &.focused {
+                        background: $color-primary;
+                        color: white;
+                    }
+
+                    cursor: pointer;
+                }
             }
         }
     }
