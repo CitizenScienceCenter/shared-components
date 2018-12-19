@@ -61,10 +61,7 @@
             showResults: function(to, from) {
                 if( to ) {
                     let maxHeight = parseInt( window.getComputedStyle( this.$refs.results ,null).getPropertyValue("max-height") );
-                    console.log( "max-height: "+maxHeight );
                     let elRect = this.$refs.results.getBoundingClientRect();
-                    console.log( "input position: "+elRect.y );
-                    console.log( "window height: "+window.innerHeight);
 
                     if( elRect.y + maxHeight > window.innerHeight ) {
                         this.$refs.results.classList.add('upwards');
@@ -134,7 +131,6 @@
         },
         methods: {
             inputBlur: function() {
-                console.log( 'blur: hide resultes delayed');
                 const self = this;
                 setTimeout(function(){
                     self.showResults = false;
@@ -142,10 +138,8 @@
             },
             clickOnResults: function() {
                 this.$refs.answer.focus();
-                console.log('click on results');
             },
             selectOptionByClick: function() {
-                console.log("click on it");
                 this.inputValue = this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value');
                 let returnObject = {
                     'value': this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value'),
