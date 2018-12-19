@@ -62,7 +62,7 @@ export default {
 .cover {
   height: 400px;
   background-position: 50% 50%;
-  background-size: 200%;
+  background-size: cover;
   position: relative;
   display: flex;
   align-items: center;
@@ -198,7 +198,6 @@ export default {
 @media only screen and (min-width: $viewport-tablet-portrait) {
   .cover {
     height: 560px;
-    background-size: 150%;
 
     .uzh-eth {
       bottom: $spacing-3;
@@ -230,7 +229,6 @@ export default {
 
 @media only screen and (min-width: $viewport-large) {
   .cover {
-    background-size: cover;
 
     .uzh-eth {
       bottom: $spacing-3;

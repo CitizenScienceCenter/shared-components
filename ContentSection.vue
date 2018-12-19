@@ -243,6 +243,10 @@ export default {
 
   .form-field {
     margin-bottom: $spacing-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   figure {
