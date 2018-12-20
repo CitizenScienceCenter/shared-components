@@ -22,6 +22,8 @@ export default {
           return 'greyish';
         case 'light-greyish':
           return 'light-greyish';
+          case 'superlight-greyish':
+              return 'superlight-greyish';
         case 'dark':
           return 'dark';
         default:
@@ -63,10 +65,6 @@ export default {
   padding: $spacing-6 0;
   background: white;
 
-
-    &.overflow-hidden {
-      overflow: hidden;
-    }
     &.content-section-condensed {
         padding: $spacing-4 0;
     }
@@ -96,6 +94,10 @@ export default {
   }
 
   // Section Style
+
+  &.superlight-greyish {
+    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.025) );
+  }
 
   &.light-greyish {
     background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.05) );
@@ -226,6 +228,41 @@ export default {
     }
   }
 
+  .anchor-navigation {
+    padding: $spacing-2 0;
+    label {
+      display: block;
+      line-height: 40px;
+      font-weight: 700;
+    }
+    ul {
+      li {
+        margin: 0;
+        padding: 0;
+
+        &:before {
+          display: none;
+        }
+        a {
+          display: block;
+          font-size: $font-size-small;
+          color: $color-black-tint-50;
+          cursor: pointer;
+          line-height: 40px;
+
+          &:active {
+            color: $color-black;
+          }
+          @media (hover: hover) {
+            &:hover {
+              color: $color-black;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .button-group {
     margin: -$spacing-1;
 
@@ -328,6 +365,20 @@ export default {
       margin-bottom: $spacing-5;
     }
 
+    .anchor-navigation {
+
+      label {
+        line-height: 48px;
+      }
+      ul {
+        li {
+          a {
+            line-height: 48px;
+          }
+        }
+      }
+    }
+
   }
 
 }
@@ -378,6 +429,24 @@ export default {
 
     .heading {
       font-size: $font-size-xlarge;
+    }
+
+    .anchor-navigation {
+
+      text-align: center;
+      label {
+        display: none;
+      }
+      ul {
+        display: inline-block;
+        li {
+          display: inline-block;
+          margin-right: $spacing-4;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
     }
 
   }
