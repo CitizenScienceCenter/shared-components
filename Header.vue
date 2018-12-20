@@ -134,12 +134,22 @@ export default {
     computed: {
         currentUser: {
             get() {
-                return this.$store.state.c3s.user.currentUser;
+                if( !this.hideLogin ) {
+                    return this.$store.state.c3s.user.currentUser;
+                }
+                else {
+                    return null;
+                }
             }
         },
         isAnon: {
             get() {
-                return this.$store.state.c3s.user.isAnon;
+                if( !this.hideLogin ) {
+                    return this.$store.state.c3s.user.isAnon;
+                }
+                else {
+                    return false;
+                }
             }
         },
         language: {
