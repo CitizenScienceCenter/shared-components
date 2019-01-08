@@ -148,30 +148,32 @@
                 this.$emit('input', returnObject );
             },
             handleInputKeys: function(event) {
-                switch(event.key){
-                    case 'ArrowDown':
-                        if( this.focusedOptionIndex < this.maxOptionIndex ) {
-                            this.focusedOptionIndex++;
-                            this.$refs['option_'+this.focusedOptionIndex][0].scrollIntoView({block: "end"});
-                        }
-                        break;
-                    case 'ArrowUp':
-                        this.$refs.answer.setSelectionRange(this.inputValue.length,this.inputValue.length);
-                        if( this.focusedOptionIndex > 0 ) {
-                            this.focusedOptionIndex--;
-                            this.$refs['option_'+this.focusedOptionIndex][0].scrollIntoView({block: "end"});
-                        }
-                        break;
-                    case 'Enter':
-                        if( this.$refs['option_'+this.focusedOptionIndex][0] ) {
-                            this.inputValue = this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value');
-                            let returnObject = {
-                              'value': this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value'),
-                              'info': this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('info')
-                            };
-                            this.$emit('input', returnObject );
-                        }
-                        break;
+                if( this.showResults ) {
+                    switch(event.key) {
+                        case 'ArrowDown':
+                            if( this.focusedOptionIndex < this.maxOptionIndex ) {
+                                this.focusedOptionIndex++;
+                                this.$refs['option_'+this.focusedOptionIndex][0].scrollIntoView({block: "end"});
+                            }
+                            break;
+                        case 'ArrowUp':
+                            this.$refs.answer.setSelectionRange(this.inputValue.length,this.inputValue.length);
+                            if( this.focusedOptionIndex > 0 ) {
+                                this.focusedOptionIndex--;
+                                this.$refs['option_'+this.focusedOptionIndex][0].scrollIntoView({block: "end"});
+                            }
+                            break;
+                        case 'Enter':
+                            if( this.$refs['option_'+this.focusedOptionIndex][0] ) {
+                                this.inputValue = this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value');
+                                let returnObject = {
+                                  'value': this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('value'),
+                                  'info': this.$refs['option_'+this.focusedOptionIndex][0].getAttribute('info')
+                                };
+                                this.$emit('input', returnObject );
+                            }
+                            break;
+                    }
                 }
             }
         }
