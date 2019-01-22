@@ -73,12 +73,7 @@
             <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
           </template>
           <template v-else>
-            <router-link tag="button" to="/profile" class="button button-icon button-user">
-              <!--
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"/></svg>
-              -->
-              {{ currentUser.username.substring(0, 1) }}
-            </router-link>
+            <user-avatar :username="currentUser.username"></user-avatar>
           </template>
         </div>
       </div>
@@ -91,12 +86,7 @@
         <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
       </template>
       <template v-else>
-        <router-link tag="button" to="/profile" class="button button-icon button-user">
-          <!--
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"/></svg>
-          -->
-          {{ currentUser.username.substring(0, 1) }}
-        </router-link>
+        <user-avatar :username="currentUser.username"></user-avatar>
       </template>
       <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
@@ -108,9 +98,11 @@
 <script>
 
 import { i18n } from "../../i18n.js"
+import UserAvatar from "./UserAvatar";
 
 export default {
   name: "Header",
+    components: {UserAvatar},
     props: {
       projectName: undefined,
       hideLogin: Boolean,
@@ -596,7 +588,7 @@ header {
         margin: 14px;
         margin-right: $spacing-2;
       }
-      .button-icon.button-user {
+      .button-user {
         height: 40px;
         width: 40px;
         svg {

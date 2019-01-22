@@ -2,46 +2,70 @@
     <div class="comments">
         <template v-if="withTitles">
             <h3 class="subheading">Start a new Topic</h3>
-
-            <div class="form-field">
-                <growing-textarea v-model="commentTitle" placeholder="Topic Title" fat></growing-textarea>
-            </div>
         </template>
-        <div class="form-field">
-            <growing-textarea v-model="commentText" placeholder="What's on your mind?"></growing-textarea>
-        </div>
 
-        <div class="button-group right-aligned">
-            <button v-if="withTitles" :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
-            <button v-else :disabled="commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+        <div class="comment">
+
+            <user-avatar class="avatar" :username="user.username"></user-avatar>
+
+            <template v-if="withTitles">
+                <div class="form-field">
+                    <growing-textarea v-model="commentTitle" placeholder="Topic Title" fat></growing-textarea>
+                </div>
+            </template>
+            <div class="form-field">
+                <growing-textarea v-model="commentText" placeholder="What's on your mind?"></growing-textarea>
+            </div>
+
+            <div class="button-group right-aligned">
+                <button v-if="withTitles" :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+                <button v-else :disabled="commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+            </div>
+
         </div>
 
         <ul class="comment-list">
-            <li v-for="(comment,index) in commentTree" :ref="'comment-'+index">
+            <li v-for="(comment,index) in commentTree">
 
-                {{ comment[2] }}
-                <h3 class="subheading">{{ comment[0].content.title }}</h3>
-                <p>{{ comment[0].content.text }}</p>
+                <div class="comment">
 
-                <template v-if="opened.indexOf(index) > -1">
-                    <ul class="reply-list">
-                        <li v-for="reply in comment[1]">
-                            <p>{{ child.content.text }}</p>
-                        </li>
-                    </ul>
-                    <div class="form-field">
-                        <growing-textarea v-model="replyText" placeholder="Reply"></growing-textarea>
+                    <user-avatar class="avatar" :username="user.username"></user-avatar>
+
+                    <h3 class="subheading">{{ comment[0].content.title }}</h3>
+                    <p>{{ comment[0].content.text }}</p>
+
+                    <div v-if="!replyFieldsShown[index]" class="button-group right-aligned">
+                        <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">Reply</button>
                     </div>
-                    <div class="button-group right-aligned">
-                        <button :disabled="replyText.length === 0" class="button button-primary" @click="newComment(comment[0].id)">Reply</button>
+                    <div v-else>
+                        <div class="form-field">
+                            <growing-textarea v-model="replyText" placeholder="Reply"></growing-textarea>
+                        </div>
+                        <div class="button-group right-aligned">
+                            <button :disabled="replyText.length === 0" class="button button-primary" @click="newComment(comment[0].comment_id)">Reply</button>
+                        </div>
                     </div>
-                </template>
 
-                <div v-else class="button-group right-aligned">
-                    <button @click.prevent="opened.push(index)" class="button button-secondary button-secondary-naked">
-                        <template v-if="comment[1].length > 0">{{ comment[1].length }} Replies</template>
-                        <template v-else>Reply</template>
-                    </button>
+                    <template v-if="replyCounts[index] > 0">
+
+                        <ul class="reply-list">
+                            {{ (commentTree[index][1].length) }}
+                            {{ replyCounts[index] }}
+                            <li v-if="replyIndex < replyCounts[index]" v-for="(reply,replyIndex) in comment[1]">
+
+                                <div class="comment">
+                                    <user-avatar class="avatar" :username="user.username"></user-avatar>
+                                    <p>{{ reply.content.text }}</p>
+                                </div>
+
+                            </li>
+                            <li v-else>should not be here</li>
+                        </ul>
+                        <div v-if="commentTree[index].length > replyCounts[index]" class="button-group right-aligned">
+                            <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More</button>
+                        </div>
+                    </template>
+
                 </div>
             </li>
         </ul>
@@ -52,15 +76,20 @@
 
     import {mapState} from 'vuex'
     import GrowingTextarea from "./GrowingTextarea";
+    import UserAvatar from "./UserAvatar";
 
 
     export default {
         name: "Comments",
-        components: {GrowingTextarea},
+        components: {
+            GrowingTextarea,
+            UserAvatar
+        },
         data() {
             return {
                 commentTree: [],
-                opened: [],
+                replyCounts: [],
+                replyFieldsShown: [],
                 commentTitle: '',
                 commentText: '',
                 replyText: ''
@@ -102,6 +131,7 @@
                     'select': {
                         'fields': [
                             'users.username as username',
+                            'comments.id as comment_id',
                             '*'
                         ],
                         'tables': [
@@ -133,34 +163,88 @@
 
                 this.$store.dispatch('c3s/media/getMedia', [query, 'c3s/comments/SET_COMMENTS', 0] ).then(res => {
 
-                    //console.log('comments loaded');
-                    this.buildTree();
+                    console.log('comments loaded');
+                    this.buildCommentTree();
 
                 });
             },
-            buildTree: function() {
+            buildCommentTree() {
                 this.commentTree = [];
+                this.replyCounts = [];
+                this.replyFieldsShown = [];
+                var unfoundChildren = [];
+
                 for( let i = this.comments.length-1; i >= 0; i-- ) {
+
+                    console.log('comment check');
+
                     if( this.comments[i].parent === null ) {
-                        //console.log( 'no p' );
+
+                        console.log('has no parent');
+
                         this.commentTree.unshift( [ this.comments[i], [] ] );
-                        //console.log( 'tree length: '+ tree.length );
+                        this.replyCounts.unshift( 0 );
+                        this.replyFieldsShown.unshift( false );
+
                     }
                     else {
-                        //console.log( 'p: '+ this.comments[i].parent);
 
-                        //console.log( 'tree length: '+ tree.length );
-                        for( let j = 0; j < tree.length; j++ ) {
-                            //console.log( 'check: ');
-                            //console.log( tree[j][0].id );
-                            if( this.commentTree[j][0].id ===  this.comments[i].parent ) {
-                                //console.log('found in '+ tree[j][0] )
+                        console.log('has parent');
+                        var parentFound = false;
+
+                        for( let j = 0; j < this.commentTree.length; j++ ) {
+
+                            if( this.comments[i].parent === this.commentTree[j][0].comment_id ) {
+                                console.log('parent found');
+                                parentFound = true;
                                 this.commentTree[j][1].unshift( this.comments[i] );
+
+                                if( this.replyCounts[j] < 1 ) {
+                                    this.replyCounts[j] = 1;
+                                }
                                 break;
                             }
                         }
+
+                        if( !parentFound ) {
+                            console.log('parent not found');
+                            unfoundChildren.push( this.comments[i] );
+                        }
                     }
                 }
+
+                for( let i = unfoundChildren.length-1; i >= 0; i-- ) {
+                    for( let j = 0; j < this.commentTree.length; j++ ) {
+
+                        if( unfoundChildren[i].parent === this.commentTree[j][0].comment_id ) {
+                            console.log('parent found');
+                            this.commentTree[j][1].unshift( unfoundChildren[i] );
+
+                            if( this.replyCounts[j] < 1 ) {
+                                this.replyCounts[j] = 1;
+                            }
+                            break;
+                        }
+                    }
+                }
+                console.log('comment tree generated');
+                console.log( this.commentTree[0][1] );
+            },
+            expand(index) {
+                var replyCounts = this.replyCounts;
+                this.replyCounts  = [];
+                this.replyCounts = replyCounts;
+                this.replyCounts[index] += 10;
+                console.log( 'expand');
+                console.log( this.replyCounts );
+            },
+            showReplyField(index) {
+                var replyFieldsShown = this.replyFieldsShown;
+                this.replyFieldsShown = [];
+                this.replyFieldsShown = replyFieldsShown;
+                this.replyFieldsShown[index] = true;
+                console.log( 'showReplyField');
+                console.log( this.replyFieldsShown );
             },
             newComment: function(parentId) {
 
@@ -170,6 +254,7 @@
                 let comment;
                 if( !parentId ) {
 
+                    this.opened = [];
                     //console.log('no parent');
 
                     comment = {
@@ -182,8 +267,6 @@
                     };
                 }
                 else {
-                    console.log('parent: '+parentId);
-
                     comment = {
                         user_id: this.user.id,
                         source_id: this.sourceId,
@@ -195,19 +278,11 @@
                 }
 
 
-
                 this.$store.dispatch('c3s/comments/createComment', comment).then(res => {
 
-                    console.log(res);
                     this.loadComments();
 
                 });
-            },
-            expand( i ) {
-                console.log( this.commentTree[i][2] );
-                this.commentTree[i][2] = true;
-                console.log( this.commentTree[i][2] );
-                this.commentTree = this.commentTree;
             }
         }
     }
@@ -221,10 +296,22 @@
 
 
     .comments {
+
+        .comment {
+            position: relative;
+            padding-left: calc( 40px + #{$spacing-2} );
+
+            .avatar {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
         .form-field {
             display: block;
 
-            margin-bottom: $spacing-3;
+            margin-bottom: $spacing-2;
         }
         ul {
             li {
@@ -247,6 +334,10 @@
     @media only screen and (min-width: $viewport-tablet-portrait) {
 
         .comments {
+
+            .comment {
+                padding-left: calc( 48px + #{$spacing-3} );
+            }
 
             .comment-list {
                 margin-top: $spacing-5;

@@ -80,7 +80,6 @@
 
                 this.$store.dispatch('c3s/media/getMedia', [query, undefined, 0]).then(res => {
 
-                    console.log('media & task_id loaded');
 
                     let task_ids = [];
                     let media = [];
