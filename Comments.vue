@@ -44,7 +44,7 @@
 
                     <h3 class="subheading" v-if="withTitles">{{ commentTree[index][0].content.title }}</h3>
                     <p>{{ commentTree[index][0].content.text }}</p>
-                    <span class="date">{{ commentTree[index][0].created_at }}</span>
+                    <span class="date">{{ giveDateTime(commentTree[index][0].comment_created) }}</span>
                     <span class="username">by {{ commentTree[index][0].username }}</span>
 
                     <template v-if="!user.isAnon">
@@ -71,8 +71,8 @@
                                 <div class="comment comment-existing">
                                     <user-avatar class="avatar" :username="reply.username"></user-avatar>
                                     <p>{{ reply.content.text }}</p>
-                                    <span class="date">{{ commentTree[index][0].created_at }}</span>
-                                    <span class="username">by {{ commentTree[index][0].username }}</span>
+                                    <span class="date">{{ giveDateTime(reply.comment_created) }}</span>
+                                    <span class="username">by {{ reply.username }}</span>
                                 </div>
                             </li>
 
@@ -157,13 +157,16 @@
                 let query = {
                     'select': {
                         'fields': [
-                            'users.username as username',
                             'comments.id as comment_id',
+                            'comments.created_at as comment_created',
                             '*'
                         ],
                         'tables': [
                             'comments'
-                        ]
+                        ],
+                        'orderBy': {
+                            'comment_created': 'DESC'
+                        }
                     },
                     "join": {
                         "type": "LEFT",
@@ -250,6 +253,8 @@
 
                 for( let i = unfoundChildren.length-1; i >= 0; i-- ) {
 
+                    console.log('lost child');
+
                     for( let j = 0; j < this.commentTree.length; j++ ) {
                         if( unfoundChildren[i].parent === this.commentTree[j][0].comment_id ) {
                             this.addChildToTree( j, unfoundChildren[i] );
@@ -265,6 +270,12 @@
             addChildToTree( parentIndex, child ) {
                 console.log('parent found');
                 this.commentTree[parentIndex][1].push( child );
+            },
+            giveDateTime(timestamp) {
+                var date = new Date(timestamp);
+                var date_time = date.getHours() +':'+ date.getMinutes() +', '+ date.getDate() +'.'+ date.getMonth()+1 +'.'+ date.getFullYear();
+                console.log( date_time );
+                return date_time;
             },
             showMore() {
                 this.topicsShown += 10;
