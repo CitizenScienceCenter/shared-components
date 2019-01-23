@@ -1,67 +1,81 @@
 <template>
     <div class="comments">
-        <template v-if="withTitles">
-            <h3 class="subheading">Start a new Topic</h3>
-        </template>
 
-        <div class="comment">
-
-            <user-avatar class="avatar" :username="user.username"></user-avatar>
+        <template v-if="!user.isAnon">
 
             <template v-if="withTitles">
-                <div class="form-field">
-                    <growing-textarea v-model="commentTitle" placeholder="Topic Title" fat></growing-textarea>
-                </div>
+                <h3 class="subheading">Start a new Topic</h3>
             </template>
-            <div class="form-field">
-                <growing-textarea v-model="commentText" placeholder="What's on your mind?"></growing-textarea>
+
+            <div class="comment">
+
+                <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
+
+                <template v-if="withTitles">
+                    <div class="form-field">
+                        <growing-textarea v-model="commentTitle" placeholder="Topic Title" fat></growing-textarea>
+                    </div>
+                </template>
+                <div class="form-field">
+                    <growing-textarea v-model="commentText" placeholder="What's on your mind?"></growing-textarea>
+                </div>
+
+                <div class="button-group right-aligned">
+                    <button v-if="withTitles" :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+                    <button v-else :disabled="commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+                </div>
+
             </div>
 
-            <div class="button-group right-aligned">
-                <button v-if="withTitles" :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
-                <button v-else :disabled="commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
-            </div>
+        </template>
+        <template v-else>
 
-        </div>
+            <h3 class="subheading">Please login to discuss</h3>
+            <router-link tag="button" to="/login" class="button button-secondary">Login</router-link>
+
+        </template>
 
         <ul class="comment-list">
             <li v-for="(comment,index) in commentTree">
 
                 <div class="comment">
 
-                    <user-avatar class="avatar" :username="user.username"></user-avatar>
+                    <user-avatar class="avatar" :username="comment.username"></user-avatar>
 
                     <h3 class="subheading">{{ comment[0].content.title }}</h3>
                     <p>{{ comment[0].content.text }}</p>
 
-                    <div v-if="!replyFieldsShown[index]" class="button-group right-aligned">
-                        <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">Reply</button>
-                    </div>
-                    <div v-else>
-                        <div class="form-field">
-                            <growing-textarea v-model="replyText" placeholder="Reply"></growing-textarea>
+                    <template v-if="!user.isAnon">
+                        <div v-if="!replyFieldsShown[index]" class="button-group right-aligned">
+                            <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">Reply</button>
                         </div>
-                        <div class="button-group right-aligned">
-                            <button :disabled="replyText.length === 0" class="button button-primary" @click="newComment(comment[0].comment_id)">Reply</button>
-                        </div>
-                    </div>
+                        <div v-else>
+                            <div class="comment">
+                                <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
 
-                    <template v-if="replyCounts[index] > 0">
+                                <div class="form-field">
+                                    <growing-textarea v-model="replyText" placeholder="Reply"></growing-textarea>
+                                </div>
+                                <div class="button-group right-aligned">
+                                    <button :disabled="replyText.length === 0" class="button button-primary" @click="newComment(comment[0].comment_id)">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template v-if="repliesShown[index] > 0">
 
                         <ul class="reply-list">
-                            {{ (commentTree[index][1].length) }}
-                            {{ replyCounts[index] }}
-                            <li v-if="replyIndex < replyCounts[index]" v-for="(reply,replyIndex) in comment[1]">
 
+                            <li v-if="replyIndex < repliesShown[index]" v-for="(reply,replyIndex) in comment[1]">
                                 <div class="comment">
-                                    <user-avatar class="avatar" :username="user.username"></user-avatar>
+                                    <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
                                     <p>{{ reply.content.text }}</p>
                                 </div>
-
                             </li>
-                            <li v-else>should not be here</li>
+
                         </ul>
-                        <div v-if="commentTree[index].length > replyCounts[index]" class="button-group right-aligned">
+                        <div v-if="commentTree[index].length > repliesShown[index]" class="button-group right-aligned">
                             <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More</button>
                         </div>
                     </template>
@@ -88,7 +102,7 @@
         data() {
             return {
                 commentTree: [],
-                replyCounts: [],
+                repliesShown: [],
                 replyFieldsShown: [],
                 commentTitle: '',
                 commentText: '',
@@ -112,7 +126,7 @@
         },
         computed: {
             ...mapState({
-                user: state => state.c3s.user.currentUser,
+                user: state => state.c3s.user,
                 comments: state => state.c3s.comments.comments,
 
                 loading: state => state.c3s.settings.loading
@@ -165,16 +179,15 @@
 
                     console.log('comments loaded');
                     this.buildCommentTree();
+                    console.log( this.commentTree );
 
                 });
             },
             buildCommentTree() {
                 this.commentTree = [];
-                this.replyCounts = [];
-                this.replyFieldsShown = [];
                 var unfoundChildren = [];
 
-                for( let i = this.comments.length-1; i >= 0; i-- ) {
+                for( let i = 0; i < this.comments.length; i++ ) {
 
                     console.log('comment check');
 
@@ -182,9 +195,9 @@
 
                         console.log('has no parent');
 
-                        this.commentTree.unshift( [ this.comments[i], [] ] );
-                        this.replyCounts.unshift( 0 );
-                        this.replyFieldsShown.unshift( false );
+                        this.commentTree.push( [ this.comments[i], [] ] );
+                        this.repliesShown.push( 0 );
+                        this.replyFieldsShown.push( false );
 
                     }
                     else {
@@ -197,11 +210,9 @@
                             if( this.comments[i].parent === this.commentTree[j][0].comment_id ) {
                                 console.log('parent found');
                                 parentFound = true;
-                                this.commentTree[j][1].unshift( this.comments[i] );
+                                this.commentTree[j][1].push( this.comments[i] );
 
-                                if( this.replyCounts[j] < 1 ) {
-                                    this.replyCounts[j] = 1;
-                                }
+                                this.repliesShown[j] = 3;
                                 break;
                             }
                         }
@@ -220,9 +231,7 @@
                             console.log('parent found');
                             this.commentTree[j][1].unshift( unfoundChildren[i] );
 
-                            if( this.replyCounts[j] < 1 ) {
-                                this.replyCounts[j] = 1;
-                            }
+                            this.repliesShown[j] = 3;
                             break;
                         }
                     }
@@ -231,12 +240,12 @@
                 console.log( this.commentTree[0][1] );
             },
             expand(index) {
-                var replyCounts = this.replyCounts;
-                this.replyCounts  = [];
-                this.replyCounts = replyCounts;
-                this.replyCounts[index] += 10;
+                var repliesShown = this.repliesShown;
+                this.repliesShown  = [];
+                this.repliesShown = repliesShown;
+                this.repliesShown[index] += 10;
                 console.log( 'expand');
-                console.log( this.replyCounts );
+                console.log( this.repliesShown );
             },
             showReplyField(index) {
                 var replyFieldsShown = this.replyFieldsShown;
@@ -254,11 +263,14 @@
                 let comment;
                 if( !parentId ) {
 
+                    this.repliesShown = [];
+                    this.replyFieldsShown = [];
+
                     this.opened = [];
                     //console.log('no parent');
 
                     comment = {
-                        user_id: this.user.id,
+                        user_id: this.user.currentUser.id,
                         source_id: this.sourceId,
                         content: {
                             title: this.commentTitle,
@@ -268,7 +280,7 @@
                 }
                 else {
                     comment = {
-                        user_id: this.user.id,
+                        user_id: this.user.currentUser.id,
                         source_id: this.sourceId,
                         parent: parentId,
                         content: {
