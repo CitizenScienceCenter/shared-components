@@ -9,7 +9,7 @@
         name: "UserAvatar",
         data() {
           return {
-              greyHex: 'd3d2d2'
+              greyHex: '7b7979'
           }
         },
         props: {

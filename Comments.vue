@@ -30,59 +30,65 @@
         </template>
         <template v-else>
 
-            <h3 class="subheading">Please login to discuss</h3>
-            <router-link tag="button" to="/login" class="button button-secondary">Login</router-link>
+            <h3 class="subheading">You need to be logged in to write something.</h3>
+            <router-link tag="button" to="/login" class="button button-primary">Login</router-link>
 
         </template>
 
         <ul class="comment-list">
-            <li v-for="(comment,index) in commentTree">
+            <li v-if="index < topicsShown" v-for="(situation,index) in treeSituation">
 
-                <div class="comment">
+                <div class="comment comment-existing" :class="{'titled':withTitles}">
 
-                    <user-avatar class="avatar" :username="comment.username"></user-avatar>
+                    <user-avatar class="avatar" :username="commentTree[index][0].username"></user-avatar>
 
-                    <h3 class="subheading">{{ comment[0].content.title }}</h3>
-                    <p>{{ comment[0].content.text }}</p>
+                    <h3 class="subheading" v-if="withTitles">{{ commentTree[index][0].content.title }}</h3>
+                    <p>{{ commentTree[index][0].content.text }}</p>
+                    <span class="date">{{ commentTree[index][0].created_at }}</span>
+                    <span class="username">by {{ commentTree[index][0].username }}</span>
 
                     <template v-if="!user.isAnon">
-                        <div v-if="!replyFieldsShown[index]" class="button-group right-aligned">
+                        <div v-if="!situation[1]" class="button-group right-aligned">
                             <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">Reply</button>
                         </div>
-                        <div v-else>
-                            <div class="comment">
-                                <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
+                        <div v-else class="comment reply">
+                            <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
 
-                                <div class="form-field">
-                                    <growing-textarea v-model="replyText" placeholder="Reply"></growing-textarea>
-                                </div>
-                                <div class="button-group right-aligned">
-                                    <button :disabled="replyText.length === 0" class="button button-primary" @click="newComment(comment[0].comment_id)">Reply</button>
-                                </div>
+                            <div class="form-field">
+                                <growing-textarea v-model="replyTexts[index]" placeholder="Reply"></growing-textarea>
+                            </div>
+                            <div class="button-group right-aligned">
+                                <button :disabled="replyTexts[index].length === 0" class="button button-primary" @click="newComment(commentTree[index][0].comment_id, index)">Reply</button>
                             </div>
                         </div>
                     </template>
 
-                    <template v-if="repliesShown[index] > 0">
+                    <template v-if="commentTree[index][1].length > 0">
 
                         <ul class="reply-list">
 
-                            <li v-if="replyIndex < repliesShown[index]" v-for="(reply,replyIndex) in comment[1]">
-                                <div class="comment">
-                                    <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
+                            <li v-if="replyIndex < situation[0]" v-for="(reply,replyIndex) in commentTree[index][1]">
+                                <div class="comment comment-existing">
+                                    <user-avatar class="avatar" :username="reply.username"></user-avatar>
                                     <p>{{ reply.content.text }}</p>
+                                    <span class="date">{{ commentTree[index][0].created_at }}</span>
+                                    <span class="username">by {{ commentTree[index][0].username }}</span>
                                 </div>
                             </li>
 
                         </ul>
-                        <div v-if="commentTree[index].length > repliesShown[index]" class="button-group right-aligned">
-                            <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More</button>
+                        <div v-if="commentTree[index][1].length > situation[0]" class="button-group">
+                            <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More Replies</button>
                         </div>
                     </template>
 
                 </div>
             </li>
         </ul>
+        <div v-if="commentTree.length > topicsShown" class="button-group">
+            <button @click.prevent="showMore()" class="button button-secondary">Show more comments</button>
+        </div>
+
     </div>
 </template>
 
@@ -102,11 +108,15 @@
         data() {
             return {
                 commentTree: [],
-                repliesShown: [],
-                replyFieldsShown: [],
+                treeSituation: [],
+                newSituationOnLoad: true,
+                topicsShown: 5,
+                repliesShownDefault: 2,
+                replySubmitted: null,
+
                 commentTitle: '',
                 commentText: '',
-                replyText: ''
+                replyTexts: []
             }
         },
         props: {
@@ -122,6 +132,10 @@
         watch: {
             sourceId: function() {
                 this.loadComments();
+            },
+            treeSituation() {
+                console.log('watch tree sit');
+                console.log( this.treeSituation );
             }
         },
         computed: {
@@ -133,7 +147,6 @@
             })
         },
         mounted: function() {
-            //console.log('comments mounted > load comments');
             this.loadComments();
         },
         methods: {
@@ -177,13 +190,22 @@
 
                 this.$store.dispatch('c3s/media/getMedia', [query, 'c3s/comments/SET_COMMENTS', 0] ).then(res => {
 
-                    console.log('comments loaded');
+                    this.commentTitle = '';
+                    this.commentText = '';
+                    console.log('comments loaded:');
                     this.buildCommentTree();
                     console.log( this.commentTree );
 
                 });
             },
             buildCommentTree() {
+
+                if( this.newSituationOnLoad ) {
+                    this.treeSituation = [];
+                    this.replyTexts = [];
+                }
+
+                console.log('build tree');
                 this.commentTree = [];
                 var unfoundChildren = [];
 
@@ -196,9 +218,15 @@
                         console.log('has no parent');
 
                         this.commentTree.push( [ this.comments[i], [] ] );
-                        this.repliesShown.push( 0 );
-                        this.replyFieldsShown.push( false );
 
+                        if( this.newSituationOnLoad ) {
+                            this.treeSituation.push( [ this.repliesShownDefault, false ] );
+                            this.replyTexts.push( '' );
+                        }
+                        if( this.replySubmitted != null ) {
+                            this.replyTexts[this.replySubmitted] = '';
+                            this.replySubmitted = null;
+                        }
                     }
                     else {
 
@@ -208,63 +236,65 @@
                         for( let j = 0; j < this.commentTree.length; j++ ) {
 
                             if( this.comments[i].parent === this.commentTree[j][0].comment_id ) {
-                                console.log('parent found');
+                                this.addChildToTree( j, this.comments[i] );
                                 parentFound = true;
-                                this.commentTree[j][1].push( this.comments[i] );
-
-                                this.repliesShown[j] = 3;
-                                break;
                             }
                         }
 
                         if( !parentFound ) {
                             console.log('parent not found');
-                            unfoundChildren.push( this.comments[i] );
+                            unfoundChildren.unshift( this.comments[i] );
                         }
                     }
                 }
 
                 for( let i = unfoundChildren.length-1; i >= 0; i-- ) {
+
                     for( let j = 0; j < this.commentTree.length; j++ ) {
-
                         if( unfoundChildren[i].parent === this.commentTree[j][0].comment_id ) {
-                            console.log('parent found');
-                            this.commentTree[j][1].unshift( unfoundChildren[i] );
-
-                            this.repliesShown[j] = 3;
+                            this.addChildToTree( j, unfoundChildren[i] );
                             break;
                         }
                     }
+
                 }
                 console.log('comment tree generated');
-                console.log( this.commentTree[0][1] );
+                console.log('reply texts');
+                console.log( this.replyTexts );
+            },
+            addChildToTree( parentIndex, child ) {
+                console.log('parent found');
+                this.commentTree[parentIndex][1].push( child );
+            },
+            showMore() {
+                this.topicsShown += 10;
             },
             expand(index) {
-                var repliesShown = this.repliesShown;
-                this.repliesShown  = [];
-                this.repliesShown = repliesShown;
-                this.repliesShown[index] += 10;
+                this.treeSituation[index][0] += 10;
+
+                this.treeSituation.push( ['dummy object'] );
+                this.treeSituation.pop();
+
                 console.log( 'expand');
-                console.log( this.repliesShown );
+                console.log( this.treeSituation );
             },
             showReplyField(index) {
-                var replyFieldsShown = this.replyFieldsShown;
-                this.replyFieldsShown = [];
-                this.replyFieldsShown = replyFieldsShown;
-                this.replyFieldsShown[index] = true;
-                console.log( 'showReplyField');
-                console.log( this.replyFieldsShown );
+                this.treeSituation[index][1] = true;
+
+                this.treeSituation.push( ['dummy object'] );
+                this.treeSituation.pop();
+
+                console.log( 'show');
+                console.log( this.treeSituation );
             },
-            newComment: function(parentId) {
+            newComment: function(parentId, index) {
 
 
                 //console.log('new comment');
 
                 let comment;
-                if( !parentId ) {
-
-                    this.repliesShown = [];
-                    this.replyFieldsShown = [];
+                if( !parentId && !index ) {
+                    this.newSituationOnLoad = true;
 
                     this.opened = [];
                     //console.log('no parent');
@@ -279,18 +309,24 @@
                     };
                 }
                 else {
+                    this.newSituationOnLoad = false;
+                    this.replySubmitted = index;
+
                     comment = {
                         user_id: this.user.currentUser.id,
                         source_id: this.sourceId,
                         parent: parentId,
                         content: {
-                            text: this.replyText
+                            text: this.replyTexts[index]
                         }
                     };
                 }
 
+                console.log('create: '+ parentId);
 
                 this.$store.dispatch('c3s/comments/createComment', comment).then(res => {
+
+                    console.log('new comment created');
 
                     this.loadComments();
 
@@ -309,22 +345,12 @@
 
     .comments {
 
-        .comment {
-            position: relative;
-            padding-left: calc( 40px + #{$spacing-2} );
 
-            .avatar {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
+        .button-secondary-naked {
+            padding: 0;
         }
 
-        .form-field {
-            display: block;
 
-            margin-bottom: $spacing-2;
-        }
         ul {
             li {
                 padding-left: 0;
@@ -334,12 +360,77 @@
                 }
             }
         }
-        .comment-list {
-            margin-top: $spacing-4;
 
-            .subheading, p {
-                margin-bottom: $spacing-2;
+
+        .form-field {
+            display: block;
+
+            margin-bottom: $spacing-2;
+        }
+
+        .comment {
+            position: relative;
+            padding-left: calc(40px + #{$spacing-2});
+
+
+            .avatar {
+                position: absolute;
+                top: 0;
+                left: 0;
             }
+
+
+        }
+        .comment-list {
+            margin-top: $spacing-5;
+            margin-bottom: $spacing-3;
+
+            li {
+                margin-bottom: $spacing-3;
+
+                .comment {
+
+                    &.comment-existing {
+                        padding-top: calc((40px - #{$font-size-normal} * 1.5) / 2);
+                        min-height: 40px;
+                        &.titled {
+                            padding-top: calc((40px - #{$font-size-medium} * 1.5) / 2);
+                        }
+                    }
+
+                    .subheading {
+                        margin-bottom: $spacing-1;
+                    }
+                    p {
+                        margin-bottom: 0;
+                    }
+                    .date, .username {
+                        font-size: $font-size-mini;
+                        color: $color-black-tint-50;
+                        display: inline;
+
+                        &.username {
+                            margin-left: $spacing-1;
+                        }
+                    }
+
+                    .reply {
+                        margin-top: $spacing-3;
+                    }
+
+                    .reply-list {
+                        margin-top: $spacing-1;
+                        margin-bottom: 0;
+
+                        li {
+                            margin-bottom: $spacing-2;
+                        }
+                    }
+
+                }
+
+            }
+
         }
     }
 
@@ -352,11 +443,43 @@
             }
 
             .comment-list {
-                margin-top: $spacing-5;
+                margin-top: $spacing-6;
+                margin-bottom: $spacing-4;
 
-                .subheading, p {
-                    margin-bottom: $spacing-3;
+                li {
+                    margin-bottom: $spacing-4;
+
+                    .comment {
+
+                        &.comment-existing {
+                            padding-top: calc((48px - #{$font-size-normal} * 1.5) / 2);
+                            min-height: 48px;
+                            &.titled {
+                                padding-top: calc((48px - #{$font-size-medium} * 1.5) / 2);
+                            }
+                        }
+
+                        .subheading {
+                            margin-bottom: $spacing-2;
+                        }
+
+                        .reply {
+                            margin-top: $spacing-4;
+                        }
+
+                        .reply-list {
+                            margin-top: $spacing-2;
+
+                            li {
+                                margin-bottom: $spacing-3;
+                            }
+                        }
+
+                    }
+
                 }
+
+
             }
         }
 
