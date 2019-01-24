@@ -30,7 +30,7 @@
         </template>
         <template v-else>
 
-            <h3 class="subheading">You need to be logged in to write something.</h3>
+            <p>You need to be logged in to write something.</p>
             <router-link tag="button" to="/login" class="button button-primary">Login</router-link>
 
         </template>
@@ -63,7 +63,7 @@
                         </div>
                     </template>
 
-                    <template v-if="commentTree[index][1].length > 0">
+                    <div class="replies" v-if="commentTree[index][1].length > 0">
 
                         <ul class="reply-list">
 
@@ -80,7 +80,7 @@
                         <div v-if="commentTree[index][1].length > situation[0]" class="button-group">
                             <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More Replies</button>
                         </div>
-                    </template>
+                    </div>
 
                 </div>
             </li>
@@ -132,10 +132,6 @@
         watch: {
             sourceId: function() {
                 this.loadComments();
-            },
-            treeSituation() {
-                console.log('watch tree sit');
-                console.log( this.treeSituation );
             }
         },
         computed: {
@@ -195,9 +191,9 @@
 
                     this.commentTitle = '';
                     this.commentText = '';
-                    console.log('comments loaded:');
+                    //console.log('comments loaded:');
                     this.buildCommentTree();
-                    console.log( this.commentTree );
+                    //console.log( this.commentTree );
 
                 });
             },
@@ -208,17 +204,17 @@
                     this.replyTexts = [];
                 }
 
-                console.log('build tree');
+                //console.log('build tree');
                 this.commentTree = [];
                 var unfoundChildren = [];
 
                 for( let i = 0; i < this.comments.length; i++ ) {
 
-                    console.log('comment check');
+                    //console.log('comment check');
 
                     if( this.comments[i].parent === null ) {
 
-                        console.log('has no parent');
+                        //console.log('has no parent');
 
                         this.commentTree.push( [ this.comments[i], [] ] );
 
@@ -233,7 +229,7 @@
                     }
                     else {
 
-                        console.log('has parent');
+                        //console.log('has parent');
                         var parentFound = false;
 
                         for( let j = 0; j < this.commentTree.length; j++ ) {
@@ -245,7 +241,7 @@
                         }
 
                         if( !parentFound ) {
-                            console.log('parent not found');
+                            //console.log('parent not found');
                             unfoundChildren.unshift( this.comments[i] );
                         }
                     }
@@ -253,7 +249,7 @@
 
                 for( let i = unfoundChildren.length-1; i >= 0; i-- ) {
 
-                    console.log('lost child');
+                    //console.log('lost child');
 
                     for( let j = 0; j < this.commentTree.length; j++ ) {
                         if( unfoundChildren[i].parent === this.commentTree[j][0].comment_id ) {
@@ -263,18 +259,18 @@
                     }
 
                 }
-                console.log('comment tree generated');
-                console.log('reply texts');
-                console.log( this.replyTexts );
+                //console.log('comment tree generated');
+                //console.log('reply texts');
+                //console.log( this.replyTexts );
             },
             addChildToTree( parentIndex, child ) {
-                console.log('parent found');
+                //console.log('parent found');
                 this.commentTree[parentIndex][1].push( child );
             },
             giveDateTime(timestamp) {
                 var date = new Date(timestamp);
-                var date_time = date.getHours() +':'+ date.getMinutes() +', '+ date.getDate() +'.'+ date.getMonth()+1 +'.'+ date.getFullYear();
-                console.log( date_time );
+                var date_time =  date.getDate() +'.'+ date.getMonth()+1 +'.'+ date.getFullYear()+', '+ date.getHours() +':'+ (date.getMinutes()<10?'0':'') + date.getMinutes();
+                //console.log( date_time );
                 return date_time;
             },
             showMore() {
@@ -286,8 +282,8 @@
                 this.treeSituation.push( ['dummy object'] );
                 this.treeSituation.pop();
 
-                console.log( 'expand');
-                console.log( this.treeSituation );
+                //console.log( 'expand');
+                //console.log( this.treeSituation );
             },
             showReplyField(index) {
                 this.treeSituation[index][1] = true;
@@ -295,8 +291,8 @@
                 this.treeSituation.push( ['dummy object'] );
                 this.treeSituation.pop();
 
-                console.log( 'show');
-                console.log( this.treeSituation );
+                //console.log( 'show');
+                //console.log( this.treeSituation );
             },
             newComment: function(parentId, index) {
 
@@ -333,11 +329,11 @@
                     };
                 }
 
-                console.log('create: '+ parentId);
+                //console.log('create: '+ parentId);
 
                 this.$store.dispatch('c3s/comments/createComment', comment).then(res => {
 
-                    console.log('new comment created');
+                    //console.log('new comment created');
 
                     this.loadComments();
 
@@ -397,7 +393,7 @@
             margin-bottom: $spacing-3;
 
             li {
-                margin-bottom: $spacing-3;
+                margin-bottom: $spacing-4;
 
                 .comment {
 
@@ -416,7 +412,7 @@
                         margin-bottom: 0;
                     }
                     .date, .username {
-                        font-size: $font-size-mini;
+                        font-size: $font-size-small;
                         color: $color-black-tint-50;
                         display: inline;
 
@@ -429,12 +425,15 @@
                         margin-top: $spacing-3;
                     }
 
-                    .reply-list {
+                    .replies {
                         margin-top: $spacing-1;
-                        margin-bottom: 0;
 
-                        li {
-                            margin-bottom: $spacing-2;
+                        .reply-list {
+                            margin: 0;
+
+                            li {
+                                margin-bottom: $spacing-2;
+                            }
                         }
                     }
 
@@ -458,7 +457,7 @@
                 margin-bottom: $spacing-4;
 
                 li {
-                    margin-bottom: $spacing-4;
+                    margin-bottom: $spacing-5;
 
                     .comment {
 
@@ -478,11 +477,16 @@
                             margin-top: $spacing-4;
                         }
 
-                        .reply-list {
+
+                        .replies {
                             margin-top: $spacing-2;
 
-                            li {
-                                margin-bottom: $spacing-3;
+                            .reply-list {
+                                margin: 0;
+
+                                li {
+                                    margin-bottom: $spacing-3;
+                                }
                             }
                         }
 
