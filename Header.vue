@@ -245,7 +245,7 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 50;
   backface-visibility: hidden;
 
   margin-top: 0px;
