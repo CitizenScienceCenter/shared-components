@@ -479,6 +479,9 @@ header {
           }
         }
 
+        .score {
+          display: none;
+        }
         .button-login {
           display: none;
         }
@@ -777,9 +780,9 @@ header {
           }
 
           .score {
+            display: inline-block;
             margin-left: $spacing-2;
           }
-
           .button-login {
             display: inline-block;
             margin-left: $spacing-2;
