@@ -208,18 +208,18 @@ export default {
     li {
       margin-bottom: $spacing-2;
       position: relative;
-      padding-left: $spacing-3;
-      margin-left: $spacing-1;
+      padding-left: $spacing-4;
 
       &:before {
         content: '';
-        width: 8px;
-        height: 8px;
+        width: 0.5rem;
+        height: 0.5rem;
         background-color: $color-secondary;
         border-radius: 50%;
         position: absolute;
-        top: calc(0.5rem);
-        left: 0;
+        top: 0.5rem;
+        left: 0.5rem;
+        transform: translateY(-1px);
       }
 
       &:last-child {

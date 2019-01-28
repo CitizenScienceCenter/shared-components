@@ -68,7 +68,7 @@
             </svg>
           </div>
 
-          <span v-if="score">{{score}}</span>
+          <div v-if="score" class="score">{{score}}</div>
           <template v-if="!currentUser || isAnon">
             <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
           </template>
@@ -81,7 +81,7 @@
     </div>
 
     <div class="mobile-top-right">
-      <span v-if="score">{{score}}</span>
+      <div v-if="score" class="score">{{score}}</div>
       <template v-if="!currentUser || isAnon">
         <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
       </template>
@@ -349,6 +349,20 @@ header {
     }
   }
 
+  .score {
+    background: $color-secondary;
+    height: 32px;
+    min-width: 32px;
+    line-height: 32px;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    font-size: $font-size-small;
+    font-weight: bold;
+    padding: 0 $spacing-1;
+    border-radius: 16px;
+  }
+
   .navigation-wrapper {
     position: fixed;
     left: 0;
@@ -492,6 +506,10 @@ header {
         height: 24px;
       }
     }
+
+    .score {
+      margin-left: $spacing-1;
+    }
     .button-login {
       padding: 0 $spacing-1;
       height: 32px;
@@ -587,6 +605,7 @@ header {
         height: 36px;
         margin: 14px;
         margin-right: $spacing-2;
+        margin-left: $spacing-1;
       }
       .button-user {
         height: 40px;
@@ -663,6 +682,12 @@ header {
         padding-left: $spacing-2;
         padding-right: $spacing-2;
       }
+    }
+
+    .score {
+      height: 32px;
+      min-width: 32px;
+      line-height: 32px
     }
 
     .navigation-wrapper {
@@ -743,6 +768,10 @@ header {
             svg {
               fill: $color-black;
             }
+          }
+
+          .score {
+            margin-left: $spacing-2;
           }
 
           .button-login {
