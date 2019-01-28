@@ -70,7 +70,10 @@
 
           <div v-if="score" class="score">{{score}}</div>
           <template v-if="!currentUser || isAnon">
-            <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+            <template v-if="!hideLogin" >
+              <router-link v-if="score && score > 0" tag="button" to="/login" class="button button-primary button-login">Register</router-link>
+              <router-link v-else tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+            </template>
           </template>
           <template v-else>
             <user-avatar :username="currentUser.username"></user-avatar>
@@ -83,7 +86,10 @@
     <div class="mobile-top-right">
       <div v-if="score" class="score">{{score}}</div>
       <template v-if="!currentUser || isAnon">
-        <router-link v-if="!hideLogin" tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+        <template v-if="!hideLogin" >
+          <router-link v-if="score && score > 0" tag="button" to="/login" class="button button-primary button-login">Register</router-link>
+          <router-link v-else tag="button" to="/login" class="button button-secondary button-login">{{ $t('login') }}</router-link>
+        </template>
       </template>
       <template v-else>
         <user-avatar :username="currentUser.username"></user-avatar>
