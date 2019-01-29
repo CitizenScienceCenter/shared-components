@@ -1,16 +1,16 @@
 <i18n>
     {
     "de": {
-    "label-email": "Email",
-    "label-password": "Passwort",
-    "button-login": "Anmelden",
-    "button-forgotten": "Passwort vergessen?"
+        "label-email": "Email",
+        "label-password": "Passwort",
+        "button-login": "Anmelden",
+        "button-forgotten": "Passwort vergessen?"
     },
     "en": {
-    "label-email": "Email",
-    "label-password": "Password",
-    "button-login": "Anmelden",
-    "button-forgotten": "Passwort vergessen?"
+        "label-email": "Email",
+        "label-password": "Password",
+        "button-login": "Login",
+        "button-forgotten": "Forgot Password?"
     }
     }
 </i18n>

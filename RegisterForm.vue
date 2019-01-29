@@ -1,16 +1,16 @@
 <i18n>
     {
     "de": {
-    "label-email": "Email",
-    "label-password": "Passwort",
-    "label-password-repeat": "Passwort wiederholen",
-    "button-register": "Registrieren"
+        "label-email": "Email",
+        "label-password": "Passwort",
+        "label-password-repeat": "Passwort wiederholen",
+        "button-register": "Registrieren"
     },
     "en": {
-    "label-email": "Email",
-    "label-password": "Password",
-    "label-password-repeat": "Repeat Password",
-    "button-register": "Register"
+        "label-email": "Email",
+        "label-password": "Password",
+        "label-password-repeat": "Repeat Password",
+        "button-register": "Register"
     }
     }
 </i18n>
@@ -38,7 +38,7 @@
             <span class="error" v-if="errors.match">Passwörter stimmen nicht überein</span>
         </div>
 
-        <button type="submit" class="button button-primary" :disabled="loading">Registrieren</button>
+        <button type="submit" class="button button-primary" :disabled="loading">{{ $t("button-register") }}</button>
         <span class="error" v-if="errors.server">User already exists or server error occurred</span>
     </form>
 
