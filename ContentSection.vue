@@ -169,6 +169,10 @@ export default {
     line-height: 1.5;
     font-weight: 700;
     margin-bottom: $spacing-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
 

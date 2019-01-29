@@ -35,7 +35,7 @@
 
         </template>
 
-        <ul class="comment-list">
+        <ul v-if="treeSituation.length > 0" class="comment-list">
             <li v-if="index < topicsShown" v-for="(situation,index) in treeSituation">
 
                 <div class="comment comment-existing" :class="{'titled':withTitles}">
