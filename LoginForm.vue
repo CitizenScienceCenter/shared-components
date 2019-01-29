@@ -19,12 +19,12 @@
 <template>
     <div>
         <form @submit.prevent="login">
-            <div class="form-field">
+            <div class="form-field form-field-block">
                 <label for="email">{{ $t('label-email') }}</label>
                 <input v-model="email" type="email" name="email" id="email" autocomplete="email" :disabled="loading"/>
             </div>
 
-            <div class="form-field">
+            <div class="form-field form-field-block">
                 <label for="password">{{ $t('label-password') }}</label>
                 <input v-model="password" type="password" id="password" name="password" autocomplete="password"
                        :disabled="loading"/>
@@ -91,9 +91,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-    .form-field {
-        display: block;
-    }
 
 </style>
