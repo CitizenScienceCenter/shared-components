@@ -30,11 +30,12 @@
                        :disabled="loading"/>
             </div>
 
-            <button type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
+            <div class="button-group right-aligned">
+                <button @click="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
+                <button type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
+            </div>
             <span class="error" v-if="error">{{error}}</span>
         </form>
-        <br>
-        <button @click="reset" class="button button-secondary" :disabled="loading">{{ $t('button-forgotten') }}</button>
     </div>
 </template>
 
