@@ -67,6 +67,10 @@ export default {
 
     &.content-section-condensed {
         padding: $spacing-3 0;
+
+      .content-subsection {
+        padding-bottom: $spacing-3;
+      }
     }
     &.content-section-flat {
       padding: 0;
@@ -267,21 +271,6 @@ export default {
     }
   }
 
-  .button-group {
-    margin: -$spacing-1;
-
-    .button {
-      margin: $spacing-1;
-
-      /* probably used in citizenscience.ch & wenker
-
-      &:last-child {
-        margin-right: 0;
-      }
-      */
-    }
-  }
-
   .form-field {
     margin-bottom: $spacing-4;
 
@@ -336,6 +325,11 @@ export default {
 
     &.content-section-condensed {
       padding: $spacing-4 0;
+
+      .content-subsection {
+        padding-bottom: $spacing-4;
+      }
+
     }
 
     .content-subsection {

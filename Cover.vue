@@ -60,7 +60,7 @@ export default {
 @import '@/styles/shared/variables.scss';
 
 .cover {
-  height: 400px;
+  height: 440px;
   background-position: 50% 50%;
   background-size: cover;
   position: relative;
@@ -144,7 +144,7 @@ export default {
       color: white;
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: $spacing-2;
+      margin-bottom: $spacing-1;
     }
 
   }
@@ -186,6 +186,7 @@ export default {
       }
       .cover-subheading {
         font-size: $font-size-normal;
+        margin-bottom: $spacing-2;
       }
     }
 
