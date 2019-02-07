@@ -70,6 +70,9 @@ export default {
 
       .content-subsection {
         padding-bottom: $spacing-3;
+        &:last-of-type {
+          padding-bottom: 0;
+        }
       }
     }
     &.content-section-flat {
@@ -328,12 +331,18 @@ export default {
 
       .content-subsection {
         padding-bottom: $spacing-4;
+        &:last-of-type {
+          padding-bottom: 0;
+        }
       }
 
     }
 
     .content-subsection {
       padding-bottom: $spacing-6;
+      &:last-of-type {
+        padding-bottom: 0;
+      }
     }
 
     .heading {
