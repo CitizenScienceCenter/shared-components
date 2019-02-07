@@ -62,8 +62,9 @@
             color: white;
 
             &.accepted {
-                transition: top $transition-duration-short $transition-timing-function;
+                transition: all $transition-duration-short $transition-timing-function;
                 top: 100%;
+                opacity: 0;
             }
         }
     }

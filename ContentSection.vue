@@ -239,6 +239,10 @@ export default {
     }
   }
 
+  .reduced-bottom-margin {
+    margin-bottom: $spacing-3;
+  }
+
   .anchor-navigation {
     padding: $spacing-2 0;
     label {
@@ -362,10 +366,17 @@ export default {
       &.quote {
         font-size: $font-size-large;
       }
+      &.list-intro {
+        margin-bottom: $spacing-4;
+      }
     }
 
     ul, ol {
       margin-bottom: $spacing-5;
+    }
+
+    .reduced-bottom-margin {
+      margin-bottom: $spacing-4;
     }
 
     .form-field {
