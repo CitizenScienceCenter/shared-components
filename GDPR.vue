@@ -49,6 +49,7 @@
         width: 100%;
         height: 64px;
         pointer-events: none;
+        z-index: 500;
 
         .drawer {
             pointer-events: all;
