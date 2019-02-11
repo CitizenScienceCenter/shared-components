@@ -525,7 +525,7 @@ header {
       margin: $spacing-1;
       font-size: 13px;
     }
-    .button-icon.button-user {
+    .button-user {
       height: 36px;
       width: 36px;
       svg {
