@@ -386,6 +386,10 @@
                 left: 0;
             }
 
+            p, .subheading {
+                white-space: pre-line;
+            }
+
 
         }
         .comment-list {
