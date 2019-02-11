@@ -1,17 +1,32 @@
 <i18n>
     {
-    "de": {
-        "label-email": "Email",
-        "label-password": "Passwort",
-        "label-password-repeat": "Passwort wiederholen",
-        "button-register": "Registrieren"
-    },
+
     "en": {
-        "label-email": "Email",
-        "label-password": "Password",
-        "label-password-repeat": "Repeat Password",
-        "button-register": "Register"
+
+    "label-email": "Email",
+    "label-password": "Password",
+    "label-password-repeat": "Repeat Password",
+    "button-register": "Register",
+
+    "error-empty": "Enter an email address.",
+    "error-len": "Password needs to be at least 8 characters long.",
+    "error-match": "Passwords don't match."
+
+    },
+
+    "de": {
+
+    "label-email": "Email",
+    "label-password": "Passwort",
+    "label-password-repeat": "Passwort wiederholen",
+    "button-register": "Registrieren",
+
+    "error-empty": "Du musst eine E-Mail angeben.",
+    "error-len": "Muss mehr als 8 Zeichen lang sein.",
+    "error-match": "Passwörter stimmen nicht überein."
+
     }
+
     }
 </i18n>
 
@@ -22,41 +37,41 @@
         <div class="form-field form-field-block">
             <label for="reg-email">{{ $t("label-email") }}</label>
             <input v-model="email" type="email" name="email" id="reg-email" autocomplete="email" :disabled="loading"/>
-            <span class="error" v-if="errors.empty">Du musst eine E-Mail angeben.</span>
+            <span class="error" v-if="errors.empty">{{ $t("error-empty") }}</span>
         </div>
 
         <div class="form-field form-field-block">
             <label for="reg-password">{{ $t("label-password") }}</label>
             <input v-model="password" type="password" id="reg-password" name="password" autocomplete="password"
                    :disabled="loading"/>
-            <span class="error" v-if="errors.len">Muss mehr als 8 Zeichen lang sein.</span>
+            <span class="error" v-if="errors.len">{{ $t("error-len") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="reg-password-2">{{ $t("label-password-repeat") }}</label>
             <input v-model="confPassword" type="password" id="reg-password-2" name="password" autocomplete="password"
                    :disabled="loading"/>
-            <span class="error" v-if="errors.match">Passwörter stimmen nicht überein</span>
+            <span class="error" v-if="errors.match">{{ $t("error-match") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="notification-options">Notification Settings</label>
             <div class="options" id="notification-options">
                 <label>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" v-model="checkbox1">
                     <div class="checkbox">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
                         </svg>
                     </div>
-                    <span>I want to receive information about</span>
+                    <span>I want to receive information about this challenge.</span>
                 </label>
                 <label>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" v-model="checkbox2" >
                     <div class="checkbox">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
                         </svg>
                     </div>
-                    <span>I want to receive information about there are many variations of passages of Lorem Ipsum available</span>
+                    <span>I want to receive information about the Citizen Science Center Zurich in general.</span>
                 </label>
             </div>
             <span class="error" v-if="false">Passwörter stimmen nicht überein</span>
@@ -107,6 +122,8 @@
                 email: "",
                 password: "",
                 confPassword: "",
+                checkbox1: true,
+                checkbox2: true,
                 userSaved: false,
                 errors: {
                     empty: false,
@@ -125,7 +142,12 @@
                 if (this.email.length > 0 && this.password.length >= 8 && this.confPassword === this.password) {
                     const user = {
                         email: this.email,
-                        pwd: this.password
+                        pwd: this.password,
+                        info: {
+                            'anonymous': false,
+                            'project-notifications': this.checkbox1,
+                            'center-notifications': this.checkbox2
+                        }
                     };
                     this.$store.dispatch('c3s/user/register', user).then(r => {
                         if (r.ok === true) {
@@ -138,14 +160,20 @@
                     this.errors.match = this.password !== this.confPassword
                     this.errors.len = this.password.length <= 8
                     this.errors.empty = this.email.length === 0
-                    console.log(this.errors.match)
                 }
             }
         }
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+
+
+    @import '@/styles/theme.scss';
+    @import '@/styles/shared/variables.scss';
+
+    .error {
+        color: $color-error;
+    }
 
 </style>
