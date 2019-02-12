@@ -1,17 +1,40 @@
+<i18n>
+    {
+
+    "en": {
+
+    "text": "We use cookies to improve your experience on our sites."
+
+    },
+
+    "de": {
+
+    "text": "Wir verwenden Cookies zur Verbesserung unserer Websites."
+
+    }
+
+    }
+</i18n>
+
+
+
+
 <template>
-    <div class="gdpr">
-        <div class="drawer" :class="{'accepted':gdprAccepted}">
-            <div class="content-wrapper">
+    <div :class="{'accepted':gdprAccepted}" class="gdpr">
+        <div class="content-wrapper">
 
-                <div class="row row-centered">
-                    <div class="col right-aligned">
+            <div class="row row-centered">
+                <div class="col centered">
 
-                        Topping sugar plum cupcake marshmallow croissant gummies. Cake oat cake candy canes candy canes pie.
-                        <button class="button button-primary" @click.prevent="acceptGdpr()">Yes</button>
 
+                    <div class="drawer">
+                        <span>{{ $t('text') }}</span>
+                        <button class="button button-primary" @click.prevent="acceptGdpr()">OK</button>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -29,7 +52,6 @@
         },
         methods: {
             acceptGdpr() {
-                console.log('dispatch');
                 console.log( this.$store );
                 this.$store.dispatch('gdpr/accept');
             }
@@ -47,25 +69,27 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 64px;
         pointer-events: none;
         z-index: 500;
 
         .drawer {
+            display: inline-block;
             pointer-events: all;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background-color: rgba( $color-black, 0.8 );
             color: white;
+            padding: $spacing-1 $spacing-3;
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
 
-            &.accepted {
-                transition: all $transition-duration-short $transition-timing-function;
-                top: 100%;
-                opacity: 0;
+            span {
+                font-size: $font-size-small;
+                margin-right: $spacing-2;
             }
+        }
+
+
+        &.accepted {
+            display: none;
         }
     }
 

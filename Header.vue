@@ -367,6 +367,7 @@ header {
     font-weight: bold;
     padding: 0 $spacing-1;
     border-radius: 16px;
+    pointer-events: none;
   }
 
   .navigation-wrapper {
