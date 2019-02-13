@@ -52,7 +52,6 @@
         },
         methods: {
             acceptGdpr() {
-                console.log( this.$store );
                 this.$store.dispatch('gdpr/accept');
             }
         }

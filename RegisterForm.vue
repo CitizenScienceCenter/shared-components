@@ -33,23 +33,21 @@
 
 <template>
 
-    <form @submit.prevent="register">
+    <form @submit.prevent="register" autocomplete="off">
         <div class="form-field form-field-block">
             <label for="reg-email">{{ $t("label-email") }}</label>
-            <input v-model="email" type="email" name="email" id="reg-email" autocomplete="email" :disabled="loading"/>
+            <input v-model="email" type="email" name="email" id="reg-email" autocomplete="off" :disabled="loading" />
             <span class="error" v-if="errors.empty">{{ $t("error-empty") }}</span>
         </div>
 
         <div class="form-field form-field-block">
             <label for="reg-password">{{ $t("label-password") }}</label>
-            <input v-model="password" type="password" id="reg-password" name="password" autocomplete="password"
-                   :disabled="loading"/>
+            <input v-model="password" type="password" id="reg-password" name="password" autocomplete="off" :disabled="loading"/>
             <span class="error" v-if="errors.len">{{ $t("error-len") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="reg-password-2">{{ $t("label-password-repeat") }}</label>
-            <input v-model="confPassword" type="password" id="reg-password-2" name="password" autocomplete="password"
-                   :disabled="loading"/>
+            <input v-model="confPassword" type="password" id="reg-password-2" name="password" autocomplete="off" :disabled="loading"/>
             <span class="error" v-if="errors.match">{{ $t("error-match") }}</span>
         </div>
         <div class="form-field form-field-block">
