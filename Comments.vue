@@ -1,28 +1,65 @@
+<i18n>
+    {
+
+    "en": {
+
+    "newtopic-heading": "Start a new Topic",
+    "newtopic-title-placeholder": "Topic Title",
+    "newtopic-text-placeholder": "What's on your mind?",
+    "newtopic-button": "Send",
+
+    "login-text": "You need to be logged in to write something.",
+    "login-button": "Login",
+
+    "reply-button": "Reply",
+    "reply-placeholder": "Reply",
+
+    "more-replies-button": "Show More Replies",
+    "more-comments-button": "Show More Comments"
+
+    },
+    "de": {
+
+    "newtopic-heading": "Starte ein neues Thema",
+    "newtopic-title-placeholder": "Titel",
+    "newtopic-text-placeholder": "Was liegt dir auf dem Herzen?",
+    "newtopic-button": "Senden",
+
+    "login-text": "Du musst eingeloggt sein um etwas zu schreiben.",
+    "login-button": "Anmelden",
+
+    "reply-button": "Antworten",
+    "reply-placeholder": "Antwort",
+
+
+    "more-replies-button": "Mehr Antworten zeigen",
+    "more-comments-button": "Mehr Kommentare zeigen"
+
+    }
+
+    }
+</i18n>
+
 <template>
     <div class="comments">
 
         <template v-if="!user.isAnon">
 
-            <template v-if="withTitles">
-                <h3 class="subheading">Start a new Topic</h3>
-            </template>
+            <h3 class="subheading">{{ $t('newtopic-heading') }}</h3>
 
             <div class="comment">
 
                 <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
 
-                <template v-if="withTitles">
-                    <div class="form-field">
-                        <growing-textarea v-model="commentTitle" placeholder="Topic Title" fat></growing-textarea>
-                    </div>
-                </template>
                 <div class="form-field">
-                    <growing-textarea v-model="commentText" placeholder="What's on your mind?"></growing-textarea>
+                    <growing-textarea v-model="commentTitle" :placeholder="$t('newtopic-title-placeholder')" fat></growing-textarea>
+                </div>
+                <div class="form-field">
+                    <growing-textarea v-model="commentText" :placeholder="$t('newtopic-text-placeholder')"></growing-textarea>
                 </div>
 
                 <div class="button-group right-aligned">
-                    <button v-if="withTitles" :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
-                    <button v-else :disabled="commentText === ''" class="button button-primary" @click="newComment()">Comment</button>
+                    <button :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">{{ $t('newtopic-button') }}</button>
                 </div>
 
             </div>
@@ -30,35 +67,35 @@
         </template>
         <template v-else>
 
-            <p>You need to be logged in to write something.</p>
-            <router-link tag="button" to="/login" class="button button-primary">Login</router-link>
+            <p>{{ $t('login-text') }}</p>
+            <router-link tag="button" to="/login" class="button button-primary">{{ $t('login-button') }}</router-link>
 
         </template>
 
         <ul v-if="treeSituation.length > 0" class="comment-list">
             <li v-if="index < topicsShown" v-for="(situation,index) in treeSituation">
 
-                <div class="comment comment-existing" :class="{'titled':withTitles}">
+                <div class="comment comment-existing withTitles">
 
                     <user-avatar class="avatar" :username="commentTree[index][0].username"></user-avatar>
 
-                    <h3 class="subheading" v-if="withTitles">{{ commentTree[index][0].content.title }}</h3>
+                    <h3 class="subheading">{{ commentTree[index][0].content.title }}</h3>
                     <p>{{ commentTree[index][0].content.text }}</p>
                     <span class="date">{{ giveDateTime(commentTree[index][0].comment_created) }}</span>
                     <span class="username">by {{ commentTree[index][0].username }}</span>
 
                     <template v-if="!user.isAnon">
                         <div v-if="!situation[1]" class="button-group right-aligned">
-                            <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">Reply</button>
+                            <button @click.prevent="showReplyField(index)" class="button button-secondary button-secondary-naked">{{ $t('reply-button') }}</button>
                         </div>
                         <div v-else class="comment reply">
                             <user-avatar class="avatar" :username="user.currentUser.username"></user-avatar>
 
                             <div class="form-field">
-                                <growing-textarea v-model="replyTexts[index]" placeholder="Reply"></growing-textarea>
+                                <growing-textarea v-model="replyTexts[index]" :placeholder="$t('reply-placeholder')"></growing-textarea>
                             </div>
                             <div class="button-group right-aligned">
-                                <button :disabled="replyTexts[index].length === 0" class="button button-primary" @click="newComment(commentTree[index][0].comment_id, index)">Reply</button>
+                                <button :disabled="replyTexts[index].length === 0" class="button button-primary" @click="newComment(commentTree[index][0].comment_id, index)">{{ $t('reply-button') }}</button>
                             </div>
                         </div>
                     </template>
@@ -78,7 +115,7 @@
 
                         </ul>
                         <div v-if="commentTree[index][1].length > situation[0]" class="button-group">
-                            <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">Show More Replies</button>
+                            <button @click.prevent="expand(index)" class="button button-secondary button-secondary-naked">{{ $t('more-replies-button') }}</button>
                         </div>
                     </div>
 
@@ -86,7 +123,7 @@
             </li>
         </ul>
         <div v-if="commentTree.length > topicsShown" class="button-group">
-            <button @click.prevent="showMore()" class="button button-secondary">Show more comments</button>
+            <button @click.prevent="showMore()" class="button button-secondary">{{ $t('more-comments-button') }}</button>
         </div>
 
     </div>
@@ -123,10 +160,6 @@
             sourceId: {
               type: String,
               default: null
-            },
-            withTitles: {
-                type: Boolean,
-                default: false
             }
         },
         watch: {

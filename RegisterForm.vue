@@ -10,7 +10,11 @@
 
     "error-empty": "Enter an email address.",
     "error-len": "Password needs to be at least 8 characters long.",
-    "error-match": "Passwords don't match."
+    "error-match": "Passwords don't match.",
+
+    "notifications-label": "Notifications",
+    "notifications-option-1": "I want to receive information about this challenge.",
+    "notifications-option-2": "I want to receive information about the Citizen Science Center Zurich in general."
 
     },
 
@@ -23,7 +27,11 @@
 
     "error-empty": "Du musst eine E-Mail angeben.",
     "error-len": "Muss mehr als 8 Zeichen lang sein.",
-    "error-match": "Passwörter stimmen nicht überein."
+    "error-match": "Passwörter stimmen nicht überein.",
+
+    "notifications-label": "Benachrichtigungen",
+    "notifications-option-1": "Ich möchte über die Challenge informiert werden.",
+    "notifications-option-2": "Ich möchte Informationen zum Citizen Science Center Zurich erhalten."
 
     }
 
@@ -51,7 +59,7 @@
             <span class="error" v-if="errors.match">{{ $t("error-match") }}</span>
         </div>
         <div class="form-field form-field-block">
-            <label for="notification-options">Notification Settings</label>
+            <label for="notification-options">{{ $t("notifications-label") }}</label>
             <div class="options" id="notification-options">
                 <label>
                     <input type="checkbox" v-model="checkbox1">
@@ -60,7 +68,7 @@
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
                         </svg>
                     </div>
-                    <span>I want to receive information about this challenge.</span>
+                    <span>{{ $t("notifications-option-1") }}</span>
                 </label>
                 <label>
                     <input type="checkbox" v-model="checkbox2" >
@@ -69,7 +77,7 @@
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
                         </svg>
                     </div>
-                    <span>I want to receive information about the Citizen Science Center Zurich in general.</span>
+                    <span>{{ $t("notifications-option-2") }}</span>
                 </label>
             </div>
             <span class="error" v-if="false">Passwörter stimmen nicht überein</span>
