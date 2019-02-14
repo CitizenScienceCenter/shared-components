@@ -62,7 +62,7 @@ export default {
 
 .content-section {
   position: relative;
-  padding: $spacing-6 0;
+  padding: $spacing-5 0;
   background: white;
 
     &.content-section-condensed {
@@ -321,7 +321,15 @@ export default {
 @media only screen and (min-width: $viewport-mobile-large) {
 
   .content-section {
+    padding: $spacing-5 0;
 
+    &.content-section-condensed {
+      padding: $spacing-3 0;
+
+      .content-subsection {
+        padding-bottom: $spacing-3;
+      }
+    }
   }
 
 }
@@ -329,6 +337,7 @@ export default {
 @media only screen and (min-width: $viewport-tablet-portrait) {
 
   .content-section {
+    padding: $spacing-6 0;
 
     &.content-section-condensed {
       padding: $spacing-4 0;

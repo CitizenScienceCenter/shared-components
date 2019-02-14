@@ -262,7 +262,7 @@ export default {
 @media only screen and (min-width: $viewport-xlarge) {
   .cover {
 
-    height: 640px;
+    height: 600px;
 
     .content-wrapper {
       .cover-heading {
