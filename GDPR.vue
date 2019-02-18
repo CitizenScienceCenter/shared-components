@@ -92,4 +92,18 @@
         }
     }
 
+
+    @media only screen and (min-width: $viewport-tablet-portrait) {
+
+        .gdpr {
+            .drawer {
+                button {
+                    height: 40px;
+                    padding: 0 20px;
+                }
+            }
+        }
+
+    }
+
 </style>

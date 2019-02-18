@@ -386,6 +386,9 @@
     .comments {
 
 
+        min-height: 50vh;
+
+
         .button-secondary-naked {
             padding: 0;
         }
