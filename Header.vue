@@ -23,7 +23,7 @@
     </template>
 
     <template v-else>
-      <a href="https://citizenscience.ch" class="home-link home-link-platform">
+      <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
       <router-link to="/" class="home-link home-link-project" active-class="active" exact>
@@ -94,7 +94,7 @@
       <template v-else>
         <user-avatar :username="currentUser.username"></user-avatar>
       </template>
-      <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform">
+      <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
     </div>
