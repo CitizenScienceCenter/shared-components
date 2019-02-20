@@ -15,7 +15,7 @@
       <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
 
-    <img v-if="!logoUrl" class="bottom-right-logo" src="@/assets/shared/bottom-right-logo-white.svg" />
+    <img v-if="!logoUrl" class="bottom-right-logo" src="@/assets/shared/sdg-logo-white.svg" />
     <img v-else class="bottom-right-logo" :src="logoUrl" />
     <div class="cover-overlay"></div>
   </section>
