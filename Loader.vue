@@ -38,12 +38,26 @@
                 height: $spacing-1;
                 border-radius: 50%;
 
+                transition: all $transition-duration-short $transition-timing-function;
+
+                @keyframes pulse {
+                    0%   { transform: scale(1) }
+                    30% { transform: scale(1.5) }
+                    60%   { transform: scale(1) }
+                    100% { transform: scale(1) }
+                }
+                animation-name: pulse;
+                animation-duration: 1s;
+                animation-iteration-count: infinite;
+                animation-timing-function: $transition-timing-function;
+
                 &.head-1 {
                     background-color: $color-primary;
                     margin-right: $spacing-1;
                 }
                 &.head-2 {
                     background-color: $color-secondary;
+                    animation-delay: 0.2s;
                 }
             }
         }
