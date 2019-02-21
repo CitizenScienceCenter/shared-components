@@ -18,7 +18,7 @@
 
 <template>
     <div>
-        <form @submit.prevent="login">
+        <form>
             <div class="form-field form-field-block">
                 <label for="email">{{ $t('label-email') }}</label>
                 <input v-model="email" type="email" name="email" id="email" autocomplete="email" :disabled="loading"/>
@@ -31,8 +31,8 @@
             </div>
 
             <div class="button-group right-aligned">
-                <button @click="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
-                <button type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
+                <button @click.prevent="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
+                <button @click.prevent="login" type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
             </div>
             <span class="message error" v-if="error">{{error}}</span>
         </form>
