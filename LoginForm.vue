@@ -34,7 +34,7 @@
                 <button @click="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
                 <button type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
             </div>
-            <span class="error" v-if="error">{{error}}</span>
+            <span class="message error" v-if="error">{{error}}</span>
         </form>
     </div>
 </template>
