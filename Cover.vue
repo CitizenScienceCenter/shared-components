@@ -15,7 +15,8 @@
       <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
 
-    <img class="sdg-logo" src="@/assets/shared/sdg-logo-white.svg"/>
+    <img v-if="!logoUrl" class="bottom-right-logo" src="@/assets/shared/sdg-logo-white.svg" />
+    <img v-else class="bottom-right-logo" :src="logoUrl" />
     <div class="cover-overlay"></div>
   </section>
 </template>
@@ -24,7 +25,8 @@
 export default {
   name: 'Cover',
   props: {
-    'imageUrl': String
+    'imageUrl': String,
+    'logoUrl': String
   },
   methods: {
     openInNewTab: function(url) {
@@ -113,7 +115,7 @@ export default {
     }
   }
 
-  .sdg-logo {
+  .bottom-right-logo {
     height: 32px;
     position: absolute;
     bottom: $spacing-2;
@@ -164,7 +166,7 @@ export default {
 
   &.subpage {
     height: 64px;
-    .sdg-logo {
+    .bottom-right-logo {
       display: none;
     }
     .cover-heading, .cover-subheading {
@@ -207,7 +209,7 @@ export default {
         height: 36px;
       }
     }
-    .sdg-logo {
+    .bottom-right-logo {
       height: 40px;
       bottom: $spacing-3;
       right: $spacing-3;
@@ -238,7 +240,7 @@ export default {
         height: 48px;
       }
     }
-    .sdg-logo {
+    .bottom-right-logo {
       height: 48px;
       bottom: $spacing-3;
       right: $spacing-3;

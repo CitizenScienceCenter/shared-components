@@ -6,6 +6,8 @@
     "label-email": "Email",
     "label-password": "Password",
     "label-password-repeat": "Repeat Password",
+    "label-region": "Your Region",
+
     "button-register": "Register",
 
     "error-empty": "Enter an email address.",
@@ -23,7 +25,7 @@
     "label-email": "Email",
     "label-password": "Passwort",
     "label-password-repeat": "Passwort wiederholen",
-    "button-register": "Registrieren",
+    "label-region": "Deine Region",
 
     "error-empty": "Du musst eine E-Mail angeben.",
     "error-len": "Muss mehr als 8 Zeichen lang sein.",
@@ -45,18 +47,17 @@
         <div class="form-field form-field-block">
             <label for="reg-email">{{ $t("label-email") }}</label>
             <input v-model="email" type="email" id="reg-email" name="reg-email" autocomplete="new-password" :disabled="loading" />
-            <span class="error" v-if="errors.empty">{{ $t("error-empty") }}</span>
+            <span class="message error" v-if="errors.empty">{{ $t("error-empty") }}</span>
         </div>
-
         <div class="form-field form-field-block">
             <label for="reg-password">{{ $t("label-password") }}</label>
             <input v-model="password" type="password" id="reg-password" name="reg-password" autocomplete="new-password" :disabled="loading"/>
-            <span class="error" v-if="errors.len">{{ $t("error-len") }}</span>
+            <span class="message error" v-if="errors.len">{{ $t("error-len") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="reg-password-2">{{ $t("label-password-repeat") }}</label>
             <input v-model="confPassword" type="password" id="reg-password-2" name="reg-password-2" autocomplete="new-password" :disabled="loading"/>
-            <span class="error" v-if="errors.match">{{ $t("error-match") }}</span>
+            <span class="message error" v-if="errors.match">{{ $t("error-match") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="notification-options">{{ $t("notifications-label") }}</label>
@@ -80,7 +81,7 @@
                     <span>{{ $t("notifications-option-2") }}</span>
                 </label>
             </div>
-            <span class="error" v-if="false">Passwörter stimmen nicht überein</span>
+            <span class="message error" v-if="false">Passwörter stimmen nicht überein</span>
         </div>
         <!--
         <div class="form-field form-field-block">
@@ -105,14 +106,14 @@
                     <span>I want to receive information about</span>
                 </label>
             </div>
-            <span class="error" v-if="false">Passwörter stimmen nicht überein</span>
+            <span class="message error" v-if="false">Passwörter stimmen nicht überein</span>
         </div>
         -->
 
         <div class="button-group right-aligned">
             <button type="submit" class="button button-primary" :disabled="loading">{{ $t("button-register") }}</button>
         </div>
-        <span class="error" v-if="errors.server">User already exists or server error occurred</span>
+        <span class="message error" v-if="errors.server">User already exists or server error occurred</span>
     </form>
 
 </template>
