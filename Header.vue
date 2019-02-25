@@ -686,6 +686,7 @@ header {
 
       &.home-link-project {
         //border-right: 1px solid $color-black-tint-90;
+        padding: $spacing-2 $spacing-3;
 
         h1 {
           line-height: 24px;
