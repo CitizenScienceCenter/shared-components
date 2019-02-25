@@ -116,7 +116,7 @@ export default {
   }
 
   .bottom-right-logo {
-    height: 32px;
+    height: 28px;
     position: absolute;
     bottom: $spacing-2;
     right: $spacing-2;
@@ -210,7 +210,7 @@ export default {
       }
     }
     .bottom-right-logo {
-      height: 40px;
+      height: 36px;
       bottom: $spacing-3;
       right: $spacing-3;
     }
