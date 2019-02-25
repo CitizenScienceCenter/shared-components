@@ -23,12 +23,15 @@
     </template>
 
     <template v-else>
-      <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
-        <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
-      </a>
       <router-link to="/" class="home-link home-link-project" active-class="active" exact>
         <h1 v-html="projectName"></h1>
       </router-link>
+      <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
+        <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
+      </a>
+      <a v-if="cyberlabLogo" href="http://www.citizencyberlab.org/" class="home-link home-link-platform" target="_blank">
+        <img alt="Citizen Cyberlab" class="logo" src="@/assets/shared/cyberlab-logo.png"/>
+      </a>
     </template>
 
     <div class="navigation-wrapper" :class="{ 'active': menuOn }">
@@ -110,7 +113,11 @@ export default {
   name: "Header",
     components: {UserAvatar},
     props: {
-      projectName: undefined,
+        projectName: undefined,
+        cyberlabLogo: {
+            type: Boolean,
+            default: false
+        },
       hideLogin: Boolean,
         languages: {
           type: Array,
@@ -674,11 +681,11 @@ header {
       display: block;
 
       .logo {
-        height: 48px;
+        height: 40px;
       }
 
       &.home-link-project {
-        border-left: 1px solid $color-black-tint-90;
+        //border-right: 1px solid $color-black-tint-90;
 
         h1 {
           line-height: 24px;
@@ -689,9 +696,10 @@ header {
       &.home-link-platform {
         display: inline-block;
         position: relative;
-        padding-left: $spacing-2;
-        padding-right: $spacing-2;
+        margin-left: $spacing-2;
+        padding: 20px 0;
       }
+
     }
 
     .score {
