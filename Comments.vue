@@ -220,7 +220,7 @@
                 };
 
 
-                this.$store.dispatch('c3s/media/getMedia', [query, 'c3s/comments/SET_COMMENTS', 0] ).then(res => {
+                this.$store.dispatch('c3s/media/getMedia', [query, 'c3s/comments/SET_COMMENTS', 9999] ).then(res => {
 
                     this.commentTitle = '';
                     this.commentText = '';
