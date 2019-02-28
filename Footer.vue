@@ -13,8 +13,15 @@
 
 <template>
   <footer class="footer">
-    <div class="logo-wrapper">
-      <img src="@/assets/shared/logo-white.svg">
+    <div v-if="!platform" class="logo-wrapper">
+      <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
+        <img src="@/assets/shared/logo-white.svg">
+      </a>
+    </div>
+    <div v-else class="logo-wrapper">
+      <router-link to="/" class="home-link" active-class="active" exact>
+        <img src="@/assets/shared/logo-white.svg">
+      </router-link>
     </div>
     <div class="uzh-eth">
       <span v-if="this.$i18n.locale === 'en'">A joint initiative by</span>
@@ -102,6 +109,12 @@
 <script>
 export default {
   name: 'Footer',
+    props: {
+      platform: {
+          type: Boolean,
+          default: false
+      }
+    },
   methods: {
     openInNewTab: function(url) {
       var win = window.open(url, '_blank');
