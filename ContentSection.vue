@@ -205,7 +205,7 @@ export default {
       font-style: italic;
       margin-bottom: $spacing-2;
     }
-    &.list-intro {
+    &.list-intro, &.reduced-bottom-margin {
       margin-bottom: $spacing-3;
     }
   }
@@ -375,7 +375,7 @@ export default {
       &.quote {
         font-size: $font-size-large;
       }
-      &.list-intro {
+      &.list-intro, &.reduced-bottom-margin {
         margin-bottom: $spacing-4;
       }
     }
