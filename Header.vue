@@ -681,7 +681,7 @@ header {
       display: block;
 
       .logo {
-        height: 40px;
+        height: 48px;
       }
 
       &.home-link-project {
@@ -699,6 +699,10 @@ header {
         position: relative;
         margin-left: $spacing-2;
         padding: 20px 0;
+
+        .logo {
+          height: 40px;
+        }
       }
 
     }
