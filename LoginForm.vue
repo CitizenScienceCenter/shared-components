@@ -21,18 +21,18 @@
         <form>
             <div class="form-field form-field-block">
                 <label for="email">{{ $t('label-email') }}</label>
-                <input v-model="email" type="email" name="email" id="email" autocomplete="email" :disabled="loading"/>
+                <input tabindex="90" v-model="email" type="email" name="email" id="email" autocomplete="email" :disabled="loading"/>
             </div>
 
             <div class="form-field form-field-block">
                 <label for="password">{{ $t('label-password') }}</label>
-                <input v-model="password" type="password" id="password" name="password" autocomplete="password"
+                <input tabindex="91" v-model="password" type="password" id="password" name="password" autocomplete="password"
                        :disabled="loading"/>
             </div>
 
             <div class="button-group right-aligned">
-                <button @click.prevent="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
-                <button @click.prevent="login" type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
+                <button tabindex="93" @click.prevent="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</button>
+                <button tabindex="92" @click.prevent="login" type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
             </div>
             <span class="message error" v-if="error">{{error}}</span>
         </form>

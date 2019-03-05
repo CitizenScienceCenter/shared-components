@@ -239,6 +239,41 @@ export default {
     }
   }
 
+  table {
+    margin-bottom: $spacing-4;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    width: 100%;
+    tr {
+      margin:0;
+      padding:0;
+      th, td {
+        margin:0;
+
+        padding: 0 $spacing-1;
+        &:first-child {
+          padding-left: 0;
+          width:1%;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+
+      th {
+        text-align: left;
+        font-size: $font-size-small;
+        color: $color-secondary;
+        padding-bottom: $spacing-1;
+      }
+      td {
+
+      }
+    }
+  }
+
   .reduced-bottom-margin {
     margin-bottom: $spacing-3;
   }
@@ -380,7 +415,7 @@ export default {
       }
     }
 
-    ul, ol {
+    ul, ol, table {
       margin-bottom: $spacing-5;
     }
 
