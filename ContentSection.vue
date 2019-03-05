@@ -438,6 +438,10 @@ export default {
       left: auto;
       pointer-events: none;
 
+      img {
+        width: 100%;
+      }
+
       &.background-wrapper-move-right {
         left: 33.333%;
       }
