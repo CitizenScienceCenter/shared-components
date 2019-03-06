@@ -189,9 +189,6 @@ export default {
     .linebreak {
       display: block;
     }
-    &:last-child {
-      margin-bottom: 0;
-    }
 
 
     &.lead {
@@ -207,6 +204,11 @@ export default {
     }
     &.list-intro, &.reduced-bottom-margin {
       margin-bottom: $spacing-3;
+    }
+
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -255,7 +257,6 @@ export default {
         padding: 0 $spacing-1;
         &:first-child {
           padding-left: 0;
-          width:1%;
         }
         &:last-child {
           padding-right: 0;
@@ -412,6 +413,10 @@ export default {
       }
       &.list-intro, &.reduced-bottom-margin {
         margin-bottom: $spacing-4;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
 
