@@ -58,6 +58,11 @@
 
           <ul class="navigation">
             <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
+            <li v-if="!projectName">
+              <a href="https://citizensciencezurich.blog/" target="_blank">
+                <span>Blog</span>
+              </a>
+            </li>
           </ul>
 
           <div class="custom-select language-select">
@@ -466,6 +471,7 @@ header {
                   color: $color-black-tint-90;
                 }
               }
+
             }
           }
         }
