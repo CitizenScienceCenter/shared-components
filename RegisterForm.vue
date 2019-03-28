@@ -11,8 +11,10 @@
     "button-register": "Register",
 
     "error-empty": "Enter an email address.",
+    "error-username": "Username already in use.",
     "error-len": "Password needs to be at least 8 characters long.",
     "error-match": "Passwords don't match.",
+    "error-server": "Email already in use.",
 
     "notifications-label": "Notifications",
     "notifications-option-1": "I want to receive information about the Citizen Science Center Zurich."
@@ -27,8 +29,10 @@
     "label-region": "Deine Region",
 
     "error-empty": "Du musst eine E-Mail angeben.",
+    "error-username": "Benuterzname bereits vergeben.",
     "error-len": "Muss mehr als 8 Zeichen lang sein.",
     "error-match": "Passwörter stimmen nicht überein.",
+    "error-server": "Email bereits registriert.",
 
     "notifications-label": "Benachrichtigungen",
     "notifications-option-1": "Ich möchte Informationen zum Citizen Science Center Zurich erhalten."
@@ -46,6 +50,11 @@
             <label for="reg-email">{{ $t("label-email") }}</label>
             <input v-model="email" type="email" id="reg-email" name="reg-email" autocomplete="new-password" :disabled="loading" />
             <span class="message error" v-if="errors.empty">{{ $t("error-empty") }}</span>
+        </div>
+        <div class="form-field form-field-block">
+            <label for="reg-username">Username</label>
+            <input v-model="username" id="reg-username" name="reg-email" autocomplete="new-password" :disabled="loading" />
+            <span class="message error" v-if="errors.username">{{ $t("error-username") }}</span>
         </div>
         <div class="form-field form-field-block">
             <label for="reg-password">{{ $t("label-password") }}</label>
@@ -70,7 +79,6 @@
                     <span>{{ $t("notifications-option-1") }}</span>
                 </label>
             </div>
-            <span class="message error" v-if="false">Passwörter stimmen nicht überein</span>
         </div>
         <!--
         <div class="form-field form-field-block">
@@ -102,7 +110,15 @@
         <div class="button-group right-aligned">
             <button type="submit" class="button button-primary" :disabled="loading">{{ $t("button-register") }}</button>
         </div>
-        <span class="message error" v-if="errors.server">User already exists or server error occurred</span>
+
+        <div class="form-message form-message-error" v-if="errors.server">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M322.72,256,422.79,155.93a31.46,31.46,0,0,0,0-44.48L400.55,89.21a31.46,31.46,0,0,0-44.48,0L256,189.28,155.93,89.21a31.46,31.46,0,0,0-44.48,0L89.21,111.45a31.46,31.46,0,0,0,0,44.48L189.28,256,89.21,356.07a31.46,31.46,0,0,0,0,44.48l22.24,22.24a31.46,31.46,0,0,0,44.48,0L256,322.72,356.07,422.79a31.46,31.46,0,0,0,44.48,0l22.24-22.24a31.46,31.46,0,0,0,0-44.48Z"></path>
+                </svg>
+            </div>
+            <span class="text">{{ $t("error-server") }}</span>
+        </div>
     </form>
 
 </template>
@@ -116,12 +132,14 @@
             return {
                 msg: "Sign up for an account",
                 email: "",
+                username: '',
                 password: "",
                 confPassword: "",
                 checkbox1: true,
                 userSaved: false,
                 errors: {
                     empty: false,
+                    username: false,
                     match: false,
                     len: false,
                     server: false
@@ -131,23 +149,61 @@
         computed: mapState({
             loading: state => state.settings.loading
         }),
+        watch: {
+            email() {
+                this.username = this.email.split('@')[0];
+            }
+        },
         methods: {
             register() {
                 this.errors.server = false;
+                this.errors.username = false;
                 if (this.email.length > 0 && this.password.length >= 8 && this.confPassword === this.password) {
                     const user = {
                         email: this.email,
+                        username: this.username,
                         pwd: this.password,
                         info: {
                             'anonymous': false,
                             'project-notifications': this.checkbox1
                         }
                     };
+
                     this.$store.dispatch('c3s/user/register', user).then(r => {
+
                         if (r.ok === true) {
-                            this.$router.push({name: 'Home'})
-                        } else {
-                            this.errors.server = true
+                            this.$router.push('/');
+                        }
+                        else {
+
+                            let query = {
+                                'select': {
+                                    'fields': [
+                                        '*'
+                                    ],
+                                    'tables': [
+                                        'users'
+                                    ]
+                                },
+                                'where': [
+                                    {
+                                        "field": 'email',
+                                        'op': 'e',
+                                        'val': this.email
+                                    }
+                                ]
+                            };
+                            this.$store.dispatch('c3s/submission/getSubmissions', [query, 1] ).then(res => {
+                                if( res.body.length > 0 ) {
+                                    // email already registered
+                                    this.errors.server = true;
+                                }
+                                else {
+                                    this.errors.username = true;
+                                }
+
+                                this.$store.commit('c3s/user/SET_ANON', true);
+                            });
                         }
                     })
                 } else {

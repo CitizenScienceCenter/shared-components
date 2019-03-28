@@ -279,7 +279,7 @@ export default {
     margin-bottom: $spacing-3;
   }
 
-  .anchor-navigation {
+  .anchor-navigation, .sub-navigation {
     padding: $spacing-2 0;
     label {
       display: block;
@@ -308,6 +308,10 @@ export default {
             &:hover {
               color: $color-black;
             }
+          }
+
+          &.active {
+            color: $color-black;
           }
         }
       }
@@ -432,7 +436,7 @@ export default {
       margin-bottom: $spacing-5;
     }
 
-    .anchor-navigation {
+    .anchor-navigation, .sub-navigation {
 
       label {
         line-height: 48px;
@@ -502,7 +506,7 @@ export default {
       font-size: $font-size-xlarge;
     }
 
-    .anchor-navigation {
+    .anchor-navigation, .sub-navigation {
 
       text-align: center;
       label {
