@@ -760,7 +760,7 @@ header {
               a {
                 color: $color-black;
                 height: 80px;
-                padding: 28px $spacing-2;
+                padding: 28px 10px;
                 &:active {
                   color: $color-primary;
                 }
@@ -779,11 +779,12 @@ header {
 
           .language-select {
             margin: $spacing-2 0;
-            margin-left: $spacing-1;
 
             select {
               color: $color-black;
               border-color: transparent;
+              padding-left: $spacing-1;
+              padding-right: $spacing-3;
 
               &:active {
                 color: $color-primary;
@@ -807,8 +808,8 @@ header {
           }
           .button-login {
             display: inline-block;
-            margin-left: $spacing-2;
-            padding: 0 $spacing-2;
+            margin-left: $spacing-1;
+            padding: 0 $spacing-1;
           }
 
           .button-user {
@@ -856,6 +857,21 @@ header {
               }
             }
           }
+
+          .language-select {
+            margin-left: $spacing-1;
+            select {
+              padding-left: 12px;
+              padding-right: $spacing-4;
+            }
+          }
+
+
+          .button-login {
+            margin-left: $spacing-2;
+            padding: 0 $spacing-2;
+          }
+
 
         }
       }

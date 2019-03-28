@@ -134,7 +134,9 @@ export default {
     }
     .heading {
       color: white;
-
+    }
+    .quote {
+      color: white;
     }
   }
 
@@ -201,6 +203,7 @@ export default {
       font-size: $font-size-medium;
       font-style: italic;
       margin-bottom: $spacing-2;
+      color: $color-secondary;
     }
     &.list-intro, &.reduced-bottom-margin {
       margin-bottom: $spacing-3;
