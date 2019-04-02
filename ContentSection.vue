@@ -282,45 +282,6 @@ export default {
     margin-bottom: $spacing-3;
   }
 
-  .anchor-navigation, .sub-navigation {
-    padding: $spacing-2 0;
-    label {
-      display: block;
-      line-height: 40px;
-      font-weight: 700;
-    }
-    ul {
-      li {
-        margin: 0;
-        padding: 0;
-
-        &:before {
-          display: none;
-        }
-        a {
-          display: block;
-          font-size: $font-size-small;
-          color: $color-black-tint-50;
-          cursor: pointer;
-          line-height: 40px;
-
-          &:active {
-            color: $color-black;
-          }
-          @media (hover: hover) {
-            &:hover {
-              color: $color-black;
-            }
-          }
-
-          &.active {
-            color: $color-black;
-          }
-        }
-      }
-    }
-  }
-
   .form-field {
     margin-bottom: $spacing-4;
 
@@ -439,20 +400,6 @@ export default {
       margin-bottom: $spacing-5;
     }
 
-    .anchor-navigation, .sub-navigation {
-
-      label {
-        line-height: 48px;
-      }
-      ul {
-        li {
-          a {
-            line-height: 48px;
-          }
-        }
-      }
-    }
-
   }
 
 }
@@ -507,24 +454,6 @@ export default {
 
     .heading {
       font-size: $font-size-xlarge;
-    }
-
-    .anchor-navigation, .sub-navigation {
-
-      text-align: center;
-      label {
-        display: none;
-      }
-      ul {
-        display: inline-block;
-        li {
-          display: inline-block;
-          margin-right: $spacing-4;
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-      }
     }
 
   }

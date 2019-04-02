@@ -57,7 +57,7 @@
 
         <div class="drawer-content">
 
-          <ul class="navigation">
+          <ul class="navigation" ref="navigation">
             <!--<li v-for="route in routes" v-if="route.meta.nav == true">-->
             <router-link tag="li" v-for="route in routes" v-if="route.meta.nav == true" :to="route.path" active-class="active" @click.native="hideMenu">
               <!-- <router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.i18n+'.link') }}</span></router-link> -->
@@ -190,7 +190,7 @@ export default {
         }
       },
   watch: {
-      language(to, from) {
+    language(to, from) {
       i18n.locale = to;
     }
   },
@@ -450,6 +450,7 @@ header {
         overflow-y: scroll;
 
         .navigation {
+          margin-top: 48px;
           border-top: 1px solid rgba(255, 255, 255, 0.2);
 
           li {
@@ -485,7 +486,7 @@ header {
             &.active {
               background-color: $color-primary-shade-20;
               ul {
-                display: block;
+                display: inline;
               }
             }
 
@@ -635,6 +636,7 @@ header {
           height: calc( 100% - 64px );
 
           .navigation {
+            margin-top: 64px;
             li {
               a {
                 padding: calc( (56px - 0.8rem*1.5)/2 ) $spacing-3;
@@ -793,6 +795,7 @@ header {
           overflow: visible;
 
           .navigation {
+            margin-top: 0;
             border-top: 0;
             display: inline-block;
 
@@ -823,12 +826,10 @@ header {
                 position: absolute;
                 background-color: $color-black-tint-97;
                 background-color: white;
-                box-shadow: 0px 4px 16px -4px rgba($color-black,0.8);
+                box-shadow: 0px 2px 16px -4px rgba($color-black,0.4);
                 border-radius: $border-radius;
                 top: 72px;
                 left: -6px;
-                transition: all $transition-duration-short $transition-timing-function;
-                transition-delay: $transition-delay-2;
 
                 li {
                   display: block;
@@ -858,7 +859,6 @@ header {
                   color: $color-primary;
                 }
                 ul {
-                  display: none;
                   li {
                     a {
                       color: $color-black-tint-50;
@@ -881,7 +881,7 @@ header {
                 }
                 &:hover {
                   ul {
-                    display: none;
+                    display: block;
                   }
                 }
               }
@@ -889,6 +889,17 @@ header {
               &:not(:hover) {
                 ul {
                   height: 0!important;
+                }
+              }
+              &:hover {
+                ul {
+                  transition: all $transition-duration-short $transition-timing-function;
+                  transition-delay: $transition-delay-3;
+                  li:first-child {
+                    a {
+                      color: $color-black;
+                    }
+                  }
                 }
               }
 
