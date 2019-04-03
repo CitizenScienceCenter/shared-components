@@ -103,7 +103,7 @@ export default {
   // Section Style
 
   &.superlight-greyish {
-    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.025) );
+    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.025), rgba($color-gradient-end, 0.025) );
   }
 
   &.light-greyish {
