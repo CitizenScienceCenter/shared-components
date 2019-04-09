@@ -36,38 +36,54 @@
 
     <div class="navigation-wrapper" :class="{ 'active': menuOn }">
       <div class="drawer">
+
+        <div class="menu-header">
+          <button class="menu-button" @click="hideMenu">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
+          </button>
+
+          <template v-if="!projectName">
+            <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
+              <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
+            </router-link>
+          </template>
+
+          <template v-else>
+            <router-link to="/" class="home-link home-link-project" active-class="active" exact>
+              <h1 v-html="projectName"></h1>
+            </router-link>
+          </template>
+        </div>
+
         <div class="drawer-content">
-          <div class="menu-header">
-            <button class="menu-button" @click="hideMenu">
-              <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
-            </button>
 
-            <template v-if="!projectName">
-              <router-link to="/" class="home-link" active-class="active" exact @click.native="hideMenu">
-                <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo-white.svg"/>
-              </router-link>
-            </template>
-
-            <template v-else>
-              <router-link to="/" class="home-link home-link-project" active-class="active" exact>
-                <h1 v-html="projectName"></h1>
-              </router-link>
-            </template>
-
-          </div>
-
-          <ul class="navigation">
-            <li v-for="route in routes" v-if="route.meta.nav == true"><router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.page+'.link') }}</span></router-link></li>
+          <ul class="navigation" ref="navigation">
+            <!--<li v-for="route in routes" v-if="route.meta.nav == true">-->
+            <router-link tag="li" v-for="route in routes" v-if="route.meta.nav == true" :to="route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n">
+              <!-- <router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.i18n+'.link') }}</span></router-link> -->
+              <a><span>{{ $t(route.meta.i18n+'.link') }}</span></a>
+              <ul v-if="route.children" :style="{ height: (route.children.length*48)+'px' }">
+                <!-- <li v-for="child in route.children"> -->
+                <router-link tag="li" v-for="child in route.children" v-if="child.meta.nav" :to="child.path" active-class="active">
+                  <a><span>{{ $t(child.meta.i18n+'.link') }}</span></a>
+                </router-link>
+              </ul>
+            </router-link>
+            <li v-if="!projectName">
+              <a href="https://citizensciencezurich.blog/" target="_blank">
+                <span>
+                  Blog
+                </span>
+              </a>
+            </li>
           </ul>
 
           <div class="custom-select language-select">
             <select v-model="language">
               <option v-for="lang in languages" :value="lang">{{lang}}</option>
             </select>
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-               <path d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1
-            	C100.6,213.5,109.5,192,127.3,192z"/>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xml:space="preserve">
+               <path d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1 C100.6,213.5,109.5,192,127.3,192z"/>
             </svg>
           </div>
 
@@ -174,9 +190,17 @@ export default {
         }
       },
   watch: {
-      language(to, from) {
+    language(to, from) {
       i18n.locale = to;
     }
+    /*,
+    '$route'(to, from) {
+        if( this.$route.matched[0].path ) {
+            console.log( this.$refs[this.$route.matched[0].meta.i18n][0].$el );
+
+            var element = this.$refs[this.$route.matched[0].meta.i18n][0].$el;
+        }
+    }*/
   },
   methods: {
     reset() {
@@ -409,53 +433,51 @@ header {
       transition: width $transition-duration-long $transition-timing-function;
       backface-visibility: hidden;
 
+      .menu-header {
+        height: 48px;
+        width: 240px;
+
+        .menu-button {
+          svg {
+            fill: white;
+          }
+        }
+        .home-link {
+          h1 {
+            color: white;
+          }
+        }
+      }
+
       .drawer-content {
-        height: 100%;
+        height: calc( 100% - 48px );
         width: 240px;
         position: relative;
 
         overflow: hidden;
-
-        .menu-header {
-          height: 48px;
-          margin-bottom: 48px;
-
-          .menu-button {
-            svg {
-              fill: white;
-            }
-          }
-          .home-link {
-            h1 {
-              color: white;
-            }
-          }
-        }
+        overflow-y: scroll;
 
         .navigation {
+          margin-top: 48px;
           border-top: 1px solid rgba(255, 255, 255, 0.2);
 
           li {
             display: block;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
             a {
               display: block;
-              height: 48px;
-              padding: 12px 24px;
+              padding: calc( (48px - 0.8rem*1.5)/2 ) $spacing-2;
               text-decoration: none;
               text-transform: uppercase;
               color: white;
+              box-sizing: border-box;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
               span {
                 display: block;
                 font-size: $font-size-small;
-                line-height: 24px;
+                line-height: 1.5;
                 transform: translateY(0px);
-              }
-
-              &.active {
-                background-color: $color-primary-shade-20;
               }
 
               &:active {
@@ -466,13 +488,38 @@ header {
                   color: $color-black-tint-90;
                 }
               }
+
+            }
+
+            &.active {
+              background-color: $color-primary-shade-20;
+              ul {
+                display: inline;
+              }
+            }
+
+            ul {
+              display: none;
+              li {
+                a {
+                  padding: calc( (40px - 0.8rem*1.5)/2 ) $spacing-3;
+                  span {
+                    text-transform: none;
+                  }
+                }
+
+                &.active {
+                  background-color: $color-primary-shade-40;
+                }
+              }
             }
           }
         }
 
         .language-select {
           margin-left: 12px;
-          margin-top: $spacing-3;
+          margin-top: $spacing-2;
+          margin-bottom: $spacing-2;
 
           select {
             font-size: $font-size-small;
@@ -588,23 +635,34 @@ header {
         }
       }
       .drawer {
+        .menu-header {
+          height: 64px;
+          width: 280px;
+        }
         .drawer-content {
           width: 280px;
-          .menu-header {
-            height: 64px;
-            margin-bottom: 64px;
-          }
+          height: calc( 100% - 64px );
+
           .navigation {
+            margin-top: 64px;
             li {
               a {
-                height: 64px;
-                padding: 20px 32px;
+                padding: calc( (56px - 0.8rem*1.5)/2 ) $spacing-3;
+              }
+
+              ul {
+                li {
+                  a {
+                    padding: calc( (48px - 0.8rem*1.5)/2 ) $spacing-4;
+                  }
+                }
               }
             }
           }
           .language-select {
             margin-left: 20px;
-            margin-top: $spacing-4;
+            margin-top: $spacing-3;
+            margin-bottom: $spacing-3;
           }
         }
       }
@@ -733,26 +791,33 @@ header {
         height: auto;
         position: relative;
         background: transparent;
+        overflow: visible;
+
+        .menu-header {
+          display: none;
+        }
 
         .drawer-content {
           width: auto;
           padding-right: 16px;
-
-          .menu-header {
-            display: none;
-          }
+          overflow: visible;
 
           .navigation {
+            margin-top: 0;
             border-top: 0;
             display: inline-block;
 
             li {
               display: inline-block;
               border: none;
+              position: relative;
+
               a {
                 color: $color-black;
                 height: 80px;
-                padding: 28px $spacing-2;
+                padding: 28px 10px;
+                border-bottom: none;
+
                 &:active {
                   color: $color-primary;
                 }
@@ -761,21 +826,92 @@ header {
                     color: $color-primary;
                   }
                 }
-                &.active {
-                  color: $color-primary;
-                  background-color: transparent;
+              }
+
+              ul {
+                display: block;
+                overflow: hidden;
+                position: absolute;
+                background-color: white;
+                box-shadow: 0px 2px 16px -4px rgba($color-black,0.4);
+                border-radius: $border-radius;
+                top: 72px;
+                left: -6px;
+
+                transition: all $transition-duration-long $transition-timing-function;
+
+                li {
+                  display: block;
+                  a {
+                    color: $color-black-tint-50;
+                    height: auto;
+                    padding: calc( (48px - 0.8rem*1.5)/2 ) $spacing-2;
+                    span {
+                      text-transform: none;
+                      white-space: nowrap;
+                    }
+                    &:active {
+                      color: $color-black;
+                    }
+                    @media (hover: hover) {
+                      &:hover {
+                        color: $color-black;
+                      }
+                    }
+                  }
                 }
               }
+
+              &.active {
+                background-color: transparent;
+                a {
+                  color: $color-primary;
+                }
+                ul {
+                  li {
+                    a {
+                      color: $color-black-tint-50;
+                      &:active {
+                        color: $color-black;
+                      }
+                      @media (hover: hover) {
+                        &:hover {
+                          color: $color-black;
+                        }
+                      }
+                    }
+                    &.active {
+                      background-color: transparent;
+                      a {
+                        color: $color-black;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &:not(:hover) {
+                ul {
+                  height: 0!important;
+                }
+              }
+              &:hover {
+                ul {
+                  transition-delay: $transition-delay-2;
+                }
+              }
+
             }
           }
 
           .language-select {
             margin: $spacing-2 0;
-            margin-left: $spacing-1;
 
             select {
               color: $color-black;
               border-color: transparent;
+              padding-left: $spacing-1;
+              padding-right: $spacing-3;
 
               &:active {
                 color: $color-primary;
@@ -799,8 +935,8 @@ header {
           }
           .button-login {
             display: inline-block;
-            margin-left: $spacing-2;
-            padding: 0 $spacing-2;
+            margin-left: $spacing-1;
+            padding: 0 $spacing-1;
           }
 
           .button-user {
@@ -846,8 +982,31 @@ header {
               a {
                 padding: 28px $spacing-2;
               }
+              ul {
+                left: 0;
+                li {
+                  a {
+                    padding: calc((48px - 0.8rem * 1.5) / 2) $spacing-2;
+                  }
+                }
+              }
             }
           }
+
+          .language-select {
+            margin-left: $spacing-1;
+            select {
+              padding-left: 12px;
+              padding-right: $spacing-4;
+            }
+          }
+
+
+          .button-login {
+            margin-left: $spacing-2;
+            padding: 0 $spacing-2;
+          }
+
 
         }
       }

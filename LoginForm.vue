@@ -32,15 +32,22 @@
 
             <div class="button-group right-aligned">
                 <a tabindex="93" @click.prevent="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</a>
-                <button tabindex="92" type="submit" class="button button-primary" :disabled="loading">{{ $t('button-login') }}</button>
+                <button tabindex="92" type="submit" class="button button-primary" :disabled="loading || !email || !password">{{ $t('button-login') }}</button>
             </div>
-            <span class="message error" v-if="error">{{error}}</span>
+            <div class="form-message form-message-error" v-if="error">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M322.72,256,422.79,155.93a31.46,31.46,0,0,0,0-44.48L400.55,89.21a31.46,31.46,0,0,0-44.48,0L256,189.28,155.93,89.21a31.46,31.46,0,0,0-44.48,0L89.21,111.45a31.46,31.46,0,0,0,0,44.48L189.28,256,89.21,356.07a31.46,31.46,0,0,0,0,44.48l22.24,22.24a31.46,31.46,0,0,0,44.48,0L256,322.72,356.07,422.79a31.46,31.46,0,0,0,44.48,0l22.24-22.24a31.46,31.46,0,0,0,0-44.48Z"></path>
+                    </svg>
+                </div>
+                <span class="text">{{error}}</span>
+            </div>
         </form>
     </div>
 </template>
 
 <script>
-    import _default, {mapState, mapGetters} from 'vuex'
+    import {mapState} from 'vuex'
 
     export default {
         name: 'LoginForm',
@@ -48,7 +55,6 @@
             return {
                 email: '',
                 password: '',
-                username: '',
                 success: false,
                 error: false
             }
