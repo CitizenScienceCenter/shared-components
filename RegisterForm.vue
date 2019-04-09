@@ -11,6 +11,7 @@
 
     "error-empty": "Enter an email address.",
     "error-email": "Email already in use.",
+    "error-email-format": "No valid email address",
     "error-username": "Username already in use.",
     "error-len": "Password needs to be at least 8 characters long.",
     "error-match": "Passwords don't match.",
@@ -31,6 +32,7 @@
 
     "error-empty": "Sie müssen eine E-Mail angeben.",
     "error-email": "Email bereits registriert.",
+    "error-email-format": "Keine gültige E-Mail.",
     "error-username": "Benutzername bereits vergeben.",
     "error-len": "Muss mehr als 8 Zeichen lang sein.",
     "error-match": "Passwörter stimmen nicht überein.",
@@ -52,6 +54,7 @@
             <label for="reg-email">{{ $t("label-email") }}</label>
             <input v-model="email" type="email" id="reg-email" name="reg-email" autocomplete="new-password" :disabled="loading" />
             <span class="message error" v-if="errors.empty">{{ $t("error-empty") }}</span>
+            <span class="message error" v-if="errors.emailFormat">{{ $t("error-email-format") }}</span>
             <span class="message error" v-if="errors.email">{{ $t("error-email") }}</span>
         </div>
         <div class="form-field form-field-block">
@@ -142,6 +145,7 @@
                 userSaved: false,
                 errors: {
                     empty: false,
+                    emailFormat: false,
                     email: false,
                     username: false,
                     match: false,
@@ -163,6 +167,7 @@
                 clearTimeout( this.emailCheckTimeout );
                 var self = this;
                 this.emailCheckTimeout = setTimeout( function() {
+                    self.checkEmailFormat();
                     self.checkEmail();
                 }, 500);
             },
@@ -219,6 +224,15 @@
                     //this.$store.commit('c3s/user/SET_ANON', true);
                 });
             },
+            checkEmailFormat() {
+                var re = /\S+@\S+\.\S+/;
+                if( re.test(this.email) ) {
+                    this.errors.emailFormat = false;
+                }
+                else {
+                    this.errors.emailFormat = true;
+                }
+            },
             checkEmail() {
                 let query = {
                     'select': {
@@ -254,7 +268,7 @@
                     pwd: this.password,
                     info: {
                         'anonymous': false,
-                        'project-notifications': this.checkbox1
+                        'center-notifications': this.checkbox1
                     }
                 };
 
