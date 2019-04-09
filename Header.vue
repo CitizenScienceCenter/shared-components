@@ -64,7 +64,7 @@
               <a><span>{{ $t(route.meta.i18n+'.link') }}</span></a>
               <ul v-if="route.children" :style="{ height: (route.children.length*48)+'px' }">
                 <!-- <li v-for="child in route.children"> -->
-                <router-link tag="li" v-for="child in route.children" :to="child.path" active-class="active">
+                <router-link tag="li" v-for="child in route.children" v-if="child.meta.nav" :to="child.path" active-class="active">
                   <a><span>{{ $t(child.meta.i18n+'.link') }}</span></a>
                 </router-link>
               </ul>
