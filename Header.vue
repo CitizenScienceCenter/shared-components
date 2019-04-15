@@ -1,3 +1,4 @@
+
 <i18n>
 {
   "en": {
@@ -59,12 +60,12 @@
 
           <ul class="navigation" ref="navigation">
             <!--<li v-for="route in routes" v-if="route.meta.nav == true">-->
-            <router-link tag="li" v-for="route in routes" v-if="route.meta.nav == true" :to="route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n">
+            <router-link tag="li" v-for="route in visibleRoutes" :to="route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n" :key="route.meta.i18n">
               <!-- <router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.i18n+'.link') }}</span></router-link> -->
               <a><span>{{ $t(route.meta.i18n+'.link') }}</span></a>
               <ul v-if="route.children" :style="{ height: (route.children.length*48)+'px' }">
                 <!-- <li v-for="child in route.children"> -->
-                <router-link tag="li" v-for="child in route.children" v-if="child.meta.nav" :to="child.path" active-class="active">
+                <router-link tag="li" v-for="child in route.children" :to="child.path" active-class="active" :key="child.path">
                   <a><span>{{ $t(child.meta.i18n+'.link') }}</span></a>
                 </router-link>
               </ul>
@@ -80,7 +81,7 @@
 
           <div class="custom-select language-select">
             <select v-model="language">
-              <option v-for="lang in languages" :value="lang">{{lang}}</option>
+              <option v-for="lang in languages" :value="lang" :key="lang">{{lang}}</option>
             </select>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xml:space="preserve">
                <path d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1 C100.6,213.5,109.5,192,127.3,192z"/>
@@ -159,6 +160,17 @@ export default {
     }),
     */
     computed: {
+        visibleRoutes() {
+            let visibleRoutes = this.routes.filter(function(route) {
+                return route.meta.nav;
+            });
+            for( let i = 0; i < visibleRoutes.length; i++ ) {
+                visibleRoutes[i].children = visibleRoutes[i].children.filter(function(route) {
+                    return route.meta.nav;
+                });
+            }
+            return visibleRoutes;
+        },
         currentUser: {
             get() {
                 if( !this.hideLogin ) {
@@ -190,7 +202,7 @@ export default {
         }
       },
   watch: {
-    language(to, from) {
+    language(to) {
       i18n.locale = to;
     }
     /*,
