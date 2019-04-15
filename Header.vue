@@ -165,9 +165,11 @@ export default {
                 return route.meta.nav;
             });
             for( let i = 0; i < visibleRoutes.length; i++ ) {
-                visibleRoutes[i].children = visibleRoutes[i].children.filter(function(route) {
-                    return route.meta.nav;
-                });
+                if( visibleRoutes[i].children ) {
+                  visibleRoutes[i].children = visibleRoutes[i].children.filter(function(route) {
+                      return route.meta.nav;
+                  });
+                }
             }
             return visibleRoutes;
         },
