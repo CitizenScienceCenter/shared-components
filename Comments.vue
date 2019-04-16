@@ -180,8 +180,6 @@
         },
         methods: {
             loadComments: function() {
-                //console.log('load comments');
-                //console.log(this.sourceId);
 
                 let query = {
                     'select': {
@@ -218,7 +216,6 @@
                         }
                     ]
                 };
-
 
                 this.$store.dispatch('c3s/media/getMedia', [query, 'c3s/comments/SET_COMMENTS', 9999] ).then(res => {
 
@@ -420,6 +417,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+                pointer-events: none;
             }
 
             p, .subheading {
