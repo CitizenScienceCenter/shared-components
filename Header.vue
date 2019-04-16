@@ -135,10 +135,10 @@ export default {
             type: Boolean,
             default: false
         },
-      hideLogin: Boolean,
+        hideLogin: Boolean,
         languages: {
           type: Array,
-            default: function () { return ['en','de'] }
+            default: function () { return ['de','en'] }
         },
         score: undefined
     },
