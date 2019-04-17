@@ -7,7 +7,7 @@
             </h3>
         </div>
         <div class="content-box" :style="{height:contentBoxHeight+'px'}">
-            <div class="content" ref="content">
+            <div class="content" :ref="id">
                 <slot name="content"></slot>
             </div>
         </div>
@@ -20,7 +20,8 @@
         data() {
             return {
                 open: false,
-                contentHeight: undefined
+                contentHeight: undefined,
+                id: this._uid
             }
         },
         computed: {
@@ -33,9 +34,15 @@
                 }
             }
         },
+        mounted() {
+            let self = this;
+            window.addEventListener('resize', function() {
+                self.contentHeight = self.$refs[self.id].offsetHeight;
+            } );
+        },
         methods: {
             toggle() {
-                this.contentHeight = this.$refs.content.offsetHeight;
+                this.contentHeight = this.$refs[this.id].offsetHeight;
                 this.open = !this.open;
             }
         }
@@ -56,6 +63,7 @@
                 cursor: pointer;
                 position: relative;
                 padding-left: $spacing-3;
+                transition: color $transition-duration-short $transition-timing-function;
 
                 svg {
                     position: absolute;
@@ -64,6 +72,7 @@
                     width: $font-size-normal;
                     height: $font-size-normal;
                     fill: $color-primary;
+                    transition: all $transition-duration-long $transition-timing-function;
                 }
 
                 &:visited {
@@ -71,17 +80,23 @@
                 }
                 &:active {
                     color: $color-primary-shade-20;
+                    svg {
+                        fill: $color-primary-shade-20;
+                    }
                 }
                 @media (hover: hover) {
                     &:hover {
                         color: $color-primary-shade-20;
+                        svg {
+                            fill: $color-primary-shade-20;
+                        }
                     }
                 }
             }
         }
         .content-box {
             overflow: hidden;
-            transition: height $transition-duration-short $transition-timing-function;
+            transition: height $transition-duration-long $transition-timing-function;
             .content {
                 padding: $spacing-2 0;
                 padding-left: $spacing-3;
@@ -89,8 +104,14 @@
         }
 
         &.open {
-            .content-box {
-
+            .header {
+                h3 {
+                    color: $color-primary-shade-20;
+                    svg {
+                        fill: $color-primary-shade-20;
+                        transform: rotate(90deg);
+                    }
+                }
             }
         }
     }
