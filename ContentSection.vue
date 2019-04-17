@@ -171,6 +171,12 @@ export default {
       }
     }
 
+    &.small {
+      font-size: $font-size-medium;
+      padding-bottom: $spacing-3;
+      margin-bottom: $spacing-3;
+    }
+
   }
 
   .subheading {
@@ -366,6 +372,12 @@ export default {
       font-size: $font-size-xlarge;
       padding-bottom: $spacing-5;
       margin-bottom: $spacing-5;
+
+      &.small {
+        font-size: $font-size-large;
+        padding-bottom: $spacing-4;
+        margin-bottom: $spacing-4;
+      }
     }
 
     .subheading {
@@ -408,7 +420,7 @@ export default {
 
   .content-section {
 
-    padding: $spacing-7 0;
+    padding: $spacing-6 0;
 
     .scroll-effect {
       &.scroll-effect-delayed-1 {
@@ -452,9 +464,6 @@ export default {
       }
     }
 
-    .heading {
-      font-size: $font-size-xlarge;
-    }
 
   }
 
