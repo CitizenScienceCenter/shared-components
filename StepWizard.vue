@@ -1,62 +1,13 @@
 <template>
-    <div class="step-wizard" :class="{displayed:displayed,open:open}" @click="closeWizard">
+    <div class="step-wizard" :class="{displayed:displayed,open:open}">
+        <div class="overlay" @click="closeWizard"></div>
         <div class="box">
-            <div class="box-header">
-                <h3>Was sind geschlechtsspezifische Hass-Ausdrücke?</h3>
-                <button class="button button-secondary button-icon button-icon-only button-secondary-naked">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352.26,273l-136,136a23.9,23.9,0,0,1-33.9,0l-22.6-22.6a23.9,23.9,0,0,1,0-33.9l96.4-96.4-96.4-96.4a23.9,23.9,0,0,1,0-33.9l22.5-22.8a23.9,23.9,0,0,1,33.9,0l136,136A23.93,23.93,0,0,1,352.26,273Z"/></svg>
-                </button>
-            </div>
-            <div class="box-content">
-                <div class="content-wrapper">
-                    <div class="row row-wrapping">
-                        <div class="col col-large-6 col-wrapping">
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                        </div>
-                        <div class="col col-large-6 col-wrapping">
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                            content<br/>
-                        </div>
-                    </div>
-                </div>
+            <div class="slider" :style="{width:($slots.default.length*100)+'%', left:(step*-100+'%')}">
+                <slot></slot>
             </div>
             <div class="box-footer">
-                footer
+                <button class="button button-secondary" @click="step--">Prev</button>
+                <button class="button button-primary" @click="step++">Next</button>
             </div>
         </div>
     </div>
@@ -71,7 +22,8 @@
             return {
                 displayed: false,
                 open: false,
-                timeout: undefined
+                timeout: undefined,
+                step: 0
             }
         },
         computed: {
@@ -89,6 +41,7 @@
                     self.openWizard();
                 },600);
             }
+
 
         },
         methods: {
@@ -135,7 +88,6 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba( $color-secondary-shade-50, 0.2);
         display: none;
         opacity: 0;
         justify-content: center;
@@ -149,13 +101,20 @@
         }
         &.open {
             opacity: 1;
-            width: 100vw;
-            height: 100vh;
 
             .box {
                 opacity: 1;
                 transform: translateY( 0 );
             }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba( $color-secondary-shade-50, 0.2);
         }
 
         .box {
@@ -170,25 +129,45 @@
             max-width: 1440px;
             background: white;
             border-radius: $border-radius;
-            position: relative;
             overflow: hidden;
+            position: relative;
 
-            .box-header {
-                height: 100px;
-                pointer-events: auto;
-            }
-            .box-content {
-                height: calc( 100% - 200px);
-                overflow-y: scroll;
-                pointer-events: auto;
+            .slider {
+                transition: left $transition-duration-long $transition-timing-function;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
 
-                .content-wrapper {
-                    max-width: none;
+                .slide {
+                    display: inline-block;
+                    width: 80vw;
+                    height: 80vh;
+                    max-width: 1440px;
+
+                    .header {
+                        height: 80px;
+                        pointer-events: auto;
+                    }
+                    .content {
+                        height: calc( 100% - 160px);
+                        overflow-y: scroll;
+                        pointer-events: auto;
+
+                        .content-wrapper {
+                            max-width: none;
+                        }
+                    }
                 }
             }
             .box-footer {
-                height: 100px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 80px;
+                width: 100%;
                 pointer-events: auto;
+                padding: $spacing-2;
             }
         }
 
