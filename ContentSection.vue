@@ -221,6 +221,10 @@ export default {
     }
   }
 
+  span.small {
+    font-size: $font-size-small;
+  }
+
   ul, ol {
     margin-bottom: $spacing-4;
     &:last-child {
