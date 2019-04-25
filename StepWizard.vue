@@ -7,9 +7,9 @@
             </div>
             <div class="box-footer">
                 <div class="button-group right-aligned">
-                    <button class="button button-secondary" v-if="step > 0" @click="prevStep">Prev</button>
-                    <button class="button button-primary" v-if="step+1 < $children.length" @click="nextStep">Next</button>
-                    <button class="button button-primary" v-else @click="closeWizard">Start</button>
+                    <button class="button button-secondary" v-if="step > 0" @click="prevStep">Zurück</button>
+                    <button class="button button-primary" v-if="step+1 < $children.length" @click="nextStep">Weiter</button>
+                    <button class="button button-primary" v-else @click="closeWizard">Starten</button>
                 </div>
                 <div class="progress">
                     <div class="progress-bar">
@@ -111,7 +111,7 @@
         }
     }
 
-    $box-max-width: 1280px;
+    $box-max-width: 1140px;
     $box-max-height: 720px;
 
     .step-wizard {
@@ -124,7 +124,6 @@
         opacity: 0;
         align-items: center;
         z-index: 60;
-        cursor: pointer;
 
         &.displayed {
             transition: all $transition-duration-long $transition-timing-function;
@@ -146,6 +145,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba( $color-secondary-shade-50, 0.2);
+            cursor: pointer;
         }
 
         .box {
@@ -155,8 +155,6 @@
             transition-delay: $transition-delay-1;
             transform: translateY( $spacing-3 );
             opacity: 0;
-            pointer-events: none;
-            cursor: pointer;
             width: 90vw;
             height: 90vh;
             max-height: $box-max-height;
@@ -188,7 +186,6 @@
                         color: $color-secondary;
                         font-weight: 700;
                         line-height: 1.25;
-                        pointer-events: auto;
                         box-sizing: border-box;
                         padding: $spacing-2 0;
                         padding-right: $spacing-5;
@@ -196,7 +193,6 @@
                     }
                     .content {
                         overflow-y: scroll;
-                        pointer-events: auto;
                         flex: 1;
 
                         .content-section {
@@ -216,7 +212,6 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                pointer-events: auto;
                 padding: ( $spacing-1 + $grid-gutter-mobile/2 );
 
                 .progress {
@@ -264,7 +259,6 @@
                 position: absolute;
                 top: $spacing-1;
                 right: $spacing-1;
-                pointer-events: auto;
             }
         }
 
