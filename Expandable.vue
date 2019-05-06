@@ -1,7 +1,7 @@
 <template>
-    <div class="expandable reduced-bottom-margin" :class="{open:open}">
+    <div class="expandable margin-bottom" :class="{open:open}">
         <div class="header">
-            <h3 @click="toggle">
+            <h3 @click="toggle" :class="{small: small}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M352.26,273l-136,136a23.9,23.9,0,0,1-33.9,0l-22.6-22.6a23.9,23.9,0,0,1,0-33.9l96.4-96.4-96.4-96.4a23.9,23.9,0,0,1,0-33.9l22.5-22.8a23.9,23.9,0,0,1,33.9,0l136,136A23.93,23.93,0,0,1,352.26,273Z"/></svg>
                 <slot name="header"></slot>
             </h3>
@@ -17,6 +17,12 @@
 <script>
     export default {
         name: "Expandable",
+        props: {
+          small: {
+              type: Boolean,
+              default: false
+          }
+        },
         data() {
             return {
                 open: false,
@@ -90,6 +96,14 @@
                         svg {
                             fill: $color-primary-shade-20;
                         }
+                    }
+                }
+
+                &.small {
+                    font-size: $font-size-normal;
+                    font-weight: 400;
+                    svg {
+                        top: calc( ( #{$font-size-normal} *1.25 - #{$font-size-normal} ) /2 );
                     }
                 }
             }
