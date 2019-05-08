@@ -69,7 +69,7 @@ export default {
         padding: $spacing-3 0;
 
       .content-subsection {
-        padding-bottom: $spacing-3;
+        padding-bottom: $spacing-4;
         &:last-of-type {
           padding-bottom: 0;
         }
@@ -341,7 +341,7 @@ export default {
       padding: $spacing-3 0;
 
       .content-subsection {
-        padding-bottom: $spacing-3;
+        padding-bottom: $spacing-4;
       }
     }
   }
@@ -357,7 +357,7 @@ export default {
       padding: $spacing-4 0;
 
       .content-subsection {
-        padding-bottom: $spacing-4;
+        padding-bottom: $spacing-5;
         &:last-of-type {
           padding-bottom: 0;
         }
