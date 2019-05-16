@@ -60,12 +60,12 @@
 
           <ul class="navigation" ref="navigation">
             <!--<li v-for="route in routes" v-if="route.meta.nav == true">-->
-            <router-link tag="li" v-for="route in visibleRoutes" :to="route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n" :key="route.meta.i18n">
+            <router-link tag="li" v-for="route in visibleRoutes" :to="'/'+route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n" :key="route.meta.i18n">
               <!-- <router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.i18n+'.link') }}</span></router-link> -->
               <a><span>{{ $t(route.meta.i18n+'.link') }}</span></a>
               <ul v-if="route.children" :style="{ height: (route.children.length*48)+'px' }">
                 <!-- <li v-for="child in route.children"> -->
-                <router-link tag="li" v-for="child in route.children" :to="child.path" active-class="active" :key="child.path">
+                <router-link tag="li" v-for="child in route.children" :to="'/'+route.path+'/'+child.path" active-class="active" :key="child.path">
                   <a><span>{{ $t(child.meta.i18n+'.link') }}</span></a>
                 </router-link>
               </ul>
@@ -80,6 +80,9 @@
           </ul>
 
           <div class="custom-select language-select">
+            <div style="display: none;">
+              <router-link v-for="lang in languages" :to="'/'+lang+$route.path.substring(3)" :key="lang">{{lang}}</router-link>
+            </div>
             <select v-model="language">
               <option v-for="lang in languages" :value="lang" :key="lang">{{lang}}</option>
             </select>
@@ -161,7 +164,7 @@ export default {
     */
     computed: {
         visibleRoutes() {
-            let visibleRoutes = this.routes.filter(function(route) {
+            let visibleRoutes = this.routes[0].children.filter(function(route) {
                 return route.meta.nav;
             });
             for( let i = 0; i < visibleRoutes.length; i++ ) {
@@ -171,6 +174,7 @@ export default {
                   });
                 }
             }
+            console.log( visibleRoutes );
             return visibleRoutes;
         },
         currentUser: {
@@ -206,15 +210,8 @@ export default {
   watch: {
     language(to) {
       i18n.locale = to;
+      this.$router.push( this.$route.path.substring( 3 ) );
     }
-    /*,
-    '$route'(to, from) {
-        if( this.$route.matched[0].path ) {
-            console.log( this.$refs[this.$route.matched[0].meta.i18n][0].$el );
-
-            var element = this.$refs[this.$route.matched[0].meta.i18n][0].$el;
-        }
-    }*/
   },
   methods: {
     reset() {
