@@ -58,14 +58,11 @@
 
         <div class="drawer-content">
 
-          <ul class="navigation" ref="navigation">
-            <!--<li v-for="route in routes" v-if="route.meta.nav == true">-->
-            <router-link tag="li" v-for="route in visibleRoutes" :to="'/'+route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n" :key="route.meta.i18n">
-              <!-- <router-link :to="route.path" active-class="active" @click.native="hideMenu"><span>{{ $t(route.meta.i18n+'.link') }}</span></router-link> -->
+          <ul class="navigation" ref="navigation" v-if="language">
+            <router-link tag="li" v-for="route in visibleRoutes" :to="'/'+language+'/'+route.path" active-class="active" @click.native="hideMenu" :ref="route.meta.i18n" :key="route.meta.i18n">
               <a><span>{{ $t(route.meta.i18n+'.link') }}</span></a>
               <ul v-if="route.children" :style="{ height: (route.children.length*48)+'px' }">
-                <!-- <li v-for="child in route.children"> -->
-                <router-link tag="li" v-for="child in route.children" :to="'/'+route.path+'/'+child.path" active-class="active" :key="child.path">
+                <router-link tag="li" v-for="child in route.children" :to="'/'+language+'/'+route.path+'/'+child.path" active-class="active" :key="child.path">
                   <a><span>{{ $t(child.meta.i18n+'.link') }}</span></a>
                 </router-link>
               </ul>
@@ -156,56 +153,51 @@ export default {
       pulled: false
     };
   },
-    /*
-    computed: mapState({
-        currentUser: state => state.c3s.user.currentUser,
-        language: state => state.settings.language
-    }),
-    */
-    computed: {
-        visibleRoutes() {
-            let visibleRoutes = this.routes[0].children.filter(function(route) {
-                return route.meta.nav;
-            });
-            for( let i = 0; i < visibleRoutes.length; i++ ) {
-                if( visibleRoutes[i].children ) {
-                  visibleRoutes[i].children = visibleRoutes[i].children.filter(function(route) {
-                      return route.meta.nav;
-                  });
-                }
-            }
-            return visibleRoutes;
-        },
-        currentUser: {
-            get() {
-                if( !this.hideLogin ) {
-                    return this.$store.state.c3s.user.currentUser;
-                }
-                else {
-                    return null;
-                }
-            }
-        },
-        isAnon: {
-            get() {
-                if( !this.hideLogin ) {
-                    return this.$store.state.c3s.user.isAnon;
-                }
-                else {
-                    return false;
-                }
-            }
-        },
-        language: {
-            get() {
-              return this.$store.state.settings.language;
-            },
-            set(language) {
-              this.$store.dispatch("settings/setLanguage", language);
-              this.hideMenu();
-            }
-        }
+  computed: {
+      visibleRoutes() {
+          let visibleRoutes = this.routes[0].children.filter(function(route) {
+              return route.meta.nav;
+          });
+          for( let i = 0; i < visibleRoutes.length; i++ ) {
+              if( visibleRoutes[i].children ) {
+                visibleRoutes[i].children = visibleRoutes[i].children.filter(function(route) {
+                    return route.meta.nav;
+                });
+              }
+          }
+          console.log( visibleRoutes );
+          return visibleRoutes;
       },
+      currentUser: {
+          get() {
+              if( !this.hideLogin ) {
+                  return this.$store.state.c3s.user.currentUser;
+              }
+              else {
+                  return null;
+              }
+          }
+      },
+      isAnon: {
+          get() {
+              if( !this.hideLogin ) {
+                  return this.$store.state.c3s.user.isAnon;
+              }
+              else {
+                  return false;
+              }
+          }
+      },
+      language: {
+          get() {
+            return this.$store.state.settings.language;
+          },
+          set(language) {
+            this.$store.dispatch("settings/setLanguage", language);
+            this.hideMenu();
+          }
+      }
+  },
   watch: {
     language(to) {
       i18n.locale = to;

@@ -97,16 +97,19 @@
 
     <div class="copyright">
       <p>
-        © Except where otherwise noted, content on this site is licensed under a <a href='#' target='_blank'>Creative Commons License BY-SA 3.0 Unported</a>
+        © Except where otherwise noted, content on this site is licensed under a <a href='https://creativecommons.org/licenses/by-sa/3.0/' target='_blank'>Creative Commons License BY-SA 3.0 Unported</a>
       <p>
       <p>
-        <router-link to="/terms">Privacy Policy & Terms of Use</router-link>
+        <router-link :to="'/'+language+'/terms'">Privacy Policy & Terms of Use</router-link>
       </p>
     </div>
   </footer>
 </template>
 
 <script>
+
+    import {mapState} from 'vuex'
+
 export default {
   name: 'Footer',
     props: {
@@ -115,23 +118,28 @@ export default {
           default: false
       }
     },
-  methods: {
-    openInNewTab: function(url) {
-      var win = window.open(url, '_blank');
-      win.focus();
+    computed: {
+        ...mapState({
+            language: state => state.settings.language,
+        })
     },
-    logoClick: function(e) {
-        var rect = e.target.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var width = rect.width;
-        if( x < width/2 ) {
-            this.openInNewTab('https://www.uzh.ch');
-        }
-        else {
-            this.openInNewTab('https://www.ethz.ch');
-        }
+    methods: {
+      openInNewTab: function(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+      },
+      logoClick: function(e) {
+          var rect = e.target.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var width = rect.width;
+          if( x < width/2 ) {
+              this.openInNewTab('https://www.uzh.ch');
+          }
+          else {
+              this.openInNewTab('https://www.ethz.ch');
+          }
+      }
     }
-  }
 }
 </script>
 
