@@ -174,7 +174,6 @@ export default {
                   });
                 }
             }
-            console.log( visibleRoutes );
             return visibleRoutes;
         },
         currentUser: {
