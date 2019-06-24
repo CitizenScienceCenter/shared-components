@@ -22,10 +22,12 @@ export default {
           return 'greyish';
         case 'light-greyish':
           return 'light-greyish';
-          case 'superlight-greyish':
-              return 'superlight-greyish';
+        case 'superlight-greyish':
+            return 'superlight-greyish';
         case 'dark':
           return 'dark';
+        case 'transparent':
+            return 'transparent';
         default:
           return 'white';
       }
@@ -112,6 +114,10 @@ export default {
 
   &.greyish {
     background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
+  }
+
+  &.transparent {
+    background: none;
   }
 
   &.dark {
