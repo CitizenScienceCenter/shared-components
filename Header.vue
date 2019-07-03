@@ -165,7 +165,7 @@ export default {
                 });
               }
           }
-          console.log( visibleRoutes );
+          //console.log( visibleRoutes );
           return visibleRoutes;
       },
       currentUser: {
