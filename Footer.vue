@@ -50,14 +50,14 @@
           </svg>
           +41 44 634 21 97
         </button>
-        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked button-normal-case" @click="openInNewTab('https://goo.gl/maps/n25pbgTiP6K2')">
+        <button class="button button-secondary button-secondary-inverted button-icon button-secondary-naked button-normal-case" @click="openInNewTab('https://goo.gl/maps/anvs2yRcgGhCcjif6')">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
           <path d="M236.3,501.7C91,291,64,269.4,64,192C64,86,150,0,256,0s192,86,192,192c0,77.4-27,99-172.3,309.7
             C266.2,515.4,245.8,515.4,236.3,501.7L236.3,501.7z M256,272c44.2,0,80-35.8,80-80s-35.8-80-80-80s-80,35.8-80,80S211.8,272,256,272
             z"/>
           </svg>
-          Hirschengraben 56, 8001 Zürich
+          Kurvenstrasse 17, 8006 Zürich
         </button>
       </div>
     </div>
