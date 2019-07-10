@@ -200,7 +200,7 @@ export default {
 
 @media only screen and (min-width: $viewport-tablet-portrait) {
   .cover {
-    height: 560px;
+    height: 470px;
 
     .uzh-eth {
       bottom: $spacing-3;
@@ -264,7 +264,7 @@ export default {
 @media only screen and (min-width: $viewport-xlarge) {
   .cover {
 
-    height: 600px;
+    height: 540px;
 
     .content-wrapper {
       .cover-heading {
