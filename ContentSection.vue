@@ -38,7 +38,7 @@ export default {
       this.matches.forEach(function(element) {
         let {top,bottom} = element.getBoundingClientRect();
         let height = document.documentElement.clientHeight;
-        let scrolled = (top-50) < height;
+        let scrolled = (top-80) < height;
         if( scrolled ) {
           element.classList.add("scrolled");
         }

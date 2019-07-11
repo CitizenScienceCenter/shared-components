@@ -268,7 +268,7 @@ export default {
   .cover {
 
     height: 80vh;
-    max-height: 580px;
+    max-height: 600px;
 
     .content-wrapper {
       .cover-heading {
