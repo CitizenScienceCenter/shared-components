@@ -233,6 +233,9 @@ export default {
 @media only screen and (min-width: $viewport-large) {
   .cover {
 
+    height: 80vh;
+    max-height: 470px;
+
     .uzh-eth {
       bottom: $spacing-3;
       left: $spacing-3;
@@ -264,7 +267,8 @@ export default {
 @media only screen and (min-width: $viewport-xlarge) {
   .cover {
 
-    height: 580px;
+    height: 80vh;
+    max-height: 580px;
 
     .content-wrapper {
       .cover-heading {
