@@ -76,7 +76,7 @@
             </li>
           </ul>
 
-          <div class="custom-select language-select">
+          <div class="custom-select language-select" v-show="languages.length > 1">
             <div style="display: none;">
               <router-link v-for="lang in languages" :to="'/'+lang+$route.path.substring(3)" :key="lang">{{lang}}</router-link>
             </div>
