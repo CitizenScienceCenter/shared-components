@@ -112,8 +112,9 @@
             overflow: hidden;
             transition: height $transition-duration-long $transition-timing-function;
             .content {
-                padding: $spacing-2 0;
+                padding: $spacing-3 0;
                 padding-left: $spacing-3;
+                padding-bottom: $spacing-2;
             }
         }
 
