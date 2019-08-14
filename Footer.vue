@@ -149,7 +149,7 @@ export default {
 @import '@/styles/shared/variables.scss';
 
 .footer {
-  background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
+  background: linear-gradient(120deg, $color-gradient-start, $color-gradient-end );
   position: relative;
 
   .logo-wrapper {

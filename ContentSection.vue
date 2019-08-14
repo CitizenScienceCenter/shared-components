@@ -105,15 +105,15 @@ export default {
   // Section Style
 
   &.superlight-greyish {
-    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.025), rgba($color-gradient-end, 0.025) );
+    background: linear-gradient(120deg, rgba($color-gradient-start, 0.025), rgba($color-gradient-end, 0.025) );
   }
 
   &.light-greyish {
-    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.05) );
+    background: linear-gradient(120deg, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.05) );
   }
 
   &.greyish {
-    background: linear-gradient(to bottom right, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
+    background: linear-gradient(120deg, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
   }
 
   &.transparent {
@@ -121,7 +121,7 @@ export default {
   }
 
   &.dark {
-    background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
+    background: linear-gradient(120deg, $color-gradient-start, $color-gradient-end );
 
     * {
       color: white;

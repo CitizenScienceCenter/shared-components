@@ -15,7 +15,10 @@
       <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
 
-    <img v-if="!logoUrl" class="bottom-right-logo" src="@/assets/shared/sdg-logo-white.svg" />
+    <div v-if="!logoUrl" class="bottom-right-logo" v-scroll-to="'#sdg'">
+      <img v-if="goal" class="goal" :src="goalImage" />
+      <img src="@/assets/shared/sdg-logo-white.svg" />
+    </div>
     <img v-else class="bottom-right-logo" :src="logoUrl" />
     <div class="cover-overlay"></div>
   </section>
@@ -26,8 +29,14 @@ export default {
   name: 'Cover',
   props: {
     'imageUrl': String,
-    'logoUrl': String
+    'logoUrl': String,
+      goal: String
   },
+    computed: {
+        goalImage () {
+            return require('@/assets/shared/sdgs/neg/' + this.goal + '.svg')
+        }
+    },
   methods: {
     openInNewTab: function(url) {
         var win = window.open(url, '_blank');
@@ -122,6 +131,13 @@ export default {
     right: $spacing-2;
     z-index: 1;
     cursor: pointer;
+
+    img {
+      height: 100%;
+      &.goal {
+        margin-right: $spacing-1;
+      }
+    }
   }
 
   .content-wrapper {
@@ -159,7 +175,7 @@ export default {
     width: 100%;
     height: 100%;
     //background: linear-gradient(to bottom right, $color-secondary, $color-primary-secondary-mix );
-    background: linear-gradient(to bottom right, $color-gradient-start, $color-gradient-end );
+    background: linear-gradient(120deg, $color-gradient-start, $color-gradient-end );
     opacity: 0.8;
   }
 
