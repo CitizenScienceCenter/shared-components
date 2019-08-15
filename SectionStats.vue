@@ -3,17 +3,17 @@
         <div class="content-wrapper">
             <div class="row row-centered row-wrapping">
 
-                <div v-if="submissionCount" class="col col-wrapping col-large-2 scroll-effect centered">
+                <div v-show="submissionCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect centered">
                     <label>Number of Submissions</label>
                     <span class="value">{{submissionCount}}</span>
                 </div>
 
-                <div v-if="userCount" class="col col-wrapping col-large-2 scroll-effect centered">
+                <div v-show="userCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-1 centered">
                     <label>Number of Users</label>
                     <span class="value">{{userCount}}</span>
                 </div>
 
-                <div v-if="taskCount" class="col col-wrapping col-large-2 scroll-effect centered">
+                <div v-show="taskCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-2 centered">
                     <label>Number of Tasks</label>
                     <span class="value">{{taskCount}}</span>
                 </div>
@@ -52,7 +52,7 @@
             margin-right: $spacing-2;
         }
         .value {
-            font-size: $font-size-medium;
+            font-size: $font-size-large;
             font-weight: 700;
         }
     }
