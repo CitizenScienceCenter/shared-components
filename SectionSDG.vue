@@ -50,7 +50,7 @@
         props: {
             color: String,
             goal: {
-                type: Number,
+                type: String,
                 default: 1
             }
         },
