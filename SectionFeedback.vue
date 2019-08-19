@@ -4,13 +4,13 @@
 
     "de": {
 
-    "feedback-heading": "Projekt-Feedback",
+    "feedback-heading": "Haben Sie Fragen oder Anregungen?",
     "feedback-text": "Für Fragen oder Anregungen zum Projekt kontaktieren Sie uns bitte via Email:"
 
     },
     "en": {
 
-    "feedback-heading": "Project Feedback",
+    "feedback-heading": "Do you Have Questions or Feedback?",
     "feedback-text": "For questions about this project, please contact us via email:"
 
     }
