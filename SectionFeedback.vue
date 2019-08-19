@@ -4,7 +4,7 @@
 
     "de": {
 
-    "feedback-heading": "Project Feedback",
+    "feedback-heading": "Projekt-Feedback",
     "feedback-text": "Für Fragen oder Anregungen zum Projekt kontaktieren Sie uns bitte via Email:"
 
     },
@@ -20,7 +20,7 @@
 
 
 <template>
-    <app-content-section :color=" color ? color : false" class="feedback-section">
+    <app-content-section :color=" color ? color : 'white'" class="feedback-section">
         <div class="content-wrapper">
             <div class="row row-centered row-middle row-wrapping">
 
