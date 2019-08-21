@@ -463,6 +463,10 @@ export default {
 
     padding: $spacing-6 0;
 
+    &.content-section-condensed {
+      padding: $spacing-4 0;
+    }
+
     .scroll-effect {
       &.scroll-effect-delayed-1 {
         transition-delay: $transition-delay-1;
@@ -518,7 +522,7 @@ export default {
 
 
       &.content-section-condensed {
-          padding: $spacing-4 0;
+          padding: $spacing-5 0;
       }
 
     &.image {
