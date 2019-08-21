@@ -10,7 +10,7 @@
 </i18n>
 
 <template>
-  <app-content-section color="greyish">
+  <app-content-section color="more-greyish">
     <div class="content-wrapper">
       <div class="row row-centered">
         <div class="col col-mobile-large-10">
