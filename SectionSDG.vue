@@ -4,7 +4,7 @@
             <div class="row row-centered">
 
                 <div class="col col-large-8 col-xlarge-7 scroll-effect">
-                    <div class="box">
+                    <div class="sdg-box">
                         <div class="row row-centered row-wrapping">
                             <div class="col col-6 col-large-3 col-wrapping centered">
                                 <div class="goal-wrapper">
@@ -67,7 +67,7 @@
     @import '@/styles/theme.scss';
     @import '@/styles/shared/variables.scss';
 
-    .box {
+    .sdg-box {
 
         background-color: white;
         border-radius: $border-radius;
@@ -125,7 +125,7 @@
 
     @media only screen and (min-width: $viewport-tablet-portrait) {
 
-        .box {
+        .sdg-box {
             padding: $spacing-5;
 
             .row {
@@ -144,7 +144,7 @@
 
     @media only screen and (min-width: $viewport-large) {
 
-        .box {
+        .sdg-box {
             padding: $spacing-4;
 
             .row {
@@ -162,7 +162,7 @@
 
     @media only screen and (min-width: $viewport-xlarge) {
 
-        .box {
+        .sdg-box {
 
             .row {
                 .col {
