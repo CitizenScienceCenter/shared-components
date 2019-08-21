@@ -79,7 +79,7 @@ export default {
 
       window.addEventListener('scroll', this.scroll);
       this.matches = this.$el.querySelectorAll(".scroll-effect");
-    
+
       this.scroll();
 
   },
@@ -100,7 +100,7 @@ export default {
   background: white;
 
     &.content-section-condensed {
-        padding: $spacing-3 0;
+        padding: $spacing-2 0;
 
       .content-subsection {
         padding-bottom: $spacing-4;
@@ -376,7 +376,6 @@ export default {
     padding: $spacing-5 0;
 
     &.content-section-condensed {
-      padding: $spacing-3 0;
 
       .content-subsection {
         padding-bottom: $spacing-4;
@@ -392,7 +391,7 @@ export default {
     padding: $spacing-6 0;
 
     &.content-section-condensed {
-      padding: $spacing-4 0;
+      padding: $spacing-3 0;
 
       .content-subsection {
         padding-bottom: $spacing-5;
@@ -519,7 +518,7 @@ export default {
 
 
       &.content-section-condensed {
-          padding: $spacing-5 0;
+          padding: $spacing-4 0;
       }
 
     &.image {
