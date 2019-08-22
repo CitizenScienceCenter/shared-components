@@ -151,7 +151,7 @@ export default {
   }
 
   &.more-greyish {
-    background: linear-gradient(120deg, rgba($color-gradient-start, 0.333), rgba($color-gradient-end, 0.333) );
+    background: linear-gradient(120deg, rgba($color-gradient-start, 0.3), rgba($color-gradient-end, 0.3) );
   }
 
   &.transparent {

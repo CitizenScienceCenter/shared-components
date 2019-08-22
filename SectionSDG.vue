@@ -3,32 +3,26 @@
         <div class="content-wrapper">
             <div class="row row-centered">
 
-                <div class="col col-large-8 col-xlarge-7 scroll-effect">
+                <div class="col col-large-8 col-xlarge-8 scroll-effect">
                     <div class="sdg-box">
-                        <div class="row row-centered row-wrapping">
-                            <div class="col col-6 col-large-3 col-wrapping centered">
-                                <div class="goal-wrapper">
-                                    <img v-if="goal" class="goal" :src="goalImage" />
-                                </div>
+
+                        <div class="box-content">
+                            <div class="sdg-logo">
+                                <img src="@/assets/shared/sdg-logo.svg" />
                             </div>
-                            <div class="col col-10 col-large-7 col-wrapping">
-                                <p class="reduced-bottom-margin"><b>The Sustainable Development Goals</b></p>
+
+                            <div class="text">
                                 <p class="small reduced-bottom-margin">
                                     <slot></slot>
-                                    <a href="https://www.un.org/sustainabledevelopment/sustainable-development-goals/" target="_blank">SDG Website</a>
+                                    <a href="https://sustainabledevelopment.un.org" target="_blank">The Sustainable Development Goals</a>
                                 </p>
-                                <!--
-                                <div class="button-group centered left-aligned-large">
-                                    <button class="button button-secondary">
-                                        SDG Website
-                                    </button>
-                                </div>
-                                -->
                             </div>
-                            <div class="col col-4 col-tablet-portrait-4 col-large-2 col-wrapping centered">
-                                <img class="sdg" src="@/assets/shared/sdg-logo.svg" />
+
+                            <div class="goal">
+                                <img :src="goalImage" />
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -51,12 +45,12 @@
             color: String,
             goal: {
                 type: String,
-                default: 1
+                default: 'overall'
             }
         },
         computed: {
             goalImage () {
-                return require('@/assets/shared/sdgs/neg/' + this.goal + '.svg')
+                return require('@/assets/shared/sdgs/' + this.goal + '.svg')
             }
         }
     }
@@ -72,35 +66,25 @@
         background-color: white;
         border-radius: $border-radius;
 
-        padding: $spacing-4;
+        padding: $grid-gutter-mobile;
 
         //box-shadow: 0px 2px 8px -4px rgba($color-black,0.2);
 
-        .row {
-            .col {
+        .box-content {
+            position: relative;
 
-                .goal-wrapper {
-                    position: relative;
-                    img.goal {
-                        display: block;
-                        padding: 0;
-                        border-radius: $border-radius;
-                        background: linear-gradient(120deg, $color-gradient-start, $color-gradient-end );
-                        position: relative;
-                    }
+            display: flex;
+            flex-direction: column-reverse;
 
-                    &:after {
-                        content: '';
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        border: 1px solid white;
-                    }
+            .sdg-logo {
+                position: absolute;
+                top: 0;
+                left: 0;
+                img {
+                    width: 72px;
                 }
-
+            }
+            .text {
                 p {
                     color: $color-black;
 
@@ -114,28 +98,69 @@
                         font-weight: 700;
                     }
                 }
+            }
+            .goal {
+                text-align: right;
+                margin-bottom: $grid-gutter-mobile;
+                img {
+                    height: 72px;
+                }
+            }
+            .sdg-logo, .goal {
+                font-size: 0;
+            }
 
-                img.sdg {
-                    bottom: 0;
+        }
+
+    }
+
+
+    @media only screen and (min-width: $viewport-mobile-large) {
+
+        .sdg-box {
+            padding: $grid-gutter-mobile-large;
+
+            .box-content {
+
+                .sdg-logo {
+
+                }
+                .text {
+
+                }
+                .goal {
+                    margin-bottom: $grid-gutter-mobile-large;
                 }
 
             }
         }
+
     }
 
     @media only screen and (min-width: $viewport-tablet-portrait) {
 
         .sdg-box {
-            padding: $spacing-5;
+            padding: $grid-gutter-tablet-portrait;
 
-            .row {
-                .col {
+            .box-content {
 
-                    img.sdg {
+                .sdg-logo {
+                    img {
+                        width: 80px;
                     }
+                }
+                .text {
 
                 }
+                .goal {
+                    margin-bottom: $grid-gutter-tablet-portrait;
+                    img {
+                        height: 80px;
+                    }
+                }
+
             }
+
         }
 
     }
@@ -145,16 +170,41 @@
     @media only screen and (min-width: $viewport-large) {
 
         .sdg-box {
-            padding: $spacing-4;
+            padding: $grid-gutter-large;
 
-            .row {
-                .col {
+            .box-content {
 
-                    img.goal {
+                display: flex;
+                flex-direction: row;
+
+                .sdg-logo {
+                    margin-right: $grid-gutter-large;
+                    position: relative;
+                    top: auto;
+                    left: auto;
+
+                    img {
+                        width: auto;
                     }
+                }
+                .text {
 
                 }
+                .goal {
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    margin-left: $grid-gutter-large;
+                    margin-bottom: 0;
+                }
+                .sdg-logo, .goal {
+                    min-width: 96px;
+                    img {
+                        height: auto;
+                    }
+                }
             }
+
         }
 
     }
@@ -163,16 +213,23 @@
     @media only screen and (min-width: $viewport-xlarge) {
 
         .sdg-box {
+            padding: $grid-gutter-xlarge;
 
-            .row {
-                .col {
-
-                    img.goal {
-
-                    }
+            .box-content {
+                .sdg-logo {
+                    margin-right: $grid-gutter-xlarge;
+                }
+                .text {
 
                 }
+                .goal {
+                    margin-left: $grid-gutter-xlarge;
+                }
+                .sdg-logo, .goal {
+                    min-width: 104px;
+                }
             }
+
         }
 
     }
