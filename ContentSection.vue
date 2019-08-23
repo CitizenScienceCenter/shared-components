@@ -102,7 +102,7 @@ export default {
   background: white;
 
     &.content-section-condensed {
-        padding: $spacing-2 0;
+        padding: $spacing-3 0;
 
       .content-subsection {
         padding-bottom: $spacing-4;
@@ -397,7 +397,7 @@ export default {
     padding: $spacing-6 0;
 
     &.content-section-condensed {
-      padding: $spacing-3 0;
+      padding: $spacing-4 0;
 
       .content-subsection {
         padding-bottom: $spacing-5;
