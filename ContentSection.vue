@@ -8,28 +8,6 @@
 
 
 
-var isEventSupported = (function(){
-    var TAGNAMES = {
-        'select':'input','change':'input',
-        'submit':'form','reset':'form',
-        'error':'img','load':'img','abort':'img'
-    }
-    function isEventSupported(eventName) {
-        var el = document.createElement(TAGNAMES[eventName] || 'div');
-        eventName = 'on' + eventName;
-        var isSupported = (eventName in el);
-        if (!isSupported) {
-            el.setAttribute(eventName, 'return;');
-            isSupported = typeof el[eventName] == 'function';
-        }
-        el = null;
-        return isSupported;
-    }
-    return isEventSupported;
-})();
-
-
-
 export default {
   name: 'ContentSection',
   data: function() {
@@ -62,19 +40,15 @@ export default {
   },
   methods: {
       scroll() {
-          this.matches.forEach(function(element) {
-            let {top,bottom} = element.getBoundingClientRect();
-            let height = document.documentElement.clientHeight;
-            let scrolled = (top-180) < height;
-            if( scrolled ) {
-              element.classList.add("scrolled");
-            }
-          });
-      },
-      noScrollFix() {
-          this.matches.forEach(function(element) {
-              element.classList.add("scrolled");
-          });
+          for( let i=0; i < this.matches.length; i++ )  {
+              let {top,bottom} = this.matches[i].getBoundingClientRect();
+              let height = document.documentElement.clientHeight;
+              let scrolled = (top-180) < height;
+
+              if( scrolled ) {
+                  this.matches[i].classList.add("scrolled");
+              }
+          }
       }
   },
   mounted: function() {

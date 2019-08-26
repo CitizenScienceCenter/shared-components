@@ -55,12 +55,12 @@ export default {
     }
   },
   mounted: function() {
-    var matches = this.$el.querySelectorAll(".scroll-effect");
-    window.setTimeout(function() {
-      matches.forEach(function(element) {
-        element.classList.add("scrolled");
-      });
-    }, 1);
+      let matches = this.$el.querySelectorAll(".scroll-effect");
+      window.setTimeout(function() {
+          for( let i=0; i < matches.length; i++ )  {
+              matches[i].classList.add("scrolled");
+          }
+      }, 1);
   }
 }
 </script>
