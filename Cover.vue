@@ -56,6 +56,7 @@ export default {
   },
   mounted: function() {
       let matches = this.$el.querySelectorAll(".scroll-effect");
+      alert(matches);
       window.setTimeout(function() {
           for( let i=0; i < matches.length; i++ )  {
               matches[i].classList.add("scrolled");
