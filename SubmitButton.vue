@@ -15,7 +15,7 @@
         name: "SubmitButton",
         data() {
             return {
-                buttonWidth: undefine
+                buttonWidth: undefined
             }
         },
         props: {
