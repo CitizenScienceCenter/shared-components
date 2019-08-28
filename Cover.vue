@@ -15,11 +15,12 @@
       <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
 
-    <div v-if="!logoUrl" class="bottom-right-logo" v-scroll-to="'#sdg'">
+    <div class="bottom-right-logo" v-scroll-to="'#sdg'">
       <img v-if="goal" class="goal" :src="goalImage" />
       <img src="@/assets/shared/sdg-logo-white.svg" />
     </div>
-    <img v-else class="bottom-right-logo" :src="logoUrl" />
+    <img v-if="logoUrl" class="top-right-logo" :src="logoUrl" />
+
     <div class="cover-overlay"></div>
   </section>
 </template>
@@ -139,6 +140,14 @@ export default {
       }
     }
   }
+  .top-right-logo {
+    max-height: 48px;
+    max-width: 96px;
+    position: absolute;
+    top: $spacing-2;
+    right: $spacing-2;
+    z-index: 1;
+  }
 
   .content-wrapper {
     position: relative;
@@ -179,19 +188,6 @@ export default {
     opacity: 0.8;
   }
 
-
-  &.subpage {
-    height: 64px;
-    .bottom-right-logo {
-      display: none;
-    }
-    .cover-heading, .cover-subheading {
-      margin: 0;
-    }
-    .cover-overlay {
-      opacity: 1;
-    }
-  }
 }
 
 @media only screen and (min-width: $viewport-mobile-large) {
@@ -206,10 +202,6 @@ export default {
         font-size: $font-size-normal;
         margin-bottom: $spacing-2;
       }
-    }
-
-    &.subpage {
-      height: 80px;
     }
   }
 }
@@ -230,6 +222,12 @@ export default {
       bottom: $spacing-3;
       right: $spacing-3;
     }
+    .top-right-logo {
+      max-height: 64px;
+      max-width: 104px;
+      top: $spacing-3;
+      right: $spacing-3;
+    }
 
     .content-wrapper {
       .cover-heading {
@@ -240,9 +238,6 @@ export default {
       }
     }
 
-    &.subpage {
-      height: 96px;
-    }
   }
 }
 
@@ -264,6 +259,12 @@ export default {
       bottom: $spacing-3;
       right: $spacing-3;
     }
+    .top-right-logo {
+      max-height: 72px;
+      max-width: 120px;
+      top: $spacing-3;
+      right: $spacing-3;
+    }
 
     .content-wrapper {
       .cover-heading {
@@ -274,9 +275,6 @@ export default {
       }
     }
 
-    &.subpage {
-      height: 128px;
-    }
   }
 }
 
