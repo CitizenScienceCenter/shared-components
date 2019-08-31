@@ -90,7 +90,7 @@
             },
             reset() {
                 console.log('reset');
-                this.$router.push({name: 'ResetRequest'})
+                this.$router.push('/reset');
             }
         }
     }
