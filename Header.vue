@@ -757,7 +757,6 @@ header {
       &.home-link-platform {
         display: inline-block;
         position: relative;
-        margin-left: $spacing-2;
         padding: 20px 0;
 
         .logo {
