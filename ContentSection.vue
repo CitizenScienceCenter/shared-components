@@ -199,7 +199,7 @@ export default {
 
   .subheading {
     font-size: $font-size-medium;
-    line-height: 1.5;
+    line-height: 1.333;
     font-weight: 700;
     margin-bottom: $spacing-4;
 
