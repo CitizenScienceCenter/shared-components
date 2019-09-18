@@ -49,14 +49,24 @@ export default {
                   this.matches[i].classList.add("scrolled");
               }
           }
+      },
+      unveilAll() {
+          for( let i=0; i < this.matches.length; i++ )  {
+              this.matches[i].classList.add("scrolled");
+          }
       }
   },
   mounted: function() {
 
-      window.addEventListener('scroll', this.scroll);
       this.matches = this.$el.querySelectorAll(".scroll-effect");
 
-      this.scroll();
+      if( navigator.userAgent !== 'ReactSnap' ) {
+          window.addEventListener('scroll', this.scroll);
+          this.scroll();
+      }
+      else {
+          this.unveilAll();
+      }
 
   },
   destroyed() {
