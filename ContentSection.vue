@@ -60,7 +60,6 @@ export default {
 
       this.matches = this.$el.querySelectorAll(".scroll-effect");
 
-      console.log( navigator.userAgent );
       if( navigator.userAgent !== 'ReactSnap' && !navigator.userAgent.includes('Tizen') ) {
           window.addEventListener('scroll', this.scroll);
           this.scroll();
