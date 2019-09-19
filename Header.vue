@@ -26,6 +26,7 @@
     <template v-else>
       <router-link to="/" class="home-link home-link-project" active-class="active" exact>
         <h1 v-html="projectName"></h1>
+        <div v-if="beta" class="beta">Beta</div>
       </router-link>
       <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
@@ -140,7 +141,8 @@ export default {
           type: Array,
             default: function () { return ['de','en'] }
         },
-        score: undefined
+        score: undefined,
+        beta: Boolean
     },
   data: function() {
     return {
@@ -361,7 +363,7 @@ header {
 
     &.home-link-project {
       display: flex;
-      align-items: center;
+      align-items: start;
 
       h1 {
         white-space: pre-wrap;
@@ -371,6 +373,19 @@ header {
         color: $color-primary;
         text-transform: uppercase;
         transform: translateY(1px);
+      }
+
+      .beta {
+        margin-left: 4px;
+        height: calc( #{$font-size-tiny} + 8px );
+        font-size: $font-size-tiny;
+        line-height: 100%;
+        text-transform: uppercase;
+        font-weight: 700;
+        background-color: $color-secondary;
+        border-radius: $border-radius;
+        padding: 4px;
+        color: white;
       }
 
       &:active {
