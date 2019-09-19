@@ -42,7 +42,15 @@
         .display-text {
         }
 
+
+
         .hover {
+            
+            display: none;
+            @media (hover: hover) {
+                display: block;
+            }
+
             opacity: 0;
             pointer-events: none;
             transform: translateY( $spacing-1 );

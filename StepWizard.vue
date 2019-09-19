@@ -150,13 +150,13 @@
 
         .box {
             margin: auto;
-            margin-top: 5vh;
+            margin-top: 2.5vh;
             transition: all $transition-duration-long $transition-timing-function;
             transition-delay: $transition-delay-1;
             transform: translateY( $spacing-3 );
             opacity: 0;
             width: 90vw;
-            height: 90vh;
+            height: 85vh;
             max-height: $box-max-height;
             max-width: $box-max-width;
             background: white;
