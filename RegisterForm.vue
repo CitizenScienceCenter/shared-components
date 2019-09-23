@@ -89,7 +89,7 @@
                     <span>{{ $t("notifications-option-1") }}</span>
                 </label>
 
-                <label v-if="projectId">
+                <label v-if="projectId !== '667461b5-353e-4dae-b83b-c59b0563133b'">
                     <input type="checkbox" v-model="checkbox2">
                     <div class="checkbox">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
