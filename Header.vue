@@ -363,7 +363,7 @@ header {
 
     &.home-link-project {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
 
       h1 {
         white-space: pre-wrap;
@@ -377,7 +377,6 @@ header {
 
       .beta {
         margin-left: 4px;
-        height: calc( #{$font-size-tiny} + 8px );
         font-size: $font-size-tiny;
         line-height: 100%;
         text-transform: uppercase;
