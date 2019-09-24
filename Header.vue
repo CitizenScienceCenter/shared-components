@@ -158,7 +158,7 @@ export default {
   computed: {
       visibleRoutes() {
           let visibleRoutes = this.routes[0].children.filter(function(route) {
-              return route.meta.nav;
+              return route.meta ? route.meta.nav : false;
           });
           for( let i = 0; i < visibleRoutes.length; i++ ) {
               if( visibleRoutes[i].children ) {
