@@ -12,7 +12,7 @@
     },
     "en": {
 
-    "number-of-submissions": "Number<br>of Submissions",
+    "number-of-submissions": "Number of<br>Submissions",
     "number-of-users": "Number<br>of Users",
     "number-of-tasks": "Number<br>of Tasks"
 

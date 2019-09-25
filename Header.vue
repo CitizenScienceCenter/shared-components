@@ -776,6 +776,10 @@ header {
         .logo {
           height: 40px;
         }
+
+        &:nth-of-type(3) {
+          margin-left: $spacing-2;
+        }
       }
 
     }
