@@ -759,7 +759,6 @@ header {
       }
 
       &.home-link-project {
-        //border-right: 1px solid $color-black-tint-90;
         padding: $spacing-2 $spacing-3;
 
         h1 {
@@ -778,7 +777,11 @@ header {
         }
 
         &:nth-of-type(3) {
+          padding: 24px 0;
           margin-left: $spacing-2;
+          .logo {
+            height: 32px;
+          }
         }
       }
 
@@ -982,8 +985,8 @@ header {
   header {
 
     .home-link {
-      h1 {
-        font-size: $font-size-large;
+      &.home-link-project {
+        //padding: $spacing-2 $spacing-3;
       }
     }
 
