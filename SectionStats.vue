@@ -26,17 +26,17 @@
         <div class="content-wrapper">
             <div class="row row-centered row-wrapping">
 
-                <div v-show="submissionCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect centered">
+                <div v-show="submissionCount !== undefined" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect centered">
                     <label v-html="$t('number-of-submissions')"></label>
                     <span class="value">{{submissionCount}}</span>
                 </div>
 
-                <div v-show="userCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-1 centered">
+                <div v-show="userCount !== undefined" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-1 centered">
                     <label v-html="$t('number-of-users')"></label>
                     <span class="value">{{userCount}}</span>
                 </div>
 
-                <div v-show="taskCount" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-2 centered">
+                <div v-show="taskCount !== undefined" class="col col-wrapping col-large-3 col-xlarge-2 scroll-effect scroll-effect-delayed-2 centered">
                     <label v-html="$t('number-of-tasks')"></label>
                     <span class="value">{{taskCount}}</span>
                 </div>
@@ -56,7 +56,10 @@
             'app-content-section': ContentSection
         },
         props: {
-            color: String,
+            color: {
+                type: String,
+                default: 'white'
+            },
 
             submissionCount: Number,
             userCount: Number,
