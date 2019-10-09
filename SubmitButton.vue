@@ -11,6 +11,9 @@
 </template>
 
 <script>
+
+    import {mapState} from 'vuex'
+
     export default {
         name: "SubmitButton",
         data() {
@@ -32,6 +35,11 @@
                 default: 'Thank you very much!'
             }
         },
+        computed: {
+            ...mapState({
+                language: state => state.settings.language
+            })
+        },
         watch: {
             submissionInfo( to, from ) {
                 if( to ) {
@@ -40,6 +48,13 @@
                 else {
                     this.$refs.submitButton.style.width = this.buttonWidth+'px';
                 }
+            },
+            language() {
+                console.log('language change');
+                let self = this;
+                setTimeout( function() {
+                    self.setButtonWidth();
+                }, 10 );
             }
         },
         mounted() {
@@ -52,6 +67,7 @@
         methods: {
             setButtonWidth() {
                 if( !this.submissionInfo ) {
+                    console.log('set width');
                     this.$refs.submitButton.style.width = 'auto';
                     this.buttonWidth = this.$refs.submitButton.clientWidth;
                     this.$refs.submitButton.style.width = this.buttonWidth+'px';
@@ -59,6 +75,10 @@
             },
             submit() {
                 this.$emit('click');
+            },
+            focus(){
+                console.log('focus');
+                this.$refs.submitButton.focus();
             }
         },
     }

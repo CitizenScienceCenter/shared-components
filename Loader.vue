@@ -1,5 +1,5 @@
 <template>
-    <div v-else class="loader-wrapper">
+    <div class="loader-wrapper">
         <div class="loader">
             <div class="head head-1">
 
