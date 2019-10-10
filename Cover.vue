@@ -157,7 +157,7 @@ export default {
       width: 100%;
       height: 100%;
       max-height: 48px;
-      max-width: 80px;
+      max-width: 72px;
 
       &:nth-child(2) {
         margin-left: $spacing-1;
@@ -242,7 +242,7 @@ export default {
 
       img {
         max-height: 64px;
-        max-width: 88px;
+        max-width: 80px;
 
         &:nth-child(2) {
           margin-left: $spacing-2;
@@ -286,7 +286,7 @@ export default {
 
       img {
         max-height: 72px;
-        max-width: 112px;
+        max-width: 104px;
       }
     }
 
