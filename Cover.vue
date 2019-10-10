@@ -19,7 +19,11 @@
       <img v-if="goal" class="goal" :src="goalImage" />
       <img src="@/assets/shared/sdg-logo-white.svg" />
     </div>
-    <img v-if="logoUrl" class="top-right-logo" :src="logoUrl" />
+
+    <div class="top-right-logo" v-if="logoUrl">
+      <img :src="logoUrl" />
+      <img v-if="logo2Url" :src="logo2Url" />
+    </div>
 
     <div class="cover-overlay"></div>
   </section>
@@ -29,9 +33,10 @@
 export default {
   name: 'Cover',
   props: {
-    'imageUrl': String,
-    'logoUrl': String,
-      goal: String
+    imageUrl: String,
+    logoUrl: String,
+    logo2Url: String,
+    goal: String
   },
     computed: {
         goalImage () {
@@ -141,12 +146,23 @@ export default {
     }
   }
   .top-right-logo {
-    max-height: 48px;
-    max-width: 96px;
     position: absolute;
     top: $spacing-2;
     right: $spacing-2;
     z-index: 1;
+    display: flex;
+    align-items: flex-start;
+
+    img {
+      width: 100%;
+      height: 100%;
+      max-height: 48px;
+      max-width: 80px;
+
+      &:nth-child(2) {
+        margin-left: $spacing-1;
+      }
+    }
   }
 
   .content-wrapper {
@@ -223,10 +239,15 @@ export default {
       right: $spacing-3;
     }
     .top-right-logo {
-      max-height: 64px;
-      max-width: 104px;
-      top: $spacing-3;
-      right: $spacing-3;
+
+      img {
+        max-height: 64px;
+        max-width: 88px;
+
+        &:nth-child(2) {
+          margin-left: $spacing-2;
+        }
+      }
     }
 
     .content-wrapper {
@@ -260,10 +281,13 @@ export default {
       right: $spacing-3;
     }
     .top-right-logo {
-      max-height: 72px;
-      max-width: 120px;
       top: $spacing-3;
       right: $spacing-3;
+
+      img {
+        max-height: 72px;
+        max-width: 112px;
+      }
     }
 
     .content-wrapper {
