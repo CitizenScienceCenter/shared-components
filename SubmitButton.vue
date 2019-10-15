@@ -50,7 +50,6 @@
                 }
             },
             language() {
-                console.log('language change');
                 let self = this;
                 setTimeout( function() {
                     self.setButtonWidth();
@@ -66,8 +65,7 @@
         },
         methods: {
             setButtonWidth() {
-                if( !this.submissionInfo ) {
-                    console.log('set width');
+                if( this.$refs.submitButton && !this.submissionInfo ) {
                     this.$refs.submitButton.style.width = 'auto';
                     this.buttonWidth = this.$refs.submitButton.clientWidth;
                     this.$refs.submitButton.style.width = this.buttonWidth+'px';
