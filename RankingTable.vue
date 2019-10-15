@@ -3,7 +3,7 @@
     "de": {
 
     "label-username": "Benutzername",
-    "label-score": "Anzahl Antworten",
+    "label-score": "Antworten",
 
     "anonymous-username": "Anonymer Benutzer"
 
@@ -11,7 +11,7 @@
     "en": {
 
     "label-username": "Username",
-    "label-score": "Number of Submissions",
+    "label-score": "Submissions",
 
     "anonymous-username": "Anonymous User"
 
