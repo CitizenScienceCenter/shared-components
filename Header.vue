@@ -14,7 +14,7 @@
   <header :class="{ 'fixed': fixed,'animated': animated, 'pulled': pulled }" :style="{  }">
 
     <button class="menu-button" @click="showMenu">
-      <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>Artboard 1</title><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect x="32" y="68" width="448" height="56" rx="28" ry="28"/><rect x="32" y="228" width="448" height="56" rx="28" ry="28"/><rect x="32" y="388" width="448" height="56" rx="28" ry="28"/></svg>
     </button>
 
     <template v-if="!projectName">
@@ -24,7 +24,7 @@
     </template>
 
     <template v-else>
-      <router-link to="/" class="home-link home-link-project" active-class="active" exact>
+      <router-link to="/" class="home-link home-link-project" active-class="active" exact :class="{ big: !projectName.includes('<br') }">
         <h1 v-html="projectName"></h1>
         <div v-if="beta" class="beta">Beta</div>
       </router-link>
@@ -375,6 +375,17 @@ header {
         transform: translateY(1px);
       }
 
+      &.big {
+          h1 {
+              font-size: $font-size-xlarge;
+              line-height: 32px;
+
+              .kerning-fix {
+                letter-spacing: 0.01rem;
+              }
+          }
+      }
+
       .beta {
         margin-left: 4px;
         font-size: $font-size-tiny;
@@ -641,6 +652,12 @@ header {
         h1 {
           line-height: 18px;
         }
+
+        &.big {
+          h1 {
+            line-height: 36px;
+          }
+        }
       }
     }
 
@@ -759,11 +776,18 @@ header {
       }
 
       &.home-link-project {
+        //border-right: 1px solid $color-black-tint-90;
         padding: $spacing-2 $spacing-3;
 
         h1 {
           line-height: 24px;
           font-size: $font-size-medium;
+        }
+        &.big {
+          h1 {
+            line-height: 48px;
+            font-size: $font-size-xxlarge;
+          }
         }
       }
 
@@ -774,14 +798,6 @@ header {
 
         .logo {
           height: 40px;
-        }
-
-        &:nth-of-type(3) {
-          padding: 24px 0;
-          margin-left: $spacing-2;
-          .logo {
-            height: 32px;
-          }
         }
       }
 
@@ -985,8 +1001,8 @@ header {
   header {
 
     .home-link {
-      &.home-link-project {
-        //padding: $spacing-2 $spacing-3;
+      h1 {
+        font-size: $font-size-large;
       }
     }
 
