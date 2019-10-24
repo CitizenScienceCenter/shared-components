@@ -152,10 +152,9 @@ export default {
     z-index: 1;
     display: flex;
     align-items: flex-start;
+    justify-content: flex-end;
 
     img {
-      width: 100%;
-      height: 100%;
       max-height: 48px;
       max-width: 72px;
 
