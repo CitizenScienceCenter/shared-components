@@ -79,14 +79,12 @@
 <script>
 
     import ContentSection from '@/components/shared/ContentSection.vue';
-    import Ranking from "../Ranking";
     import RankingTable from "./RankingTable";
 
     export default {
         name: "SubSectionStats",
         components: {
             RankingTable,
-            Ranking,
             'app-content-section': ContentSection
         },
         props: {
