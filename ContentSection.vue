@@ -233,6 +233,7 @@ export default {
     }
     &.quote {
       font-size: $font-size-medium;
+      line-height: 1.333;
       font-style: italic;
       margin-bottom: $spacing-2;
       color: $color-secondary;
