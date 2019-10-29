@@ -20,9 +20,9 @@
     "label-number-of-users": "Number<br>of Users",
     "label-number-of-tasks": "Number<br>of Tasks",
 
-    "label-number-of-my-submissions": "Number of my<br>Submissions",
-    "label-my-progress": "My<br>Progress",
-    "label-my-rank": "My<br>Rank"
+    "label-number-of-my-submissions": "Number of your<br>Submissions",
+    "label-my-progress": "Your<br>Progress",
+    "label-my-rank": "Your<br>Rank"
 
     }
 
@@ -79,14 +79,12 @@
 <script>
 
     import ContentSection from '@/components/shared/ContentSection.vue';
-    import Ranking from "../Ranking";
     import RankingTable from "./RankingTable";
 
     export default {
         name: "SubSectionStats",
         components: {
             RankingTable,
-            Ranking,
             'app-content-section': ContentSection
         },
         props: {
