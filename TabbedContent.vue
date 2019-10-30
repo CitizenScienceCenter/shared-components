@@ -54,6 +54,7 @@
         .tab-navigation {
             overflow-x: auto;
             //background: linear-gradient(120deg, rgba($color-gradient-start, 0.025), rgba($color-gradient-end, 0.025) );
+            margin-bottom: $spacing-3;
 
             ul {
                 display: table;
@@ -112,6 +113,7 @@
 
         .tabbed-content {
             .tab-navigation {
+                margin-bottom: $spacing-5;
                 ul {
                     li {
                         margin-right: $spacing-3;
@@ -145,6 +147,16 @@
                         }
                     }
                 }
+            }
+        }
+
+    }
+
+    @media only screen and (min-width: $viewport-xlarge) {
+
+        .tabbed-content {
+            .tab-navigation {
+                margin-bottom: $spacing-5;
             }
         }
 
