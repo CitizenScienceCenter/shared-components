@@ -1,0 +1,33 @@
+{
+  "name": "shared-components",
+  "version": "0.0.1",
+  "description": "Shared Components for the Citizen Science Center Zurich projects",
+  "main": "dist/index.js",
+  "dependencies": {
+    "ajv": "^6.10.2",
+    "named-exports": "^0.0.7"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.0.6",
+    "bili": "^4.8.1",
+    "cache-loader": "^4.1.0",
+    "eslint-loader": "^3.0.2",
+    "rollup-plugin-vue": "^5.1.2",
+    "sass-loader": "^8.0.0",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CitizenScienceCenter/shared-components.git"
+  },
+  "author": "info@citizenscience.ch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CitizenScienceCenter/shared-components/issues"
+  },
+  "homepage": "https://github.com/CitizenScienceCenter/shared-components#readme"
+}
