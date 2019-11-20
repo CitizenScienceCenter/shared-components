@@ -322,6 +322,10 @@ export default {
   .form-field {
     margin-bottom: $spacing-4;
 
+    &.reduced-bottom-margin {
+      margin-bottom: $spacing-3;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -440,6 +444,10 @@ export default {
 
     .form-field {
       margin-bottom: $spacing-5;
+
+      &.reduced-bottom-margin {
+        margin-bottom: $spacing-4;
+      }
     }
 
   }
