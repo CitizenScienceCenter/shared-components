@@ -51,6 +51,9 @@
 <style lang="scss">
     .growing-textarea {
         position: relative;
+        textarea {
+            display: block;
+        }
         span {
             position: absolute;
             left: 0;
