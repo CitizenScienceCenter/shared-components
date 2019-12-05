@@ -1,6 +1,6 @@
 <template>
     <div class="tabbed-content">
-        <div class="tab-navigation" ref="subnav">
+        <div class="tab-navigation" v-show="tabs.length > 1">
             <ul ref="navlist">
                 <li v-for="(tab,index) in tabs" :key="tab" :class="{ active: index === activeTab }" @click="setActive(index)">
                     <a>{{ tab }}</a>
