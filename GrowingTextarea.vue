@@ -49,10 +49,17 @@
 </script>
 
 <style lang="scss">
+
+
+    @import '@/styles/theme.scss';
+    @import '@/styles/shared/variables.scss';
+
+
     .growing-textarea {
         position: relative;
         textarea {
             display: block;
+            height: 40px;
         }
         span {
             position: absolute;
@@ -61,6 +68,15 @@
             visibility: hidden;
             display: block;
             line-height: 1.5;
+        }
+    }
+
+    @media only screen and (min-width: $viewport-tablet-portrait) {
+
+        .growing-textarea {
+            textarea {
+                height: 48px;
+            }
         }
     }
 </style>
