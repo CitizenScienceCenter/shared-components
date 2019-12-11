@@ -45,9 +45,10 @@
 
     .tabbed-content {
         .tab {
-            display: none;
+            height: 0;
+            overflow: hidden;
             &.active {
-                display: block;
+                height: auto;
              }
         }
 
