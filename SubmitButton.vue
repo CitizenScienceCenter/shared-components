@@ -67,17 +67,14 @@
             setButtonWidth() {
                 if( this.$refs.submitButton && !this.submissionInfo ) {
                     this.$refs.submitButton.style.width = 'auto';
-                    if( this.$refs.submitButton.style.width > 0 ) {
-                        this.buttonWidth = this.$refs.submitButton.clientWidth;
-                        this.$refs.submitButton.style.width = this.buttonWidth+'px';
-                    }
+                    this.buttonWidth = this.$refs.submitButton.clientWidth;
+                    this.$refs.submitButton.style.width = this.buttonWidth+'px';
                 }
             },
             submit() {
                 this.$emit('click');
             },
             focus(){
-                console.log('focus');
                 this.$refs.submitButton.focus();
             }
         },
