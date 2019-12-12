@@ -46,6 +46,7 @@
                     this.$refs.submitButton.style.width = this.$refs.info.clientWidth+'px';
                 }
                 else {
+                    this.$refs.submitButton.blur();
                     this.$refs.submitButton.style.width = this.buttonWidth+'px';
                 }
             },
