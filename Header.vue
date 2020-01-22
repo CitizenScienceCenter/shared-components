@@ -24,7 +24,7 @@
     </template>
 
     <template v-else>
-      <router-link to="/" class="home-link home-link-project" active-class="active" exact :class="{ big: !projectName.includes('<br') }">
+      <router-link to="/" class="home-link home-link-project" active-class="active" exact :class="{ big: projectNameBig }">
         <h1 v-html="projectName"></h1>
         <div v-if="beta" class="beta">Beta</div>
       </router-link>
@@ -132,6 +132,10 @@ export default {
     components: {UserAvatar},
     props: {
         projectName: undefined,
+        projectNameBig: {
+          type: Boolean,
+          default: false
+        },
         cyberlabLogo: {
             type: Boolean,
             default: false
