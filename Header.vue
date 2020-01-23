@@ -367,7 +367,7 @@ header {
 
     &.home-link-project {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
 
       h1 {
         white-space: pre-wrap;
