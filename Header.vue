@@ -115,7 +115,7 @@
       <template v-else>
         <user-avatar :username="currentUser.username"></user-avatar>
       </template>
-      <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
+      <a v-if="projectName" href="https://citizenscience.ch" class="home-link home-link-platform" :class="{'padding-right':hideLogin}" target="_blank">
         <img alt="Citizen Science Center Zurich" class="logo" src="@/assets/shared/logo.svg"/>
       </a>
     </div>
@@ -599,6 +599,9 @@ header {
       padding: 12px 0;
       img {
         height: 24px;
+      }
+      &.padding-right {
+        padding-right: 12px;
       }
     }
 
