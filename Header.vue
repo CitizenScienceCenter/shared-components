@@ -400,6 +400,8 @@ header {
         border-radius: $border-radius;
         padding: 4px;
         color: white;
+        display: flex;
+        align-self: flex-start;
       }
 
       &:active {
