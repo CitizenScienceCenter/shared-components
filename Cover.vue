@@ -20,7 +20,7 @@
       <img src="@/assets/shared/sdg-logo-white.svg" />
     </div>
 
-    <div class="top-right-logo" v-if="logoUrl">
+    <div class="top-right-logo" v-if="logoUrl" :class="{'mitrends':logosMitrends}">
       <img :src="logoUrl" />
       <img v-if="logo2Url" :src="logo2Url" />
     </div>
@@ -36,6 +36,7 @@ export default {
     imageUrl: String,
     logoUrl: String,
     logo2Url: String,
+    logosMitrends: Boolean,
     goal: String
   },
     computed: {
@@ -162,6 +163,13 @@ export default {
         margin-left: $spacing-1;
       }
     }
+
+    &.mitrends {
+      img {
+        max-height: 56px;
+        max-width: none;
+      }
+    }
   }
 
   .content-wrapper {
@@ -209,6 +217,15 @@ export default {
   .cover {
     height: 480px;
 
+    .top-right-logo {
+      &.mitrends {
+        img {
+          max-height: 64px;
+          max-width: none;
+        }
+      }
+    }
+
     .content-wrapper {
       .cover-heading {
         font-size: $font-size-xlarge;
@@ -245,6 +262,13 @@ export default {
 
         &:nth-child(2) {
           margin-left: $spacing-2;
+        }
+      }
+
+      &.mitrends {
+        img {
+          max-height: 80px;
+          max-width: none;
         }
       }
     }
@@ -287,6 +311,13 @@ export default {
         max-height: 72px;
         max-width: 104px;
       }
+
+      &.mitrends {
+        img {
+          max-height: 88px;
+          max-width: none;
+        }
+      }
     }
 
     .content-wrapper {
@@ -306,6 +337,15 @@ export default {
 
     height: 80vh;
     max-height: 600px;
+
+    .top-right-logo {
+      &.mitrends {
+        img {
+          max-height: 104px;
+          max-width: none;
+        }
+      }
+    }
 
     .content-wrapper {
       .cover-heading {
