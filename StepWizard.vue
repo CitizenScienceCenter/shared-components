@@ -1,3 +1,36 @@
+<i18n>
+{
+  "de": {
+      "wizard-button-next": "Weiter",
+      "wizard-button-back": "Zurück",
+      "wizard-button-start": "Starten",
+      "wizard-step-label": "Schritt",
+      "wizard-step-of": "von"
+  },
+  "en": {
+      "wizard-button-next": "Next",
+      "wizard-button-back": "Back",
+      "wizard-button-start": "Start",
+      "wizard-step-label": "Step",
+      "wizard-step-of": "of"
+  },
+  "fr": {
+    "wizard-button-next": "Prochaine",
+    "wizard-button-back": "Arrière",
+    "wizard-button-start": "Commencer",
+    "wizard-step-label": "Étape",
+    "wizard-step-of": "sur"
+  },
+  "it": {
+    "wizard-button-next": "Più",
+    "wizard-button-back": "Indietro",
+    "wizard-button-start": "Inizio",
+    "wizard-step-label": "Passo",
+    "wizard-step-of": "di"
+  }
+}
+</i18n>
+
 <template>
     <div class="step-wizard" :class="{displayed:displayed,open:open}">
         <div class="overlay" @click="closeWizard"></div>
@@ -7,9 +40,9 @@
             </div>
             <div class="box-footer">
                 <div class="button-group right-aligned">
-                    <button class="button button-secondary" v-if="step > 0" @click="prevStep">Zurück</button>
-                    <button class="button button-primary" v-if="step+1 < $children.length" @click="nextStep">Weiter</button>
-                    <button class="button button-primary" v-else @click="closeWizard">Starten</button>
+                    <button class="button button-secondary" v-if="step > 0" @click="prevStep">{{ $t('wizard-button-back') }}</button>
+                    <button class="button button-primary" v-if="step+1 < $children.length" @click="nextStep">{{ $t('wizard-button-next') }}</button>
+                    <button class="button button-primary" v-else @click="closeWizard">{{ $t('wizard-button-start') }}</button>
                 </div>
                 <div class="progress">
                     <div class="progress-bar">
@@ -19,7 +52,7 @@
                     </div>
                     <div class="text">
                         <span class="text-short">{{(step+1)}} / {{$children.length}}</span>
-                        <span class="text-normal"><span class="label">Schritt </span>{{(step+1)}} von {{$children.length}}</span>
+                        <span class="text-normal"><span class="label">{{ $t('wizard-step-label') }} </span>{{(step+1)}} {{ $t('wizard-step-of') }} {{$children.length}}</span>
                     </div>
                 </div>
             </div>
