@@ -1,17 +1,27 @@
 <i18n>
     {
 
-    "en": {
+"en": {
 
-    "text": "We use cookies to improve your experience on our sites."
+"text": "We use cookies to improve your experience on our sites."
 
-    },
+},
 
-    "de": {
+"de": {
 
-    "text": "Wir verwenden Cookies zur Verbesserung unserer Websites."
+"text": "Wir verwenden Cookies zur Verbesserung unserer Websites."
 
-    }
+},
+"fr": {
+
+"text": "Nous utilisons des cookies pour améliorer votre expérience sur nos sites."
+
+},
+"it": {
+
+"text": "Utilizziamo i cookie per migliorare la tua esperienza sui nostri siti."
+
+}
 
     }
 </i18n>

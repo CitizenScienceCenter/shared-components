@@ -1,8 +1,8 @@
 <i18n>
-    {
+  {
 
 
-    "de": {
+  "de": {
 
 
     "label-number-of-submissions": "Gesamte Anzahl<br>Antworten",
@@ -14,7 +14,8 @@
     "label-my-rank": "Ihr<br>Rang"
 
     },
-    "en": {
+
+  "en": {
 
     "label-number-of-submissions": "Total Number of<br>Submissions",
     "label-number-of-users": "Number<br>of Users",
@@ -24,9 +25,33 @@
     "label-my-progress": "Your<br>Progress",
     "label-my-rank": "Your<br>Rank"
 
-    }
+    },
 
-    }
+  "fr": {
+
+    "label-number-of-submissions": "Nombre total<br>de soumissions",
+    "label-number-of-users": "Nombre<br>d'utilisateurs",
+    "label-number-of-tasks": "Nombre<br>de tâches",
+
+    "label-number-of-my-submissions": "Nombre de<br>vos soumissions",
+    "label-my-progress": "Vos<br>progrès",
+    "label-my-rank": "Votre<br>rang"
+
+  },
+
+  "it": {
+
+    "label-number-of-submissions": "Numero totale<br>di invii",
+    "label-number-of-users": "Numero<br>di utenti",
+    "label-number-of-tasks": "Numero<br>di attività",
+
+    "label-number-of-my-submissions": "Numero<br>di invii",
+    "label-my-progress": "I tuoi<br>progressi",
+    "label-my-rank": "Il tuo<br>grado"
+
+  }
+
+  }
 </i18n>
 
 <template>
@@ -78,14 +103,12 @@
 
 <script>
 
-    import ContentSection from '@/components/shared/ContentSection.vue';
     import RankingTable from "./RankingTable";
 
     export default {
         name: "SubSectionStats",
         components: {
-            RankingTable,
-            'app-content-section': ContentSection
+            RankingTable
         },
         props: {
             submissionCount: Number,

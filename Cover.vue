@@ -1,3 +1,20 @@
+<i18n>
+  {
+  "de": {
+    "logo-text": "Ein gemeinsamer Effort von"
+  },
+  "en": {
+    "logo-text": "A joint initiative by"
+  },
+  "fr": {
+    "logo-text": "Une initiative conjointe de"
+  },
+  "it": {
+    "logo-text": "Un'iniziativa congiunta di"
+  }
+  }
+</i18n>
+
 <template>
   <section class="cover" :style="{ 'background-image': 'url(' + imageUrl + ')' }">
     <div class="content-wrapper">
@@ -9,8 +26,7 @@
     </div>
 
     <div class="uzh-eth">
-      <span v-if="this.$i18n.locale === 'en'">A joint initiative by</span>
-      <span v-else>Ein gemeinsamer Effort von</span>
+      <span>{{ $t('logo-text') }}</span>
       <img v-if="this.$i18n.locale === 'en'" alt="University of Zurich / ETH Zurich" src="@/assets/shared/uzh_eth_logo_e_neg.svg" @click="logoClick($event)"/>
       <img v-else alt="Universität Zürich / ETH Zürich" src="@/assets/shared/uzh_eth_logo_d_neg.svg" @click="logoClick($event)"/>
     </div>
