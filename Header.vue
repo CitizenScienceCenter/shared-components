@@ -690,6 +690,9 @@ header {
             color: white;
             border: 1px solid rgba($color-black-tint-90, 0.25);
             border-radius: $border-radius;
+            option {
+              color: $color-primary;
+            }
           }
           svg {
             fill: white;
