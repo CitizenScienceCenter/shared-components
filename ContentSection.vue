@@ -5,101 +5,98 @@
 </template>
 
 <script>
-
-
-
 export default {
-  name: 'ContentSection',
+  name: "ContentSection",
   data: function() {
     return {
-      matches: []
-    }
+      matches: [],
+    };
   },
   props: {
-    'color': String
+    color: String,
   },
   computed: {
     colorClass: function() {
-      switch( this.color ) {
-        case 'greyish':
-          return 'greyish';
-        case 'light-greyish':
-          return 'light-greyish';
-        case 'superlight-greyish':
-            return 'superlight-greyish';
-        case 'more-greyish':
-            return 'more-greyish';
-        case 'dark':
-          return 'dark';
-        case 'transparent':
-            return 'transparent';
+      switch (this.color) {
+        case "greyish":
+          return "greyish";
+        case "light-greyish":
+          return "light-greyish";
+        case "superlight-greyish":
+          return "superlight-greyish";
+        case "more-greyish":
+          return "more-greyish";
+        case "dark":
+          return "dark";
+        case "transparent":
+          return "transparent";
         default:
-          return 'white';
+          return "white";
       }
-    }
+    },
   },
   methods: {
-      scroll() {
-          for( let i=0; i < this.matches.length; i++ )  {
-              let {top,bottom} = this.matches[i].getBoundingClientRect();
-              let height = document.documentElement.clientHeight;
-              let scrolled = (top-180) < height;
+    scroll() {
+      for (let i = 0; i < this.matches.length; i++) {
+        let { top, bottom } = this.matches[i].getBoundingClientRect();
+        let height = document.documentElement.clientHeight;
+        let scrolled = top - 180 < height;
 
-              if( scrolled ) {
-                  this.matches[i].classList.add("scrolled");
-              }
-          }
-      },
-      unveilAll() {
-          for( let i=0; i < this.matches.length; i++ )  {
-              this.matches[i].classList.add("scrolled");
-          }
+        if (scrolled) {
+          this.matches[i].classList.add("scrolled");
+        }
       }
+    },
+    unveilAll() {
+      for (let i = 0; i < this.matches.length; i++) {
+        this.matches[i].classList.add("scrolled");
+      }
+    },
   },
   mounted: function() {
+    this.matches = this.$el.querySelectorAll(".scroll-effect");
 
-      this.matches = this.$el.querySelectorAll(".scroll-effect");
-
-      if( navigator.userAgent !== 'ReactSnap' && !navigator.userAgent.includes('Tizen') ) {
-          window.addEventListener('scroll', this.scroll);
-          this.scroll();
-      }
-      else {
-          this.unveilAll();
-      }
-
-  }
-
-}
+    if (
+      navigator.userAgent !== "ReactSnap" &&
+      !navigator.userAgent.includes("Tizen")
+    ) {
+      window.addEventListener("scroll", this.scroll);
+      this.scroll();
+    } else {
+      this.unveilAll();
+    }
+  },
+};
 </script>
 
 <style lang="scss">
-
-@import '@/styles/theme.scss';
-@import '@/styles/shared/variables.scss';
+@import "@/styles/theme.scss";
+@import "@/styles/shared/variables.scss";
 
 .content-section {
   position: relative;
   padding: $spacing-5 0;
   background: white;
-  &.no-padding{
-      padding: $spacing-1;
-    }
+  &.no-padding {
+    padding: $spacing-1;
+  }
+  &.no-margin {
+    margin: $spacing-1;
+  }
 
-    &.content-section-condensed {
-        padding: $spacing-3 0;
+  &.content-section-condensed {
+    padding: $spacing-3 0;
 
-      .content-subsection {
-        padding-bottom: $spacing-4;
-        &:last-of-type {
-          padding-bottom: 0;
-        }
+    .content-subsection {
+      padding-bottom: $spacing-4;
+      &:last-of-type {
+        padding-bottom: 0;
       }
     }
-    &.content-section-flat {
-      padding: 0;
-    }
-
+  }
+  &.content-section-flat {
+    padding: 0;
+  }
 
   .content-subsection {
     padding-bottom: $spacing-5;
@@ -108,7 +105,6 @@ export default {
       padding-bottom: 0;
     }
   }
-
 
   .scroll-effect {
     transition: all $transition-duration-super-long $transition-timing-function;
@@ -124,19 +120,35 @@ export default {
   // Section Style
 
   &.superlight-greyish {
-    background: linear-gradient(120deg, rgba($color-gradient-start, 0.025), rgba($color-gradient-end, 0.025) );
+    background: linear-gradient(
+      120deg,
+      rgba($color-gradient-start, 0.025),
+      rgba($color-gradient-end, 0.025)
+    );
   }
 
   &.light-greyish {
-    background: linear-gradient(120deg, rgba($color-gradient-start, 0.05), rgba($color-gradient-end, 0.05) );
+    background: linear-gradient(
+      120deg,
+      rgba($color-gradient-start, 0.05),
+      rgba($color-gradient-end, 0.05)
+    );
   }
 
   &.greyish {
-    background: linear-gradient(120deg, rgba($color-gradient-start, 0.2), rgba($color-gradient-end, 0.2) );
+    background: linear-gradient(
+      120deg,
+      rgba($color-gradient-start, 0.2),
+      rgba($color-gradient-end, 0.2)
+    );
   }
 
   &.more-greyish {
-    background: linear-gradient(120deg, rgba($color-gradient-start, 0.3), rgba($color-gradient-end, 0.3) );
+    background: linear-gradient(
+      120deg,
+      rgba($color-gradient-start, 0.3),
+      rgba($color-gradient-end, 0.3)
+    );
   }
 
   &.transparent {
@@ -144,7 +156,11 @@ export default {
   }
 
   &.dark {
-    background: linear-gradient(120deg, $color-gradient-start, $color-gradient-end );
+    background: linear-gradient(
+      120deg,
+      $color-gradient-start,
+      $color-gradient-end
+    );
 
     * {
       color: white;
@@ -169,7 +185,6 @@ export default {
     }
   }
 
-
   .content-wrapper {
     position: relative;
   }
@@ -184,7 +199,7 @@ export default {
     position: relative;
 
     &:after {
-      content: '';
+      content: "";
       width: 24px;
       height: 4px;
       background-color: $color-primary;
@@ -196,16 +211,15 @@ export default {
 
     &.centered {
       &:after {
-        left: calc( 50% - 12px );
+        left: calc(50% - 12px);
       }
     }
 
     &.small {
       font-size: $font-size-medium;
-      padding-bottom: $spacing-3;
+      padding-bottom: $spacing-2;
       margin-bottom: $spacing-3;
     }
-
   }
 
   .subheading {
@@ -219,14 +233,12 @@ export default {
     }
   }
 
-
   p {
     margin-bottom: $spacing-4;
 
     .linebreak {
       display: block;
     }
-
 
     &.lead {
       font-size: $font-size-medium;
@@ -241,10 +253,10 @@ export default {
       margin-bottom: $spacing-2;
       color: $color-secondary;
     }
-    &.list-intro, &.reduced-bottom-margin {
+    &.list-intro,
+    &.reduced-bottom-margin {
       margin-bottom: $spacing-3;
     }
-
 
     &:last-child {
       margin-bottom: 0;
@@ -255,7 +267,8 @@ export default {
     font-size: $font-size-small;
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin-bottom: $spacing-4;
     &:last-child {
       margin-bottom: 0;
@@ -267,7 +280,7 @@ export default {
       padding-left: $spacing-4;
 
       &:before {
-        content: '';
+        content: "";
         width: 0.5rem;
         height: 0.5rem;
         background-color: $color-secondary;
@@ -292,10 +305,11 @@ export default {
 
     width: 100%;
     tr {
-      margin:0;
-      padding:0;
-      th, td {
-        margin:0;
+      margin: 0;
+      padding: 0;
+      th,
+      td {
+        margin: 0;
 
         padding: 0 $spacing-1;
         &:first-child {
@@ -313,7 +327,6 @@ export default {
         padding-bottom: $spacing-1;
       }
       td {
-
       }
     }
   }
@@ -361,33 +374,26 @@ export default {
       height: 100%;
     }
   }
-
-
 }
 
-
 @media only screen and (min-width: $viewport-mobile-large) {
-
   .content-section {
     padding: $spacing-5 0;
-    &.no-padding{
+    &.no-padding {
       padding: $spacing-1;
     }
 
     &.content-section-condensed {
-
       .content-subsection {
         padding-bottom: $spacing-4;
       }
     }
   }
-
 }
 
 @media only screen and (min-width: $viewport-tablet-portrait) {
-
   .content-section {
-    padding: $spacing-6 0;      
+    padding: $spacing-6 0;
 
     &.content-section-condensed {
       padding: $spacing-4 0;
@@ -398,7 +404,6 @@ export default {
           padding-bottom: 0;
         }
       }
-
     }
 
     .content-subsection {
@@ -415,8 +420,8 @@ export default {
 
       &.small {
         font-size: $font-size-large;
-        padding-bottom: $spacing-4;
-        margin-bottom: $spacing-4;
+        padding-bottom: $spacing-2;
+        margin-bottom: $spacing-3;
       }
     }
 
@@ -424,14 +429,14 @@ export default {
       margin-bottom: $spacing-5;
     }
 
-
     p {
       margin-bottom: $spacing-5;
 
       &.quote {
         font-size: $font-size-large;
       }
-      &.list-intro, &.reduced-bottom-margin {
+      &.list-intro,
+      &.reduced-bottom-margin {
         margin-bottom: $spacing-4;
       }
 
@@ -440,7 +445,9 @@ export default {
       }
     }
 
-    ul, ol, table {
+    ul,
+    ol,
+    table {
       margin-bottom: $spacing-5;
     }
 
@@ -455,15 +462,11 @@ export default {
         margin-bottom: $spacing-4;
       }
     }
-
   }
-
 }
 
 @media only screen and (min-width: $viewport-large) {
-
   .content-section {
-
     padding: $spacing-6 0;
 
     &.content-section-condensed {
@@ -511,29 +514,20 @@ export default {
         }
       }
     }
-
-
   }
-
 }
 
 @media only screen and (min-width: $viewport-xlarge) {
-
   .content-section {
-
     padding: $spacing-8 0;
 
-
-      &.content-section-condensed {
-          padding: $spacing-5 0;
-      }
+    &.content-section-condensed {
+      padding: $spacing-5 0;
+    }
 
     &.image {
       min-height: 640px;
     }
-
   }
-
 }
-
 </style>
