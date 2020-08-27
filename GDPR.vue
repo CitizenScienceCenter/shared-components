@@ -29,7 +29,7 @@
 
                     <div class="drawer">
                         <span>{{ $t('text') }}</span>
-                        <button class="button button-primary" @click.prevent="acceptGdpr()">OK</button>
+                        <button class="button button-primary-main" @click.prevent="acceptGdpr()">OK</button>
                     </div>
 
                 </div>

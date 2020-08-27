@@ -8,8 +8,8 @@
             <div class="box-footer">
                 <div class="button-group right-aligned">
                     <button class="button button-secondary" v-if="step > 0" @click="prevStep">Zurück</button>
-                    <button class="button button-primary" v-if="step+1 < $children.length" @click="nextStep">Weiter</button>
-                    <button class="button button-primary" v-else @click="closeWizard">Starten</button>
+                    <button class="button button-primary-main" v-if="step+1 < $children.length" @click="nextStep">Weiter</button>
+                    <button class="button button-primary-main" v-else @click="closeWizard">Starten</button>
                 </div>
                 <div class="progress">
                     <div class="progress-bar">

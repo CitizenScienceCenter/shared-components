@@ -32,7 +32,7 @@
 
             <div class="button-group right-aligned">
                 <a tabindex="93" @click.prevent="reset" class="button button-secondary button-secondary-naked" :disabled="loading">{{ $t('button-forgotten') }}</a>
-                <button tabindex="92" type="submit" class="button button-primary" :disabled="loading || !email || !password">{{ $t('button-login') }}</button>
+                <button tabindex="92" type="submit" class="button button-primary-main" :disabled="loading || !email || !password">{{ $t('button-login') }}</button>
             </div>
             <div class="form-message form-message-error" v-if="error">
                 <div class="icon">

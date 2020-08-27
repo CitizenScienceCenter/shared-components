@@ -103,7 +103,7 @@
         </div>
 
         <div class="button-group right-aligned">
-            <button :disabled="loading || !email || !password || errors.email || errors.empty || errors.len || errors.match || errors.password || errors.username" type="submit" class="button button-primary">{{ $t("button-register") }}</button>
+            <button :disabled="loading || !email || !password || errors.email || errors.empty || errors.len || errors.match || errors.password || errors.username" type="submit" class="button button-primary-main">{{ $t("button-register") }}</button>
         </div>
 
         <div class="form-message form-message-error" v-if="errors.server">

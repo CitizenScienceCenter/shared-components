@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="button-group right-aligned">
-                    <button :disabled="commentTitle === '' || commentText === ''" class="button button-primary" @click="newComment()">{{ $t('newtopic-button') }}</button>
+                    <button :disabled="commentTitle === '' || commentText === ''" class="button button-primary-main" @click="newComment()">{{ $t('newtopic-button') }}</button>
                 </div>
 
             </div>
@@ -68,7 +68,7 @@
         <template v-else>
 
             <p>{{ $t('login-text') }}</p>
-            <router-link tag="button" to="/login" class="button button-primary">{{ $t('login-button') }}</router-link>
+            <router-link tag="button" to="/login" class="button button-primary-main">{{ $t('login-button') }}</router-link>
 
         </template>
 
@@ -95,7 +95,7 @@
                                 <growing-textarea v-model="replyTexts[index]" :placeholder="$t('reply-placeholder')"></growing-textarea>
                             </div>
                             <div class="button-group right-aligned">
-                                <button :disabled="replyTexts[index].length === 0" class="button button-primary" @click="newComment(commentTree[index][0].comment_id, index)">{{ $t('reply-button') }}</button>
+                                <button :disabled="replyTexts[index].length === 0" class="button button-primary-main" @click="newComment(commentTree[index][0].comment_id, index)">{{ $t('reply-button') }}</button>
                             </div>
                         </div>
                     </template>

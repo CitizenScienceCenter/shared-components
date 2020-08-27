@@ -191,7 +191,7 @@
                 v-if="score && score > 0"
                 tag="button"
                 to="/login"
-                class="button button-primary button-login"
+                class="button button-primary-main button-login"
                 >Register</router-link
               >
               <router-link
@@ -219,7 +219,7 @@
             v-if="score && score > 0"
             tag="button"
             to="/login"
-            class="button button-primary button-login"
+            class="button button-primary-main button-login"
             >Register</router-link
           >
           <router-link
