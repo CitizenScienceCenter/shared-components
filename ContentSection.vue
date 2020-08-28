@@ -77,8 +77,8 @@ export default {
   position: relative;
   padding: $spacing-5 0;
   background: white;
-  &.no-padding {
-    padding: $spacing-1;
+  &.small-padding {
+    padding: $spacing-4 $spacing-1;
   }
   &.no-margin {
     margin: $spacing-1;
@@ -379,9 +379,6 @@ export default {
 @media only screen and (min-width: $viewport-mobile-large) {
   .content-section {
     padding: $spacing-5 0;
-    &.no-padding {
-      padding: $spacing-1;
-    }
 
     &.content-section-condensed {
       .content-subsection {
