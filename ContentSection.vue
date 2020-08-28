@@ -220,6 +220,12 @@ export default {
       padding-bottom: $spacing-2;
       margin-bottom: $spacing-3;
     }
+
+    &.min {
+      font-size: $font-size-normal;
+      padding-bottom: $spacing-1;
+      margin-bottom: $spacing-2;
+    }
   }
 
   .subheading {
