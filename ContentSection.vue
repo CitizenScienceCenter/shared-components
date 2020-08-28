@@ -221,7 +221,7 @@ export default {
       margin-bottom: $spacing-3;
     }
 
-    &.min {
+    &.mini {
       font-size: $font-size-normal;
       padding-bottom: $spacing-1;
       margin-bottom: $spacing-2;
