@@ -78,10 +78,10 @@ export default {
   padding: $spacing-5 0;
   background: white;
   &.small-padding {
-    padding: $spacing-4 $spacing-1;
+    padding: $spacing-4 0;
   }
-  &.no-margin {
-    margin: $spacing-1;
+  &.sm-margin-left {
+    margin-left: $spacing-1;
   }
 
   &.content-section-condensed {
