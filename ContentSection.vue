@@ -83,6 +83,9 @@ export default {
   &.sm-margin-left {
     margin-left: $spacing-1;
   }
+  &.sm-margin-right {
+    margin-right: 1;
+  }
 
   &.content-section-condensed {
     padding: $spacing-3 0;
@@ -218,7 +221,7 @@ export default {
     &.small {
       font-size: $font-size-medium;
       padding-bottom: $spacing-2;
-      margin-bottom: $spacing-3;
+      margin-bottom: $spacing-2;
     }
 
     &.mini {
