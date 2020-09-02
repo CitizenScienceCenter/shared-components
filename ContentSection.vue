@@ -84,7 +84,7 @@ export default {
     margin-left: $spacing-1;
   }
   &.sm-margin-right {
-    margin-right: 1;
+    margin-right: $spacing-2;
   }
 
   &.content-section-condensed {
