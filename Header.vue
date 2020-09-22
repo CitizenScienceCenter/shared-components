@@ -1044,10 +1044,12 @@ header {
                 background-color: transparent;
                 a {
                   color: $color-primary;
+                  font-weight: 700;
                 }
                 ul {
                   li {
                     a {
+                      font-weight: normal;
                       color: $color-black-tint-50;
                       &:active {
                         color: $color-black;
@@ -1062,6 +1064,7 @@ header {
                       background-color: transparent;
                       a {
                         color: $color-black;
+                        font-weight: 700;
                       }
                     }
                   }
