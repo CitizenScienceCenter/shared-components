@@ -186,26 +186,34 @@
           </div>
 
           <div v-if="score" class="score">{{ score }}</div>
-          <template v-if="!currentUser || isAnon">
-            <template v-if="!hideLogin">
-              <router-link
-                v-if="score && score > 0"
-                tag="button"
-                to="/login"
-                class="button button-primary-main button-login"
-                >Register</router-link
-              >
-              <router-link
-                v-else
-                tag="button"
-                to="/login"
-                class="button button-secondary button-login"
-                >{{ $t("login") }}</router-link
-              >
-            </template>
+          <!-- <template v-if="!currentUser || isAnon"> -->
+          <template v-if="!currentUser || !isLogged">
+            <!-- <template v-if="!hideLogin"> -->
+            <router-link
+              v-if="score && score > 0"
+              tag="button"
+              to="/login"
+              class="button button-primary-main button-login"
+              >Register</router-link
+            >
+            <router-link
+              v-else
+              tag="button"
+              to="/login"
+              class="button button-secondary button-login"
+              >{{ $t("login") }}</router-link
+            >
+            <!-- </template> -->
           </template>
           <template v-else>
-            <user-avatar :username="currentUser.username"></user-avatar>
+            <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
+            <ul class="navigation" ref="navigation">
+              <li>
+                <a @click="signOut">
+                  <span>{{ currentUser.name }}</span>
+                </a>
+              </li>
+            </ul>
           </template>
         </div>
       </div>
@@ -214,26 +222,28 @@
 
     <div class="mobile-top-right">
       <div v-if="score" class="score">{{ score }}</div>
-      <template v-if="!currentUser || isAnon">
-        <template v-if="!hideLogin">
-          <router-link
-            v-if="score && score > 0"
-            tag="button"
-            to="/login"
-            class="button button-primary-main button-login"
-            >Register</router-link
-          >
-          <router-link
-            v-else
-            tag="button"
-            to="/login"
-            class="button button-secondary button-login"
-            >{{ $t("login") }}</router-link
-          >
-        </template>
+      <!-- <template v-if="!currentUser || isAnon"> -->
+      <template v-if="!currentUser || !isLogged">
+        <!-- <template v-if="!hideLogin"> -->
+        <router-link
+          v-if="score && score > 0"
+          tag="button"
+          to="/login"
+          class="button button-primary-main button-login"
+          >Register</router-link
+        >
+        <router-link
+          v-else
+          tag="button"
+          to="/login"
+          class="button button-secondary button-login"
+          >{{ $t("login") }}</router-link
+        >
+        <!-- </template> -->
       </template>
       <template v-else>
-        <user-avatar :username="currentUser.username"></user-avatar>
+        <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
+        <user-avatar :username="currentUser.name"></user-avatar>
       </template>
       <a
         v-if="projectName"
@@ -255,6 +265,8 @@
 <script>
 import { i18n } from "../../i18n.js";
 import UserAvatar from "./UserAvatar";
+// TODO: Remove mapActions, is only for testing purposes
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Header",
@@ -291,6 +303,10 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
+      isLogged: (state) => state.user.isLogged,
+    }),
     visibleRoutes() {
       let visibleRoutes = this.routes[0].children.filter(function(route) {
         return route.meta ? route.meta.nav : false;
@@ -307,24 +323,31 @@ export default {
       //console.log( visibleRoutes );
       return visibleRoutes;
     },
-    currentUser: {
-      get() {
-        if (!this.hideLogin) {
-          return this.$store.state.c3s.user.currentUser;
-        } else {
-          return null;
-        }
-      },
+    currentUser() {
+      if (this.isLogged) {
+        return this.userInfo;
+      } else {
+        return null;
+      }
     },
-    isAnon: {
-      get() {
-        if (!this.hideLogin) {
-          return this.$store.state.c3s.user.isAnon;
-        } else {
-          return false;
-        }
-      },
-    },
+    // currentUser: {
+    //   get() {
+    //     if (!this.hideLogin) {
+    //       return this.$store.state.c3s.user.currentUser;
+    //     } else {
+    //       return null;
+    //     }
+    //   },
+    // },
+    // isAnon: {
+    //   get() {
+    //     if (!this.hideLogin) {
+    //       return this.$store.state.c3s.user.isAnon;
+    //     } else {
+    //       return false;
+    //     }
+    //   },
+    // },
     language: {
       get() {
         return this.$store.state.settings.language;
@@ -342,6 +365,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions({ signOut: "user/signOut" }),
     reset() {
       this.menuOn = false;
       this.scrollY = 0;
@@ -627,6 +651,7 @@ header {
 
           li {
             display: block;
+            cursor: pointer;
 
             a {
               display: block;
