@@ -207,11 +207,25 @@
           </template>
           <template v-else>
             <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
-            <ul class="navigation" ref="navigation">
-              <li>
-                <a @click="signOut">
-                  <span>{{ currentUser.name }}</span>
+            <ul class="navigation">
+              <li class="inline" :class="{ active: menuOn }">
+                <img :src="getAvatar" class="round" />
+                <a class="username">
+                  <span>{{ stringLength(currentUser.name, 10) }}</span>
                 </a>
+                <ul :style="{ height: 2 * 48 + 'px' }">
+                  <router-link
+                    tag="li"
+                    to="/profile"
+                    active-class="active"
+                    exact
+                  >
+                    <a><span>Profile</span></a>
+                  </router-link>
+                  <li @click="signOut">
+                    <a><span>Signout</span></a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </template>
@@ -243,7 +257,7 @@
       </template>
       <template v-else>
         <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
-        <user-avatar :username="currentUser.name"></user-avatar>
+        <img :src="getAvatar" class="round" />
       </template>
       <a
         v-if="projectName"
@@ -329,6 +343,13 @@ export default {
       } else {
         return null;
       }
+    },
+    getAvatar() {
+      let avatar = "/img/graphic-user.png";
+      if (this.userInfo.info && this.userInfo.info.avatar_url) {
+        avatar = this.userInfo.info.avatar_url;
+      }
+      return avatar;
     },
     // currentUser: {
     //   get() {
@@ -426,6 +447,9 @@ export default {
     },
     hideMenu() {
       this.menuOn = false;
+    },
+    stringLength(text, len) {
+      return text.length > len ? text.substring(0, len + 1) + "..." : text;
     },
   },
   created() {
@@ -652,6 +676,16 @@ header {
           li {
             display: block;
             cursor: pointer;
+            &.inline {
+              display: flex;
+              align-items: baseline;
+              padding-left: $spacing-2;
+            }
+            .round {
+              max-height: 32px;
+              border-radius: 50%;
+              transform: translateY(30%);
+            }
 
             a {
               display: block;
@@ -661,7 +695,10 @@ header {
               color: white;
               box-sizing: border-box;
               border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
+              &.username {
+                padding: $spacing-1;
+                border-bottom: none;
+              }
               span {
                 display: block;
                 font-size: $font-size-small;
@@ -783,6 +820,12 @@ header {
       }
       margin: 6px;
       margin-left: $spacing-1;
+    }
+    img {
+      max-height: 40px;
+      border-radius: 50%;
+      transform: translateY(20%);
+      margin: 0 $spacing-2;
     }
   }
 }
@@ -1070,6 +1113,10 @@ header {
                 a {
                   color: $color-primary;
                   font-weight: 700;
+                  &.username {
+                    color: black;
+                    font-weight: 400;
+                  }
                 }
                 ul {
                   li {
