@@ -197,8 +197,8 @@ export default {
     line-height: 1.25;
     font-weight: 700;
     color: $color-secondary;
-    padding-bottom: $spacing-4;
-    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    margin-bottom: $spacing-3;
     position: relative;
 
     &:after {
@@ -421,8 +421,8 @@ export default {
 
     .heading {
       font-size: $font-size-xlarge;
-      padding-bottom: $spacing-5;
-      margin-bottom: $spacing-5;
+      padding-bottom: $spacing-3;
+      margin-bottom: $spacing-3;
 
       &.small {
         font-size: $font-size-large;
