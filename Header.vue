@@ -279,7 +279,6 @@
 <script>
 import { i18n } from "../../i18n.js";
 import UserAvatar from "./UserAvatar";
-// TODO: Remove mapActions, is only for testing purposes
 import { mapState, mapActions } from "vuex";
 
 export default {
