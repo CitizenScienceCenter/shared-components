@@ -243,7 +243,7 @@ export default {
   }
 
   p {
-    margin-bottom: $spacing-4;
+    margin-bottom: $spacing-3;
 
     .linebreak {
       display: block;
@@ -436,7 +436,7 @@ export default {
     }
 
     p {
-      margin-bottom: $spacing-5;
+      margin-bottom: $spacing-3;
 
       &.quote {
         font-size: $font-size-large;

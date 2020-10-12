@@ -138,7 +138,7 @@
                   :to="'/' + language + '/' + route.path + '/' + child.path"
                   active-class="active"
                   :key="child.path"
-                  v-scroll-to="child.meta.anchor"
+                  v-scroll-to="child.meta.anchor || 'top'"
                 >
                   <a
                     ><span>{{ $t(child.meta.i18n + ".link") }}</span></a
