@@ -321,7 +321,14 @@ export default {
       isLogged: (state) => state.user.isLogged,
     }),
     visibleRoutes() {
+      const user = this.userInfo;
       let visibleRoutes = this.routes[0].children.filter(function(route) {
+        // show tab if user is admin
+        if (route.meta && route.meta.requiresAdmin) {
+          if (!user || !user.admin) {
+            return false;
+          }
+        }
         return route.meta ? route.meta.nav : false;
       });
       for (let i = 0; i < visibleRoutes.length; i++) {
