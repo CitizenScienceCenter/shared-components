@@ -222,7 +222,7 @@
                   >
                     <a><span>Profile</span></a>
                   </router-link>
-                  <li @click="signOut">
+                  <li @click="signOutAction()">
                     <a><span>Signout</span></a>
                   </li>
                 </ul>
@@ -456,6 +456,10 @@ export default {
     },
     stringLength(text, len) {
       return text.length > len ? text.substring(0, len + 1) + "..." : text;
+    },
+    signOutAction() {
+      this.hideMenu();
+      this.signOut();
     },
   },
   created() {
