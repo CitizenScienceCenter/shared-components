@@ -97,6 +97,9 @@ export default {
       }
     }
   }
+  &.content-section-compact {
+    padding: $spacing-2 0;
+  }
   &.content-section-flat {
     padding: 0;
   }
@@ -497,7 +500,7 @@ export default {
     .background-wrapper {
       position: absolute;
       width: 100%;
-      top: 5%;
+      top: 0%;
       left: auto;
       pointer-events: none;
 
