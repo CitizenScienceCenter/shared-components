@@ -115,6 +115,44 @@
         </div>
 
         <div class="drawer-content">
+          <!-- User profile and sign out -->
+          <template v-if="!currentUser || !isLogged">
+            <!-- <template v-if="!hideLogin"> -->
+            <router-link
+              v-if="score && score > 0"
+              tag="button"
+              to="/login"
+              class="button button-primary-main button-login"
+              >Register</router-link
+            >
+            <router-link
+              v-else
+              tag="button"
+              to="/login"
+              class="button button-secondary button-login"
+              >{{ $t("login") }}</router-link
+            >
+            <!-- </template> -->
+          </template>
+          <template v-else>
+            <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
+            <ul class="navigation">
+              <li class="inline" :class="{ active: menuOn }">
+                <img :src="getAvatar" class="round" />
+                <router-link tag="li" to="/profile" active-class="active" exact>
+                  <a class="username">
+                    <span>{{ stringLength(currentUser.name, 9) }}</span>
+                  </a>
+                </router-link>
+                <ul>
+                  <li @click="signOutAction()">
+                    <a><span>Signout</span></a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </template>
+
           <ul class="navigation" ref="navigation" v-if="language">
             <router-link
               tag="li"
@@ -153,82 +191,42 @@
                 </span>
               </a>
             </li>
-          </ul>
-
-          <div
-            class="custom-select language-select"
-            v-show="languages.length > 1"
-          >
-            <div style="display: none;">
-              <router-link
-                v-for="lang in languages"
-                :to="'/' + lang + $route.path.substring(3)"
-                :key="lang"
-                >{{ lang }}</router-link
+            <div class="centered">
+              <div
+                class="custom-select language-select"
+                v-show="languages.length > 1"
               >
+                <div style="display: none;">
+                  <router-link
+                    v-for="lang in languages"
+                    :to="'/' + lang + $route.path.substring(3)"
+                    :key="lang"
+                    >{{ lang }}</router-link
+                  >
+                </div>
+                <select v-model="language">
+                  <option v-for="lang in languages" :value="lang" :key="lang">{{
+                    lang
+                  }}</option>
+                </select>
+                <svg
+                  version="1.1"
+                  id="Layer_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  xml:space="preserve"
+                >
+                  <path
+                    d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1 C100.6,213.5,109.5,192,127.3,192z"
+                  />
+                </svg>
+              </div>
             </div>
-            <select v-model="language">
-              <option v-for="lang in languages" :value="lang" :key="lang">{{
-                lang
-              }}</option>
-            </select>
-            <svg
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              xml:space="preserve"
-            >
-              <path
-                d="M127.3,192h257.3c17.8,0,26.7,21.5,14.1,34.1L270.1,354.8c-7.8,7.8-20.5,7.8-28.3,0L113.2,226.1 C100.6,213.5,109.5,192,127.3,192z"
-              />
-            </svg>
-          </div>
+            <li><a><br/></a></li>
+          </ul>
 
           <div v-if="score" class="score">{{ score }}</div>
           <!-- <template v-if="!currentUser || isAnon"> -->
-          <template v-if="!currentUser || !isLogged">
-            <!-- <template v-if="!hideLogin"> -->
-            <router-link
-              v-if="score && score > 0"
-              tag="button"
-              to="/login"
-              class="button button-primary-main button-login"
-              >Register</router-link
-            >
-            <router-link
-              v-else
-              tag="button"
-              to="/login"
-              class="button button-secondary button-login"
-              >{{ $t("login") }}</router-link
-            >
-            <!-- </template> -->
-          </template>
-          <template v-else>
-            <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
-            <ul class="navigation">
-              <li class="inline" :class="{ active: menuOn }">
-                <img :src="getAvatar" class="round" />
-                <a class="username">
-                  <span>{{ stringLength(currentUser.name, 10) }}</span>
-                </a>
-                <ul :style="{ height: 2 * 48 + 'px' }">
-                  <router-link
-                    tag="li"
-                    to="/profile"
-                    active-class="active"
-                    exact
-                  >
-                    <a><span>Profile</span></a>
-                  </router-link>
-                  <li @click="signOutAction()">
-                    <a><span>Signout</span></a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </template>
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
@@ -680,7 +678,7 @@ header {
         overflow-y: scroll;
 
         .navigation {
-          margin-top: 48px;
+          margin-top: 20px;
           border-top: 1px solid rgba(255, 255, 255, 0.2);
 
           li {
@@ -889,7 +887,7 @@ header {
       }
       .drawer {
         .menu-header {
-          height: 64px;
+          height: 54px;
           width: 280px;
         }
         .drawer-content {
@@ -897,7 +895,7 @@ header {
           height: calc(100% - 64px);
 
           .navigation {
-            margin-top: 64px;
+            margin-top: 34px;
             li {
               a {
                 padding: calc((56px - 0.8rem * 1.5) / 2) $spacing-3;
