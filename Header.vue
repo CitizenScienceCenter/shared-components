@@ -13,6 +13,7 @@
   <header
     :class="{ fixed: fixed, animated: animated, pulled: pulled }"
     :style="{}"
+    id="top"
   >
     <button class="menu-button" @click="showMenu">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -115,44 +116,6 @@
         </div>
 
         <div class="drawer-content">
-          <!-- User profile and sign out -->
-          <template v-if="!currentUser || !isLogged">
-            <!-- <template v-if="!hideLogin"> -->
-            <router-link
-              v-if="score && score > 0"
-              tag="button"
-              to="/login"
-              class="button button-primary-main button-login"
-              >Register</router-link
-            >
-            <router-link
-              v-else
-              tag="button"
-              to="/login"
-              class="button button-secondary button-login"
-              >{{ $t("login") }}</router-link
-            >
-            <!-- </template> -->
-          </template>
-          <template v-else>
-            <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
-            <ul class="navigation">
-              <li class="inline" :class="{ active: menuOn }">
-                <img :src="getAvatar" class="round" />
-                <router-link tag="li" to="/profile" active-class="active" exact>
-                  <a class="username">
-                    <span>{{ stringLength(currentUser.name, 9) }}</span>
-                  </a>
-                </router-link>
-                <ul>
-                  <li @click="signOutAction()">
-                    <a><span>Signout</span></a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </template>
-
           <ul class="navigation" ref="navigation" v-if="language">
             <router-link
               tag="li"
@@ -169,6 +132,7 @@
               <ul
                 v-if="route.children"
                 :style="{ height: route.children.length * 48 + 'px' }"
+                v-show="!fixed"
               >
                 <router-link
                   tag="li"
@@ -176,7 +140,7 @@
                   :to="'/' + language + '/' + route.path + '/' + child.path"
                   active-class="active"
                   :key="child.path"
-                  v-scroll-to="child.meta.anchor || 'top'"
+                  v-scroll-to="child.meta.anchor || '#top'"
                 >
                   <a
                     ><span>{{ $t(child.meta.i18n + ".link") }}</span></a
@@ -191,7 +155,7 @@
                 </span>
               </a>
             </li>
-            <div class="centered">
+            <li class="centered">
               <div
                 class="custom-select language-select"
                 v-show="languages.length > 1"
@@ -221,12 +185,58 @@
                   />
                 </svg>
               </div>
-            </div>
-            <li><a><br/></a></li>
+            </li>
+            <!-- <template v-if="!currentUser || isAnon"> -->
+            <!-- User profile and sign out -->
+            <span>
+              <template v-if="!currentUser || !isLogged">
+                <!-- <template v-if="!hideLogin"> -->
+                <router-link
+                  v-if="score && score > 0"
+                  tag="button"
+                  to="/login"
+                  class="button button-primary-main button-login"
+                  >Register</router-link
+                >
+                <router-link
+                  v-else
+                  tag="button"
+                  to="/login"
+                  class="button button-secondary button-login"
+                  >{{ $t("login") }}</router-link
+                >
+                <!-- </template> -->
+              </template>
+              <template v-else>
+                <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
+                <ul class="navigation">
+                  <li class="inline" :class="{ active: menuOn }">
+                    <img :src="getAvatar" class="round" />
+                    <router-link
+                      tag="li"
+                      to="/profile"
+                      active-class="active"
+                      exact
+                    >
+                      <a class="username">
+                        <span>{{ stringLength(currentUser.name, 9) }}</span>
+                      </a>
+                    </router-link>
+                    <ul>
+                      <li @click="signOutAction()">
+                        <a><span>Signout</span></a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </template>
+            </span>
+            <li v-if="menuOn">
+              <a><br /></a>
+            </li>
           </ul>
 
           <div v-if="score" class="score">{{ score }}</div>
-          <!-- <template v-if="!currentUser || isAnon"> -->
         </div>
       </div>
       <div class="overlay" @click="hideMenu"></div>
@@ -673,7 +683,6 @@ header {
         height: calc(100% - 48px);
         width: 240px;
         position: relative;
-
         overflow: hidden;
         overflow-y: scroll;
 
@@ -1068,9 +1077,11 @@ header {
               a {
                 color: $color-black;
                 height: 60px;
-                padding: 20px 10px;
+                padding: 10px 7px;
                 border-bottom: none;
-
+                span {
+                  font-size: clamp($font-size-mini, 1.5vw, $font-size-small);
+                }
                 &:active {
                   color: $color-primary;
                 }
