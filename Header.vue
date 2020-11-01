@@ -10,11 +10,9 @@
 </i18n>
 
 <template>
-  <header
-    :class="{ fixed: fixed, animated: animated, pulled: pulled }"
-    :style="{}"
-    id="top"
-  >
+  <header :class="getHeaderConfig" :style="{}" id="top">
+    <!-- menu button used for small screen devices -->
+    <!-- menu hiden -->
     <button class="menu-button" @click="showMenu">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <rect x="32" y="68" width="448" height="56" rx="28" ry="28" />
@@ -71,6 +69,7 @@
       </a>
     </template>
 
+    <!-- menu shown -->
     <div class="navigation-wrapper" :class="{ active: menuOn }">
       <div class="drawer">
         <div class="menu-header">
@@ -115,6 +114,7 @@
           </template>
         </div>
 
+        <!-- Content of menu header -->
         <div class="drawer-content">
           <ul class="navigation" ref="navigation" v-if="language">
             <router-link
@@ -186,6 +186,7 @@
                 </svg>
               </div>
             </li>
+
             <!-- <template v-if="!currentUser || isAnon"> -->
             <!-- User profile and sign out -->
             <span>
@@ -328,6 +329,13 @@ export default {
       userInfo: (state) => state.user.userInfo,
       isLogged: (state) => state.user.isLogged,
     }),
+    getHeaderConfig() {
+      return {
+        fixed: this.fixed,
+        animated: this.animated,
+        pulled: this.pulled,
+      };
+    },
     visibleRoutes() {
       const user = this.userInfo;
       let visibleRoutes = this.routes[0].children.filter(function(route) {
