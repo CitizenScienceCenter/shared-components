@@ -132,7 +132,7 @@
               <ul
                 v-if="route.children"
                 :style="{ height: route.children.length * 48 + 'px' }"
-                v-show="!fixed"
+                v-show="!fixed || pulled"
               >
                 <router-link
                   tag="li"
