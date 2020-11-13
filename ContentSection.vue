@@ -279,8 +279,7 @@ export default {
     font-size: $font-size-small;
   }
 
-  ul,
-  ol {
+  ul {
     margin-bottom: $spacing-4;
     &:last-child {
       margin-bottom: 0;
@@ -301,6 +300,35 @@ export default {
         top: 0.5rem;
         left: 0.5rem;
         transform: translateY(-1px);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  ol {
+    margin-bottom: $spacing-4;
+    list-style: none;
+    counter-reset: my-awesome-counter;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    li {
+      counter-increment: my-awesome-counter;
+      margin-bottom: $spacing-2;
+      position: relative;
+      padding-left: $spacing-4;
+
+      &:before {
+        content: counter(my-awesome-counter) ". ";
+        width: 0.5rem;
+        height: 0.5rem;
+        color: $color-secondary;
+        font-weight: bold;
+        position: absolute;
+        left: 0em;
       }
 
       &:last-child {
