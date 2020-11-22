@@ -163,7 +163,7 @@
                 <div style="display: none;">
                   <router-link
                     v-for="lang in languages"
-                    :to="'/' + lang + $route.path.substring(3)"
+                    :to="`/${lang}${$route.path.substring(3)}`"
                     :key="lang"
                     >{{ lang }}</router-link
                   >
