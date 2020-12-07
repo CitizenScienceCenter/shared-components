@@ -119,7 +119,7 @@
           <ul class="navigation" ref="navigation" v-if="language">
             <router-link
               tag="li"
-              v-for="route in visibleRoutes"
+              v-for="route in getVisibleRoutes"
               :to="'/' + language + '/' + route.path"
               active-class="active"
               @click.native="hideMenu"
@@ -287,12 +287,12 @@
 
 <script>
 import { i18n } from "../../i18n.js";
-import UserAvatar from "./UserAvatar";
+// import UserAvatar from "./UserAvatar";
 import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Header",
-  components: { UserAvatar },
+  // components: { UserAvatar },
   props: {
     projectName: undefined,
     projectNameBig: {
@@ -336,7 +336,7 @@ export default {
         pulled: this.pulled,
       };
     },
-    visibleRoutes() {
+    getVisibleRoutes() {
       const user = this.userInfo;
       let visibleRoutes = this.routes[0].children.filter(function(route) {
         // show tab if user is admin
@@ -356,7 +356,6 @@ export default {
           });
         }
       }
-      //console.log( visibleRoutes );
       return visibleRoutes;
     },
     currentUser() {
