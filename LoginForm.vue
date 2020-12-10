@@ -28,7 +28,6 @@
           name="email"
           id="email"
           autocomplete="email"
-          :disabled="loading"
         />
       </div>
 
@@ -41,7 +40,6 @@
           id="password"
           name="password"
           autocomplete="password"
-          :disabled="loading"
         />
       </div>
 
@@ -50,34 +48,37 @@
           tabindex="93"
           @click.prevent="reset"
           class="button button-secondary button-secondary-naked"
-          :disabled="loading"
           >{{ $t("button-forgotten") }}</a
         >
         <button
           tabindex="92"
           type="submit"
           class="button button-primary-main"
-          :disabled="loading || !email || !password"
+          :disabled="!email || !password"
         >
           {{ $t("button-login") }}
         </button>
       </div>
-      <div class="form-message form-message-error" v-if="error">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M322.72,256,422.79,155.93a31.46,31.46,0,0,0,0-44.48L400.55,89.21a31.46,31.46,0,0,0-44.48,0L256,189.28,155.93,89.21a31.46,31.46,0,0,0-44.48,0L89.21,111.45a31.46,31.46,0,0,0,0,44.48L189.28,256,89.21,356.07a31.46,31.46,0,0,0,0,44.48l22.24,22.24a31.46,31.46,0,0,0,44.48,0L256,322.72,356.07,422.79a31.46,31.46,0,0,0,44.48,0l22.24-22.24a31.46,31.46,0,0,0,0-44.48Z"
-            ></path>
-          </svg>
+      <div
+        class="form-message"
+        :class="
+          error.type == 'success'
+            ? 'form-message-success'
+            : 'form-message-error'
+        "
+        v-if="error"
+      >
+        <div class="text">
+          <i :class="setErrorIcon"></i>
+          <span class="text">{{ error.msg }}</span>
         </div>
-        <span class="text">{{ error }}</span>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "LoginForm",
@@ -86,43 +87,39 @@ export default {
       email: "",
       password: "",
       success: false,
-      error: false,
     };
   },
-  computed: mapState({
-    currentUser: (state) => state.c3s.user.currentUser,
-    loading: (state) => state.c3s.settings.loading,
-  }),
-  watch: {
-    // currentUser(to, from) {
-    //   // console.log(to)
-    //   if (to !== null || to !== undefined){
-    //   }
-    // },
+  computed: {
+    ...mapState({ error: (state) => state.user.error }),
+    setErrorIcon() {
+      switch (this.error.type) {
+        case "success":
+          return "far fa-check-circle";
+        case "error":
+          return "fas fa-times";
+        case "info":
+          return "fas fa-exclamation";
+      }
+      return null;
+    },
   },
   mounted() {
     this.$refs.email.focus();
+    this.setError(null);
   },
   methods: {
+    ...mapActions({ signIn: "user/signIn" }),
+    ...mapMutations({ setError: "user/setError" }),
     login() {
-      console.log("login");
-      this.error = null;
-      this.$store
-        .dispatch("c3s/user/login", {
-          user: { email: this.email, pwd: this.password },
-        })
-        .then((user) => {
-          if (user.status === 200) {
-            this.$store.commit("c3s/user/SET_ANON", false);
-            this.$router.push("/");
-          } else {
-            this.error = "Login failed";
-          }
-        });
+      this.signIn({ email: this.email, password: this.password });
     },
     reset() {
-      console.log("reset");
       this.$router.push("/reset");
+    },
+  },
+  watch: {
+    email: function() {
+      this.setError(null);
     },
   },
 };
