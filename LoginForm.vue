@@ -62,15 +62,15 @@
       <div
         class="form-message"
         :class="
-          error.type == 'success'
+          error.login.type == 'success'
             ? 'form-message-success'
             : 'form-message-error'
         "
-        v-if="error"
+        v-if="error && error.login"
       >
         <div class="text">
           <i :class="setErrorIcon"></i>
-          <span class="text">{{ error.msg }}</span>
+          <span class="text">{{ error.login.msg }}</span>
         </div>
       </div>
     </form>
@@ -92,7 +92,7 @@ export default {
   computed: {
     ...mapState({ error: (state) => state.user.error }),
     setErrorIcon() {
-      switch (this.error.type) {
+      switch (this.error.login.type) {
         case "success":
           return "far fa-check-circle";
         case "error":
@@ -109,9 +109,10 @@ export default {
   },
   methods: {
     ...mapActions({ signIn: "user/signIn" }),
-    ...mapMutations({ setError: "user/setError" }),
+    ...mapMutations({ setError: "user/setLoginError" }),
     login() {
-      this.signIn({ email: this.email, password: this.password });
+      const user = { email: this.email, password: this.password };
+      this.signIn(user);
     },
     reset() {
       this.$router.push("/reset");
@@ -119,7 +120,14 @@ export default {
   },
   watch: {
     email: function() {
-      this.setError(null);
+      if (this.error.login) {
+        this.setError(null);
+      }
+    },
+    password: function() {
+      if (this.error.login) {
+        this.setError(null);
+      }
     },
   },
 };
