@@ -12,7 +12,8 @@
     "error-empty": "Enter an email address.",
     "error-email": "Email already in use.",
     "error-email-format": "No valid email address",
-    "error-username": "No valid username",
+    "error-username": "Username already in use",
+    "error-username-format": "No valid username",
     "error-len": "Password needs to be at least 8 characters long.",
     "error-match": "Passwords don't match.",
     "error-server": "Server error occured",
@@ -34,7 +35,8 @@
     "error-empty": "Sie müssen eine E-Mail angeben.",
     "error-email": "Email bereits registriert.",
     "error-email-format": "Keine gültige E-Mail.",
-    "error-username": "Keine gültige Benutzername.",
+    "error-username": "Benutzername bereits registriert.",
+    "error-username-format": "Keine gültige Benutzername.",
     "error-len": "Muss mehr als 8 Zeichen lang sein.",
     "error-match": "Passwörter stimmen nicht überein.",
     "error-server": "Serverfehler aufgetreten.",
@@ -65,9 +67,11 @@
       <span class="message error" v-if="errors.emailFormat">{{
         $t("error-email-format")
       }}</span>
-      <span class="message error" v-if="errors.email">{{
-        $t("error-email")
-      }}</span>
+      <span
+        class="message error"
+        v-if="error.register && error.register.email_addr"
+        >{{ $t("error-email") }}
+      </span>
     </div>
     <div class="form-field form-field-block">
       <label for="reg-username">Username</label>
@@ -78,8 +82,11 @@
         autocomplete="new-password"
       />
       <span class="message error" v-if="errors.username">{{
-        $t("error-username")
+        $t("error-username-format")
       }}</span>
+      <span class="message error" v-if="error.register && error.register.name"
+        >{{ $t("error-username") }}
+      </span>
     </div>
     <div class="form-field form-field-block">
       <label for="reg-password">{{ $t("label-password") }}</label>
@@ -106,7 +113,7 @@
       }}</span>
     </div>
 
-    <div class="form-field form-field-block">
+    <!-- <div class="form-field form-field-block">
       <label for="notification-options">{{ $t("notifications-label") }}</label>
       <div class="options" id="notification-options">
         <label>
@@ -121,7 +128,7 @@
           <span>{{ $t("notifications-option-1") }}</span>
         </label>
 
-        <!-- <label v-if="projectId !== '667461b5-353e-4dae-b83b-c59b0563133b'">
+        <label v-if="projectId !== '667461b5-353e-4dae-b83b-c59b0563133b'">
           <input type="checkbox" v-model="checkbox2" />
           <div class="checkbox">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -131,17 +138,18 @@
             </svg>
           </div>
           <span>{{ $t("notifications-option-2") }}</span>
-        </label> -->
+        </label>
       </div>
-    </div>
+    </div> -->
 
     <div class="button-group right-aligned">
       <button
         :disabled="
           !email ||
+            !username ||
             !password ||
             !confPassword ||
-            errors.email ||
+            errors.emailFormat ||
             errors.empty ||
             errors.len ||
             errors.match ||
@@ -153,17 +161,6 @@
       >
         {{ $t("button-register") }}
       </button>
-    </div>
-
-    <div class="form-message form-message-error" v-if="errors.server">
-      <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path
-            d="M322.72,256,422.79,155.93a31.46,31.46,0,0,0,0-44.48L400.55,89.21a31.46,31.46,0,0,0-44.48,0L256,189.28,155.93,89.21a31.46,31.46,0,0,0-44.48,0L89.21,111.45a31.46,31.46,0,0,0,0,44.48L189.28,256,89.21,356.07a31.46,31.46,0,0,0,0,44.48l22.24,22.24a31.46,31.46,0,0,0,44.48,0L256,322.72,356.07,422.79a31.46,31.46,0,0,0,44.48,0l22.24-22.24a31.46,31.46,0,0,0,0-44.48Z"
-          ></path>
-        </svg>
-      </div>
-      <span class="text">{{ $t("error-server") }}</span>
     </div>
   </form>
 </template>
@@ -178,39 +175,34 @@ export default {
       email: "",
       username: "",
       password: "",
-      confPassword: "",
-      checkbox1: true,
-      checkbox2: true,
+      confPassword: "",      
       errors: {
         empty: false,
         emailFormat: false,
-        email: false,
         username: false,
         match: false,
-        len: false,
-        server: false,
+        len: false
       },
-      emailCheckTimeout: undefined,
-      usernameCheckTimeout: undefined,
+      // checkbox1: true,
+      // checkbox2: true,
     };
   },
   computed: { ...mapState({ error: (state) => state.user.error }) },
   watch: {
     email() {
+      this.errors.emailFormat = false;
+      if (this.error.register) {
+        this.setError(null);
+      }
       this.username = this.email.split("@")[0];
-
-      this.errors.email = false;
-      clearTimeout(this.emailCheckTimeout);
-      var self = this;
-      this.emailCheckTimeout = setTimeout(function() {
-        self.checkEmail();
-      }, 500);
+      this.checkEmail();
     },
     username() {
+      if (this.error.register) {
+        this.setError(null);
+      }
       this.errors.username = false;
-      clearTimeout(this.usernameCheckTimeout);
-      var self = this;
-      self.checkUsername();
+      this.checkUsername();
     },
     password() {
       if (this.password.length < 8) {
@@ -247,7 +239,6 @@ export default {
       }
     },
     registerNewUser() {
-      this.errors.server = false;
       this.errors.username = false;
 
       const user = {
@@ -258,7 +249,6 @@ export default {
       };
 
       this.register(user);
-    //   TODO: verify system of error messages
     },
   },
 };
