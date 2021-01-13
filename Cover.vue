@@ -38,8 +38,8 @@
       v-if="logoUrl"
       :class="{ mitrends: logosMitrends }"
     >
-      <img :src="logoUrl" alt="logo URL"/>
-      <img v-if="logo2Url" :src="logo2Url" alt="logo 2 URL"/>
+      <img :src="logoUrl" alt="logo URL" />
+      <img v-if="logo2Url" :src="logo2Url" alt="logo 2 URL" />
     </div>
 
     <div class="cover-overlay"></div>
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     openInNewTab: function(url) {
-      var win = window.open(url, "_blank");
+      var win = window.open(url, "_blank", "noopener");
       win.focus();
     },
     logoClick: function(e) {

@@ -48,6 +48,7 @@
         href="https://citizenscience.ch"
         class="home-link home-link-platform"
         target="_blank"
+        rel="noopener"
       >
         <img
           alt="Citizen Science Center Zurich"
@@ -60,6 +61,7 @@
         href="http://www.citizencyberlab.org/"
         class="home-link home-link-platform"
         target="_blank"
+        rel="noopener"
       >
         <img
           alt="Citizen Cyberlab"
@@ -149,7 +151,11 @@
               </ul>
             </router-link>
             <li v-if="!projectName">
-              <a href="https://citizensciencezurich.blog/" target="_blank">
+              <a
+                href="https://citizensciencezurich.blog/"
+                target="_blank"
+                rel="noopener"
+              >
                 <span>
                   Blog
                 </span>
@@ -274,6 +280,7 @@
         class="home-link home-link-platform"
         :class="{ 'padding-right': hideLogin }"
         target="_blank"
+        rel="noopener"
       >
         <img
           alt="Citizen Science Center Zurich"
