@@ -212,7 +212,7 @@
                 <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
                 <ul class="navigation">
                   <li class="inline" :class="{ active: menuOn }">
-                    <img :src="getAvatar" class="round" />
+                    <img :src="getAvatar" class="round" alt="avatar" />
                     <router-link
                       tag="li"
                       to="/profile"
@@ -266,7 +266,7 @@
       </template>
       <template v-else>
         <!-- <user-avatar :username="currentUser.username"></user-avatar> -->
-        <img :src="getAvatar" class="round" />
+        <img :src="getAvatar" class="round" alt="avatar" />
       </template>
       <a
         v-if="projectName"

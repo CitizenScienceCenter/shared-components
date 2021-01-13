@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="goal">
-                                <img :src="goalImage" />
+                                <img :src="goalImage" alt="goal"/>
                             </div>
                         </div>
 

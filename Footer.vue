@@ -14,13 +14,13 @@
 <template>
   <footer class="footer">
     <div v-if="!platform" class="logo-wrapper">
-      <a href="https://citizenscience.ch" class="home-link home-link-platform" target="_blank">
-        <img src="@/assets/shared/logo-white.svg">
+      <a href="https://www.citizenscience.ch" class="home-link home-link-platform" target="_blank">
+        <img src="@/assets/shared/logo-white.svg" alt="logo-white.svg">
       </a>
     </div>
     <div v-else class="logo-wrapper">
       <router-link to="/" class="home-link" active-class="active" exact>
-        <img src="@/assets/shared/logo-white.svg">
+        <img src="@/assets/shared/logo-white.svg" alt="logo-white.svg">
       </router-link>
     </div>
     <div class="uzh-eth">

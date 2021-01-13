@@ -26,7 +26,7 @@
 
                 <div class="col col-4 col-large-2 col-large-before-3 col-wrapping scroll-effect">
                     <div class="image-wrapper">
-                        <img src="@/assets/shared/feedback.svg" />
+                        <img src="@/assets/shared/feedback.svg" alt="feedback"/>
                     </div>
                 </div>
 
