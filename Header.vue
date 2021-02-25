@@ -143,6 +143,7 @@
                   active-class="active"
                   :key="child.path"
                   v-scroll-to="child.meta.anchor || '#top'"
+                  @click.native="tracking(child.meta.trackingInfo)"
                 >
                   <a
                     ><span>{{ $t(child.meta.i18n + ".link") }}</span></a
@@ -296,6 +297,7 @@
 import { i18n } from "../../i18n.js";
 // import UserAvatar from "./UserAvatar";
 import { mapState, mapActions } from "vuex";
+import { trackEvent } from "@/assets/support";
 
 export default {
   name: "Header",
@@ -483,6 +485,9 @@ export default {
       this.hideMenu();
       this.signOut();
     },
+    tracking(info) {
+      trackEvent(this, info);
+    }
   },
   created() {
     window.addEventListener("scroll", this.scroll);
