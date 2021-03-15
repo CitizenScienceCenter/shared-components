@@ -23,13 +23,13 @@
 
     <template v-if="!projectName">
       <router-link to="/" class="home-link" active-class="active" exact>
-        <h1>
+        <div>
           <img
             alt="Citizen Science Center Zurich"
             class="logo"
             src="@/assets/shared/logo.svg"
           />
-        </h1>
+        </div>
       </router-link>
     </template>
 
