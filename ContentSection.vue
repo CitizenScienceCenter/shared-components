@@ -531,7 +531,12 @@ export default {
       top: 0%;
       left: auto;
       pointer-events: none;
-
+      &.no-text{
+        position: relative;
+      }
+      .rounded{
+        border-radius: 50%;
+      }
       img {
         width: 100%;
       }
