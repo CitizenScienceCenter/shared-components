@@ -290,6 +290,23 @@ export default {
       position: relative;
       padding-left: $spacing-4;
 
+      &.page-item {
+        padding: 0;
+        margin: 0 $spacing-1;
+        font-weight: bold;
+        &.active {
+          a {
+            border-radius: 50%;
+            color: white;
+            background-color: $color-secondary;
+            transform: scale(1.2);
+          }
+        }
+        &:before {
+          display: none;
+        }
+      }
+
       &:before {
         content: "";
         width: 0.5rem;
@@ -531,7 +548,12 @@ export default {
       top: 0%;
       left: auto;
       pointer-events: none;
-
+      &.no-text {
+        position: relative;
+      }
+      .rounded {
+        border-radius: 50%;
+      }
       img {
         width: 100%;
       }
